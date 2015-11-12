@@ -78,27 +78,23 @@ namespace detail
 			ProbeDeducer::RawHash& hash = table.info.hash;
 
 			stream << "table of '" << table.info.names[0] << "'" << std::endl;
-			stream << "    " << "hash    : ";
-			stream << std::hex;
-			for (size_t j = 0; j < sizeof(hash.hash); ++j)
-				stream << std::setfill('0') << std::setw(2) << std::uppercase << static_cast<int>(hash.hash[j]);
-			stream << std::endl;
+			stream << "    hash    : 0x" << std::hex << std::setfill('0');
+			stream << std::setw(sizeof(bcc::uint64_t) * 2) << std::uppercase;
+			stream << *reinterpret_cast<bcc::uint64_t*>(&hash.hash) << std::endl;
 
-			stream << "    " << "subhash : ";
-			stream << std::hex;
-			for (size_t j = 0; j < sizeof(hash.subhash); ++j)
-				stream << std::setfill('0') << std::setw(2) << std::uppercase << static_cast<int>(hash.subhash[j]);
-			stream << std::endl;
+			stream << "    subhash : 0x" << std::hex << std::setfill('0');
+			stream << std::setw(sizeof(bcc::uint64_t) * 2) << std::uppercase;
+			stream << *reinterpret_cast<bcc::uint64_t*>(&hash.subhash) << std::endl;
 
 			bcc::uintptr_t const count = table.info.count;
 			stream << std::dec;
-			stream << "    " << "count   : " << count << std::endl;
+			stream << "    count   : " << count << std::endl;
 
 			for (bcc::uintptr_t j = 0; j < count; ++j)
 			{
-				stream << "    " << "0x";
+				stream << "    0x";
 				stream << std::hex;
-				stream << std::setfill('0') << std::setw(2 * sizeof(void*)) << std::uppercase;
+				stream << std::setfill('0') << std::setw(sizeof(void*) * 2) << std::uppercase;
 				stream << reinterpret_cast<bcc::uintptr_t>(table.functions[j]) << " : ";
 				stream << table.info.names[j + 1] << std::endl;
 			}

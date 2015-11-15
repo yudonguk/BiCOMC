@@ -38,6 +38,9 @@ namespace bcc
 			: value(), next()
 		{}
 
+		~tuple()
+		{}
+
 	private:
 		Value value;
 		Next next;
@@ -151,6 +154,9 @@ namespace bcc
 	public:
 		tuple()
 			: value(), next()
+		{}
+
+		~tuple()
 		{}
 
 	private:
@@ -402,7 +408,7 @@ namespace bcc
 			, typename bcc::conditional<size == 17, T1, typename Helper<17, TupleType>::type>::type
 			, typename bcc::conditional<size == 18, T1, typename Helper<18, TupleType>::type>::type
 			, typename bcc::conditional<size == 19, T1, typename Helper<19, TupleType>::type>::type
-			, typename bcc::conditional<size == 10, T1, typename Helper<20, TupleType>::type>::type
+			, typename bcc::conditional<size == 20, T1, typename Helper<20, TupleType>::type>::type
 			, typename bcc::conditional<size == 21, T1, typename Helper<21, TupleType>::type>::type
 			, typename bcc::conditional<size == 22, T1, typename Helper<22, TupleType>::type>::type
 			, typename bcc::conditional<size == 23, T1, typename Helper<23, TupleType>::type>::type
@@ -450,18 +456,21 @@ namespace bcc
 	template<typename TupleType, size_t position, typename T, size_t index = 0, size_t size = bcc::tuple_size<TupleType>::value, typename PreviousResult = bcc::tuple<> >
 	struct tuple_replace
 	{
+		static_assert(position < size, "'position' must be less than 'size'.");
 		typedef typename tuple_replace<TupleType, position, T, index + 1, size, typename bcc::TupleCat<PreviousResult, typename bcc::tuple_element<index, TupleType>::type>::type>::type type;
 	};
 
 	template<typename TupleType, size_t position, typename T, size_t size, typename PreviousResult>
 	struct tuple_replace<TupleType, position, T, position, size, PreviousResult>
 	{
+		static_assert(position < size, "'position' must be less than 'size'.");
 		typedef typename tuple_replace<TupleType, position, T, position + 1, size, typename bcc::TupleCat<PreviousResult, T>::type>::type type;
 	};
 
 	template<typename TupleType, size_t position, typename T, size_t size, typename PreviousResult>
 	struct tuple_replace<TupleType, position, T, size, size, PreviousResult>
 	{
+		static_assert(position < size, "'position' must be less than 'size'.");
 		typedef PreviousResult type;
 	};	
 } // namespace bcc

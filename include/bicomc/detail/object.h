@@ -374,24 +374,8 @@ namespace detail
 	inline Object::Object()
 		: vftable__(nullptr)
 	{
-		static bcc::detail::InterfaceTableHolder<Object> holder(*this);
+		static bcc::detail::TableHolder<Object> holder(*this);
 		bcc::detail::ObjectHelper::setTable(*this, holder.vftable.data());
-
-		struct method_impl
-		{
-			static bcc::detail::ErrorDetail* BICOMC_CALL destroy(Object const volatile&, bcc::detail::ReturnHelper<void>::mediator&)
-			{
-				return new bcc::detail::RuntimeError("'destroy' is not overrided");
-			}
-
-			static bcc::detail::ErrorDetail* BICOMC_CALL clone(Object const&, bcc::detail::ReturnHelper<Object*>::mediator&)
-			{
-				return new bcc::detail::RuntimeError("'clone' is not overrided");
-			}
-		};
-
-		BICOMC_METHOD_CV(destroy, void()) = &method_impl::destroy;
-		BICOMC_METHOD_C(clone, Object*()) = &method_impl::clone;
 	}
 
 	inline Object::~Object()

@@ -181,7 +181,7 @@ namespace detail
 	};
 
 	template<typename Interface>
-	struct InterfaceTableHolder
+	struct TableHolder
 	{
 		static size_t const HEADER_SIZE = ObjectHelper::VFTABLE_HEADER_SIZE;
 
@@ -190,14 +190,48 @@ namespace detail
 
 		typedef typename bcc::detail::RawTable<FunctionTypes>::type RawTable;
 
+		template<size_t index = 0, size_t end = bcc::tuple_size<typename bcc::tuple_element<depth, RawTable>::type>::value>
+		struct Helper
+		{
+			static void init(RawTable& result)
+			{
+				typedef typename bcc::tuple_element<index, typename bcc::tuple_element<depth, FunctionTypes>::type>::type FunctionType;
+				typedef typename FunctionType::deducer deducer;
+				
+				typename deducer::helper* function = &bcc::detail::MethodCallHelper<typename deducer::member, 0>::template callNoOver<typename deducer::owner>;
+				bcc::get<depth>(result)[index] = function;
+				
+				Helper<index + 1, end>::init(result);
+			}
+		};
+
+		template<size_t end>
+		struct Helper<0, end>
+		{
+			static void init(RawTable& result)
+			{
+				// interface info
+				Helper<1, end>::init(result);
+			}
+		};
+
+		template<size_t end>
+		struct Helper<end, end>
+		{
+			static void init(RawTable& result) {}
+		};
+
 		template<typename T>
-		InterfaceTableHolder(T& object)
+		TableHolder(T& object)
 			: name(bcc::detail::Signature<typename bcc::remove_cv<T>::type>::to_utf8())
 		{
 			InterfaceInfoDeducer<FunctionTypes>::template init<Interface>(info, name.c_str());
 
 			TableCopyHelper<RawTable, 0, depth>::copy(table, vftable.data() + HEADER_SIZE, object);
+
 			bcc::get<0>(bcc::get<depth>(table)) = info.data();
+			Helper<>::init(table);
+
 			vftable[0] = reinterpret_cast<void*>(depth); // depth
 			vftable[1] = 0; // first
 			vftable[2] = 0; // next
@@ -903,7 +937,7 @@ protected: \
 	INTERFACE_NAME() \
 		: BiCOMC_Base__() \
 	{ \
-		static bcc::detail::InterfaceTableHolder<INTERFACE_NAME> holder(*this); \
+		static bcc::detail::TableHolder<INTERFACE_NAME> holder(*this); \
 		bcc::detail::ObjectHelper::setTable(*this, holder.vftable.data()); \
 	} \
 	~INTERFACE_NAME() {} \

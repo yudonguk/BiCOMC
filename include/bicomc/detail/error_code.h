@@ -72,12 +72,12 @@ namespace bcc
 		return mpDetail == nullptr;
 	}
 	
-	inline bcc::uintptr_t ErrorCode::value() const
+	inline bcc::uint32_t ErrorCode::value() const
 	{
 		return mpDetail ? mpDetail->value() : 0;
 	}
 
-	inline bcc::uintptr_t ErrorCode::category() const
+	inline bcc::uint32_t ErrorCode::category() const
 	{
 		return mpDetail ? mpDetail->category() : 0;
 	}

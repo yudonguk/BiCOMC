@@ -16,15 +16,15 @@ namespace detail
 	class UnknownError : public ErrorDetail
 	{
 	public:
-		static bcc::uintptr_t const VALUE = 1;
-		static bcc::uintptr_t const CATEGORY = 1;
+		static bcc::uint32_t const VALUE = 1;
+		static bcc::uint32_t const CATEGORY = 1;
 	
 	private:
 		BICOMC_OVERRIDE(ErrorDetail)
 			BICOMC_OVER_METHOD_CV(destroy, void());
 			BICOMC_OVER_METHOD_C(clone, Object*());
-			BICOMC_OVER_METHOD_C(value, bcc::uintptr_t());
-			BICOMC_OVER_METHOD_C(category, bcc::uintptr_t());
+			BICOMC_OVER_METHOD_C(value, bcc::uint32_t());
+			BICOMC_OVER_METHOD_C(category, bcc::uint32_t());
 			BICOMC_OVER_METHOD_C(message, char const*());
 		BICOMC_OVERRIDE_END()
 
@@ -57,12 +57,12 @@ namespace detail
 			return const_cast<UnknownError*>(this);
 		}
 
-		bcc::uintptr_t value() const
+		bcc::uint32_t value() const
 		{
 			return VALUE;
 		}
 
-		bcc::uintptr_t category() const
+		bcc::uint32_t category() const
 		{
 			return CATEGORY;
 		}
@@ -78,15 +78,15 @@ namespace detail
 	class RuntimeError : public ErrorDetail
 	{
 	public:
-		static bcc::uintptr_t const VALUE = 3;
-		static bcc::uintptr_t const CATEGORY = 1;
+		static bcc::uint32_t const VALUE = 3;
+		static bcc::uint32_t const CATEGORY = 1;
 
 	private:
 		BICOMC_OVERRIDE(ErrorDetail)
 			BICOMC_OVER_DESTROY();
 			BICOMC_OVER_CLONE();
-			BICOMC_OVER_METHOD_C(value, bcc::uintptr_t());
-			BICOMC_OVER_METHOD_C(category, bcc::uintptr_t());
+			BICOMC_OVER_METHOD_C(value, bcc::uint32_t());
+			BICOMC_OVER_METHOD_C(category, bcc::uint32_t());
 			BICOMC_OVER_METHOD_C(message, char const*());
 		BICOMC_OVERRIDE_END()
 
@@ -144,12 +144,12 @@ namespace detail
 #endif
 
 	public:
-		bcc::uintptr_t value() const
+		bcc::uint32_t value() const
 		{
 			return VALUE;
 		}
 
-		bcc::uintptr_t category() const
+		bcc::uint32_t category() const
 		{
 			return CATEGORY;
 		}
@@ -166,15 +166,15 @@ namespace detail
 	class UncaughtException : public ErrorDetail
 	{
 	public:
-		static bcc::uintptr_t const VALUE = 3;
-		static bcc::uintptr_t const CATEGORY = 1;
+		static bcc::uint32_t const VALUE = 3;
+		static bcc::uint32_t const CATEGORY = 1;
 	
 	private:
 		BICOMC_OVERRIDE(ErrorDetail)
 			BICOMC_OVER_METHOD_CV(destroy, void());
 			BICOMC_OVER_METHOD_C(clone, Object*());
-			BICOMC_OVER_METHOD_C(value, bcc::uintptr_t());
-			BICOMC_OVER_METHOD_C(category, bcc::uintptr_t());
+			BICOMC_OVER_METHOD_C(value, bcc::uint32_t());
+			BICOMC_OVER_METHOD_C(category, bcc::uint32_t());
 			BICOMC_OVER_METHOD_C(message, char const*());
 		BICOMC_OVERRIDE_END()
 
@@ -207,12 +207,12 @@ namespace detail
 			return const_cast<UncaughtException*>(this);
 		}
 
-		bcc::uintptr_t value() const
+		bcc::uint32_t value() const
 		{
 			return VALUE;
 		}
 
-		bcc::uintptr_t category() const
+		bcc::uint32_t category() const
 		{
 			return CATEGORY;
 		}

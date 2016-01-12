@@ -48,9 +48,9 @@ namespace detail
 		bool operator!() const;
 
 	public:
-		bcc::uintptr_t value() const;
+		bcc::uint32_t value() const;
 
-		bcc::uintptr_t category() const;
+		bcc::uint32_t category() const;
 
 		std::string message() const;
 

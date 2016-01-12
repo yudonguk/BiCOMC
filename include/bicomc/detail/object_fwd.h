@@ -943,7 +943,6 @@ protected: \
 	~INTERFACE_NAME() {} \
 private: \
 	INTERFACE_NAME(BiCOMC_My__ const& rhs) BICOMC_DELETE; \
-	BiCOMC_My__& operator=(BiCOMC_My__ const& rhs) BICOMC_DELETE; \
 }; \
 template<> struct BICOMC_SIGNATURE_DEFAULT_NAME<INTERFACE_NAME> { static std::wstring to_wstring() { return BICOMC_WSTRINGIZER(INTERFACE_NAME); } };
 

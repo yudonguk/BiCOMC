@@ -373,6 +373,44 @@ namespace detail
 
 		static_assert(InterfaceTester<>::value, "'Interfaces' must be a list of interface.");
 
+		template<size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
+		struct DuplicationTester
+		{
+			typedef typename bcc::tuple_element<size - 1, Interfaces>::type Interface;
+
+			static size_t const now = size;
+
+			template<size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
+			struct Helper
+			{
+				typedef bcc::int8_t TrueType;
+				typedef bcc::int16_t FalseType;
+
+				static TrueType test(typename bcc::tuple_element<size - 1, Interfaces>::type*);
+				static FalseType test(...);
+
+				static bool const value =
+					(size != now && sizeof(test(static_cast<Interface*>(0))) == sizeof(TrueType))
+					|| Helper<size - 1>::value;
+			};
+
+			template<typename Dummy>
+			struct Helper<0, Dummy>
+			{
+				static bool const value = false;
+			};
+
+			static bool const value = Helper<>::value || DuplicationTester<size - 1>::value;
+		};
+
+		template<typename Dummy>
+		struct DuplicationTester<0, Dummy>
+		{
+			static bool const value = false;
+		};
+
+		static_assert(!DuplicationTester<>::value, "'Interfaces' must not be duplicated.");
+
 		template<typename Target, size_t size = bcc::tuple_size<Interfaces>::value>
 		struct CompatibilityTester
 		{
@@ -1281,7 +1319,7 @@ protected: \
 	static_assert(bcc::tuple_size<bcc::tuple<__VA_ARGS__> >::value != 0, "BICOMC_OVERRIDE() has one or more paramters."); \
 	friend struct bcc::detail::DefaultCallHelper; \
 	friend struct bcc::detail::ObjectCaster; \
-	typedef bcc::conditional<(bcc::tuple_size<bcc::tuple<__VA_ARGS__> >::value > 1), bcc::true_type, bcc::false_type>::type BiCOMC_Multiple_Inheritnace_Checker; \
+	typedef bcc::conditional<(bcc::tuple_size<bcc::tuple<__VA_ARGS__> >::value > 1), bcc::true_type, bcc::false_type>::type BiCOMC_Multiple_Inheritnace_Checker__; \
 private: \
 	inline bool BiCOMC_Override_Method_Helper__() \
 	{ \
@@ -1297,10 +1335,10 @@ private: \
 		} \
 		return isInitialized; \
 	} \
-	bcc::detail::OverrideInitHolder BiCOMC_override_init_holder; \
+	bcc::detail::OverrideInitHolder BiCOMC_override_init_holder__; \
 public:
 
-#define BICOMC_OVERRIDE_INIT() BiCOMC_override_init_holder(BiCOMC_Override_Method_Helper__())
+#define BICOMC_OVERRIDE_INIT() BiCOMC_override_init_holder__(BiCOMC_Override_Method_Helper__())
 
 //////////////////////////////////////////////////////////////////////////
 

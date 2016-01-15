@@ -40,7 +40,7 @@ namespace detail
 		template<typename T>
 		struct Helper
 		{
-			typedef typename T::BiCOMC_Multiple_Inheritnace_Checker Checker;
+			typedef typename T::BiCOMC_Multiple_Inheritnace_Checker__ Checker;
 			static bool const value = Checker::value;
 		};
 

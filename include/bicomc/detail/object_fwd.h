@@ -33,14 +33,19 @@ namespace detail
 
 	struct DefaultCallHelper
 	{
-		template<typename T>
 		struct Helper;
 
-		template<typename T>
-		static typename MethodTypeDeducer<void(), bcc::Object, true, true>::helper* destroy(T const volatile& impl);
+		template<typename Interface, typename Impl, typename Func>
+		static void overrideDestroy(Impl& imp, Func func);
 
-		template<typename HelpInterface, typename T>
-		static typename MethodTypeDeducer<bcc::Object*(), bcc::Object, true, false>::helper* clone(T const& impl);
+		template<typename Interfaces, typename Impl>
+		static void overrideDestroy(Impl& impl);
+
+		template<typename Interface, typename Impl, typename Func>
+		static void overrideClone(Impl& imp, Func func);
+
+		template<typename Interfaces, typename Impl>
+		static void overrideClone(Impl& impl);
 	};
 
 	template<typename T>
@@ -198,7 +203,7 @@ namespace detail
 				typedef typename bcc::tuple_element<index, typename bcc::tuple_element<depth, FunctionTypes>::type>::type FunctionType;
 				typedef typename FunctionType::deducer deducer;
 				
-				typename deducer::helper* function = &bcc::detail::MethodCallHelper<typename deducer::member, 0>::template callNoOver<typename deducer::owner>;
+				typename deducer::helper* function = &bcc::detail::MethodCallHelper<typename deducer::member, 0>::template callNoOver<typename deducer::owner, typename deducer::owner>;
 				bcc::get<depth>(result)[index] = function;
 				
 				Helper<index + 1, end>::init(result);
@@ -242,115 +247,6 @@ namespace detail
 		typename InterfaceInfoDeducer<FunctionTypes>::raw_type info;
 		RawTable table;
 		bcc::array<void*, bcc::tuple_size<RawTable>::value + HEADER_SIZE> vftable;
-	};
-
-	template<typename Interfaces, size_t size>
-	struct DeduplicationHelper
-	{
-		template<size_t index = 0, size_t end = size, typename Dummy = void>
-		struct Helper
-		{
-			template<typename Holders>
-			static void remove(Holders& holders)
-			{
-				typedef typename bcc::tuple_element<index - 1, Interfaces>::type Prev;
-				typedef typename bcc::tuple_element<size - 1, Interfaces>::type Now;
-
-				typename bcc::tuple_element<index - 1, Holders>::type& prevHolder = bcc::get<index - 1>(holders);
-				typename bcc::tuple_element<size - 1, Holders>::type& nowHolder = bcc::get<size - 1>(holders);
-
-				Helper2<Now, Prev>::remove(bcc::get<1>(nowHolder), bcc::get<1>(prevHolder));
-
-				Helper<index + 1, end>::remove(holders);
-			}
-		};
-
-		template<size_t end, typename Dummy>
-		struct Helper<0, end, Dummy>
-		{
-			template<typename Holders>
-			static void remove(Holders& holders)
-			{
-				Helper<1, end>::remove(holders);
-			}
-		};
-
-		template<typename Dummy>
-		struct Helper<0, 0, Dummy>
-		{
-			template<typename Holders>
-			static void remove(Holders& holders) {}
-		};
-
-		template<size_t end, typename Dummy>
-		struct Helper<end, end, Dummy>
-		{
-			template<typename Holders>
-			static void remove(Holders& holders) {}
-		};
-
-		template<typename Interface, typename Basis, typename Dummy = void>
-		struct Helper2
-		{
-			template<typename T, typename Dummy2 = void>
-			struct Helper
-			{
-				template<typename Vftable, typename BasisVftable>
-				static void remove(Vftable& vftable, BasisVftable& basis)
-				{
-					Helper<typename LazyBase<T>::type>::remove(vftable, basis);
-
-					if (bcc::is_same<Interface, T>::value)
-					{
-						bcc::get<InheritanceDepth<Interface>::value + ObjectHelper::VFTABLE_HEADER_SIZE>(vftable)
-							= bcc::get<InheritanceDepth<T>::value + ObjectHelper::VFTABLE_HEADER_SIZE>(basis);
-					}
-				}
-			};
-
-			template<typename Dummy2>
-			struct Helper<void, Dummy2>
-			{
-				template<typename Vftable, typename BasisVftable>
-				static void remove(Vftable& vftable, BasisVftable& basis) {}
-			};
-
-
-			template<typename Vftable, typename BasisVftable>
-			static void remove(Vftable& vftable, BasisVftable& basis)
-			{
-				typedef typename LazyBase<Interface>::type Base;
-				Helper2<Base, Basis>::remove(vftable, basis);
-				Helper<Basis>::remove(vftable, basis);
-			}
-		};
-
-		template<typename Interface, typename Dummy>
-		struct Helper2<Interface, void, Dummy>
-		{
-			template<typename Vftable, typename BasisVftable>
-			static void remove(Vftable& vftable, BasisVftable& basis) {}
-		};
-
-		template<typename Basis, typename Dummy>
-		struct Helper2<void, Basis, Dummy>
-		{
-			template<typename Vftable, typename BasisVftable>
-			static void remove(Vftable& vftable, BasisVftable& basis) {}
-		};
-
-		template<typename Dummy>
-		struct Helper2<void, void, Dummy>
-		{
-			template<typename Vftable, typename BasisVftable>
-			static void remove(Vftable& vftable, BasisVftable& basis) {}
-		};
-
-		template<typename Holders>
-		static void remove(Holders& holders)
-		{
-			Helper<>::remove(holders);
-		}
 	};
 
 	template<typename Interfaces>
@@ -411,24 +307,6 @@ namespace detail
 
 		static_assert(!DuplicationTester<>::value, "'Interfaces' must not be duplicated.");
 
-		template<typename Target, size_t size = bcc::tuple_size<Interfaces>::value>
-		struct CompatibilityTester
-		{
-			typedef typename bcc::tuple_element<size - 1, Interfaces>::type Interface;
-
-			static bool test()
-			{
-				return CompatibilityTester<Target, size - 1>::test()
-					|| reinterpret_cast<Target*>(1) == static_cast<Target*>(reinterpret_cast<Interface*>(1));
-			}
-		};
-
-		template<typename Target>
-		struct CompatibilityTester<Target, 0>
-		{
-			static bool test() { return false; }
-		};
-
 		template<size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
 		struct Helper
 		{
@@ -456,8 +334,6 @@ namespace detail
 				vftable[0] = reinterpret_cast<void*>(bcc::tuple_size<FunctionTypes>::value - 1); // depth
 				vftable[1] = reinterpret_cast<void*>(first(object, firstObject)); // first
 				vftable[2] = reinterpret_cast<void*>(next(object)); // next
-
-				DeduplicationHelper<Interfaces, size>::remove(holders);
 			}
 
 			template<typename H, typename T>
@@ -531,8 +407,6 @@ namespace detail
 		template<typename T>
 		MultiTableHolder(T& object)
 		{
-			if (!CompatibilityTester<T>::test())
-				throw std::runtime_error("'T' is not binary compatible. Please put all interfaces into BICOMC_OVERRIDE() or arrange base type order which is interface first.");
 			Helper<>::init(holder, object, *Helper<>::first(object));
 		}
 
@@ -1084,7 +958,12 @@ protected: \
 		template<typename Base, typename Impl> \
 		static typename bcc::enable_if<bcc::is_interface<Base>::value>::type overrideMethod(Impl& impl) \
 		{ \
-			function(static_cast<Base&>(impl)) = &bcc::detail::MethodCallHelper<typename deducer::template change_owner<Impl>::member, (&Impl::METHOD_NAME)>::template call<owner>; \
+			function(static_cast<Base&>(impl)) = &bcc::detail::MethodCallHelper<typename deducer::template change_owner<Impl>::member, (&Impl::METHOD_NAME)>::template call<owner, Base>; \
+		} \
+		template<typename Base, typename Impl> \
+		static typename bcc::enable_if<bcc::is_interface<Base>::value>::type overrideMethod(Impl& impl, typename deducer::helper* func) \
+		{ \
+			function(static_cast<Base&>(impl)) = func; \
 		} \
 		template<typename Interfaces, typename Impl> \
 		static typename bcc::enable_if<!bcc::is_interface<Interfaces>::value>::type overrideMethod(Impl& impl) \
@@ -1150,10 +1029,10 @@ private: \
 	static_assert(bcc::is_function<METHOD_TYPE>::value, "'" #METHOD_TYPE "' must be function type.");
 
 #define BICOMC_OVER_DESTROY() \
-	BICOMC_METHOD_TYPE_NAME(destroy)<void(), true, true, void>::function(static_cast<bcc::tuple_element<0, BiCOMC_Interfaces__>::type&>(*this)) = bcc::detail::DefaultCallHelper::destroy(*this);
+	bcc::detail::DefaultCallHelper::overrideDestroy<BiCOMC_Interfaces__>(*this);
 
 #define BICOMC_OVER_CLONE() \
-	BICOMC_METHOD_TYPE_NAME(clone)<bcc::Object*(), true, false, void>::function(static_cast<bcc::tuple_element<0, BiCOMC_Interfaces__>::type&>(*this)) = bcc::detail::DefaultCallHelper::clone<bcc::tuple_element<0, BiCOMC_Interfaces__>::type>(*this);
+	bcc::detail::DefaultCallHelper::overrideClone<BiCOMC_Interfaces__>(*this);
 
 #define BICOMC_OVER_OPERATOR_UNARY_PLUS(METHOD_TYPE) BICOMC_OVER_METHOD(BICOMC_OPERATOR_UNARY_PLUS, METHOD_TYPE)
 #define BICOMC_OVER_OPERATOR_UNARY_PLUS_C(METHOD_TYPE) BICOMC_OVER_METHOD_C(BICOMC_OPERATOR_UNARY_PLUS, METHOD_TYPE)
@@ -1333,12 +1212,10 @@ private: \
 #define BICOMC_OVER_OPERATOR_CALL_CV(METHOD_TYPE) BICOMC_OVER_METHOD_CV(BICOMC_OPERATOR_CALL, METHOD_TYPE)
 
 #define BICOMC_OVERRIDE(...) \
-protected: \
+private: \
 	static_assert(bcc::tuple_size<bcc::tuple<__VA_ARGS__> >::value != 0, "BICOMC_OVERRIDE() has one or more paramters."); \
 	friend struct bcc::detail::DefaultCallHelper; \
-	friend struct bcc::detail::ObjectCaster; \
-	typedef bcc::conditional<(bcc::tuple_size<bcc::tuple<__VA_ARGS__> >::value > 1), bcc::true_type, bcc::false_type>::type BiCOMC_Multiple_Inheritnace_Checker__; \
-private: \
+	\
 	inline bool BiCOMC_Override_Method_Helper__() \
 	{ \
 		typedef bcc::tuple<__VA_ARGS__> BiCOMC_Interfaces__; \

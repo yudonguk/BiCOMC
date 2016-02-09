@@ -16,30 +16,30 @@ namespace bcc
 namespace detail
 {
 	class ErrorDetail;
-	
-	template<typename T>
+
 	struct DefaultCallHelper::Helper
 	{
+		template<typename Origin, typename CastHelper>
 		static ErrorDetail* BICOMC_CALL destroy(bcc::Object const volatile& impl, bcc::detail::ReturnHelper<void>::mediator&)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				typedef typename bcc::remove_cv<T>::type Type;
-				static_assert(sizeof(Type), "'T' is not complete type.");
-				
-				delete &bcc::detail::ObjectCaster::cast<Type const volatile>(impl);
+				typedef typename bcc::remove_cv<Origin>::type Type;
+				static_assert(sizeof(Type), "'Type' is not complete type.");
+
+				delete &bcc::detail::ObjectCaster::cast<Type const volatile, CastHelper const volatile>(impl);
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
 			return bcc::detail::UnknownError::instance();
 		}
 
-		template<typename HelpInterface>
+		template<typename Origin, typename CastHelper>
 		static ErrorDetail* BICOMC_CALL clone(bcc::Object const& impl, bcc::detail::ReturnHelper<bcc::Object*>::mediator& ret)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				typedef typename bcc::remove_cv<T>::type Type;
+				typedef typename bcc::remove_cv<Origin>::type Type;
 				class Guard
 				{
 				public:
@@ -61,29 +61,67 @@ namespace detail
 			
 				private:
 					Type* p;
-				} result(new Type(bcc::detail::ObjectCaster::cast<Type const>(impl)));
-				
-				ret = bcc::detail::ReturnHelper<bcc::Object*>::fromReturn(static_cast<HelpInterface*>(result.get()));
+				} result(new Type(bcc::detail::ObjectCaster::cast<Type const, typename std::remove_cv<CastHelper>::type const>(impl)));
+
+				ret = bcc::detail::ReturnHelper<bcc::Object*>::fromReturn(static_cast<typename std::remove_cv<CastHelper>::type*>(result.get()));
 				result.release();
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
 			return bcc::detail::UnknownError::instance();
 		}
+
+		template<typename Interfaces, size_t size = bcc::tuple_size<Interfaces>::value>
+		struct OverrideHelper
+		{
+			typedef typename bcc::tuple_element<size - 1, Interfaces>::type Interface;
+
+			template<typename Impl>
+			static void overrideDestroy(Impl& impl)
+			{
+				DefaultCallHelper::overrideDestroy<Interface>(impl, &Helper::destroy<Impl, Interface>);
+				OverrideHelper<Interfaces, size - 1>::overrideDestroy(impl);
+			}
+			template<typename Impl>
+			static void overrideClone(Impl& impl)
+			{
+				DefaultCallHelper::overrideClone<Interface>(impl, &Helper::clone<Impl, Interface>);
+				OverrideHelper<Interfaces, size - 1>::overrideClone(impl);
+			}
+		};
+
+		template<typename Interfaces>
+		struct OverrideHelper<Interfaces, 0>
+		{
+			template<typename Impl> static void overrideDestroy(Impl& impl) {}
+			template<typename Impl> static void overrideClone(Impl& impl) {}
+		};
 	};
 
-	template<typename T>
-	typename MethodTypeDeducer<void(), bcc::Object, true, true>::helper* DefaultCallHelper::destroy(T const volatile& impl)
+	template<typename Interface, typename Impl, typename Func>
+	void DefaultCallHelper::overrideDestroy(Impl& impl, Func func)
 	{
-		return &Helper<T>::destroy;
+		bcc::Object::BICOMC_METHOD_TYPE_NAME(destroy)<void(), true, true, void>::overrideMethod<Interface>(impl, func);
 	}
 
-	template<typename HelpInterface, typename T>
-	typename MethodTypeDeducer<bcc::Object*(), bcc::Object, true, false>::helper* DefaultCallHelper::clone(T const& impl)
+	template<typename Interfaces, typename Impl>
+	void DefaultCallHelper::overrideDestroy(Impl& impl)
 	{
-		return &Helper<T>::template clone<HelpInterface>;
+		Helper::OverrideHelper<Interfaces>::template overrideDestroy(impl);
 	}
-		
+
+	template<typename Interface, typename Impl, typename Func>
+	void DefaultCallHelper::overrideClone(Impl& impl, Func func)
+	{
+		bcc::Object::BICOMC_METHOD_TYPE_NAME(clone)<bcc::Object*(), true, false, void>::overrideMethod<Interface>(impl, func);
+	}
+
+	template<typename Interfaces, typename Impl>
+	void DefaultCallHelper::overrideClone(Impl& impl)
+	{
+		Helper::OverrideHelper<Interfaces>::template overrideClone(impl);
+	}
+
 	inline bcc::uintptr_t ObjectHelper::inheritanceDepth(bcc::Object const& object)
 	{
 		return reinterpret_cast<bcc::uintptr_t>(object.vftable__[INHERITANCE_DEPTH_INDEX]);

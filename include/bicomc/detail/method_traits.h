@@ -74,10 +74,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(Params...) volatile;
 		typedef ret(raw_owner::*member_cv)(Params...) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, Params...);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, Params...);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, Params...);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, Params...);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, Params...);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, Params...);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, Params...);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, Params...);
 	};
 
 	template<typename Ret, typename... Params>
@@ -111,10 +111,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)() volatile;
 		typedef ret(raw_owner::*member_cv)() const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*);
 	};
 
 	template<typename Ret>
@@ -147,10 +147,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1) volatile;
 		typedef ret(raw_owner::*member_cv)(P1) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1);
 	};
 
 	template<typename Ret, typename P1>
@@ -183,10 +183,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1, P2) volatile;
 		typedef ret(raw_owner::*member_cv)(P1, P2) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2);
 	};
 
 	template<typename Ret, typename P1, typename P2>
@@ -219,10 +219,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1, P2, P3) volatile;
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3);
 	};
 
 	template<typename Ret, typename P1, typename P2, typename P3>
@@ -256,10 +256,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1, P2, P3, P4) volatile;
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4);
 	};
 
 	template<typename Ret
@@ -294,10 +294,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1, P2, P3, P4, P5) volatile;
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5);
 	};
 
 	template<typename Ret
@@ -333,10 +333,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1, P2, P3, P4, P5, P6) volatile;
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6);
 	};
 
 	template<typename Ret
@@ -373,10 +373,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1, P2, P3, P4, P5, P6, P7) volatile;
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7);
 	};
 
 	template<typename Ret
@@ -413,10 +413,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1, P2, P3, P4, P5, P6, P7, P8) volatile;
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8);
 	};
 
 	template<typename Ret
@@ -453,10 +453,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1, P2, P3, P4, P5, P6, P7, P8, P9) volatile;
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9);
 	};
 
 	template<typename Ret
@@ -495,10 +495,10 @@ namespace detail
 		typedef ret(raw_owner::*member_volatile)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10) volatile;
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10);
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10);
 	};
 
 	template<typename Ret
@@ -544,13 +544,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11);
 	};
 
@@ -598,13 +598,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12);
 	};
 
@@ -653,13 +653,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13);
 	};
 
@@ -709,13 +709,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14);
 	};
 
@@ -765,13 +765,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15);
 	};
 
@@ -823,13 +823,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16);
 	};
 
@@ -883,13 +883,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17);
 	};
 
@@ -943,13 +943,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18);
 	};
 
@@ -1003,13 +1003,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19);
 	};
 
@@ -1063,13 +1063,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20);
 	};
 
@@ -1124,13 +1124,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21);
 	};
 
@@ -1187,13 +1187,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22);
 	};
 
@@ -1251,13 +1251,13 @@ namespace detail
 		typedef ret(raw_owner::*member_cv)(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23);
 	};
 
@@ -1319,16 +1319,16 @@ namespace detail
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24);
 	};
@@ -1392,16 +1392,16 @@ namespace detail
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25);
 	};
@@ -1467,16 +1467,16 @@ namespace detail
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26);
 	};
@@ -1543,16 +1543,16 @@ namespace detail
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27);
 	};
@@ -1619,16 +1619,16 @@ namespace detail
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28);
 	};
@@ -1696,16 +1696,16 @@ namespace detail
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29);
 	};
@@ -1774,16 +1774,16 @@ namespace detail
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29, P30) const volatile;
 
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper)(raw_owner*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29, P30);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_const)(raw_owner const*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29, P30);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_volatile)(raw_owner volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29, P30);
-		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile&, typename ReturnHelper<ret>::mediator&, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+		typedef bcc::detail::ErrorDetail*(BICOMC_CALL helper_cv)(raw_owner const volatile*, typename ReturnHelper<ret>::mediator*, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 			, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23
 			, P24, P25, P26, P27, P28, P29, P30);
 	};

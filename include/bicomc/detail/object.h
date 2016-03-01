@@ -20,14 +20,14 @@ namespace detail
 	struct DefaultCallHelper::Helper
 	{
 		template<typename Origin, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL destroy(bcc::Object const volatile& impl, bcc::detail::ReturnHelper<void>::mediator&)
+		static ErrorDetail* BICOMC_CALL destroy(bcc::Object const volatile* pImpl, bcc::detail::ReturnHelper<void>::mediator*)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 				typedef typename bcc::remove_cv<Origin>::type Type;
 				static_assert(sizeof(Type), "'Type' is not complete type.");
 
-				delete &bcc::detail::ObjectCaster::cast<Type const volatile, CastHelper const volatile>(impl);
+				delete &bcc::detail::ObjectCaster::cast<Type const volatile, CastHelper const volatile>(*pImpl);
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -35,7 +35,7 @@ namespace detail
 		}
 
 		template<typename Origin, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL clone(bcc::Object const& impl, bcc::detail::ReturnHelper<bcc::Object*>::mediator& ret)
+		static ErrorDetail* BICOMC_CALL clone(bcc::Object const* pImpl, bcc::detail::ReturnHelper<bcc::Object*>::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -61,9 +61,9 @@ namespace detail
 			
 				private:
 					Type* p;
-				} result(new Type(bcc::detail::ObjectCaster::cast<Type const, typename std::remove_cv<CastHelper>::type const>(impl)));
+				} result(new Type(bcc::detail::ObjectCaster::cast<Type const, typename std::remove_cv<CastHelper>::type const>(*pImpl)));
 
-				ret = bcc::detail::ReturnHelper<bcc::Object*>::fromReturn(static_cast<typename std::remove_cv<CastHelper>::type*>(result.get()));
+				*pRet = bcc::detail::ReturnHelper<bcc::Object*>::fromReturn(static_cast<typename std::remove_cv<CastHelper>::type*>(result.get()));
 				result.release();
 				return nullptr;
 			}

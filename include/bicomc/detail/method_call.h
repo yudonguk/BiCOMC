@@ -68,14 +68,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<Params>(params)...));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<Params>(params)...));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p...));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p...));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -84,7 +84,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -101,14 +101,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<Params>(params)...);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<Params>(params)...);
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p...);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p...);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -117,7 +117,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -134,14 +134,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<Params>(params)...));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<Params>(params)...));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p...));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p...));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -150,7 +150,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -167,14 +167,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<Params>(params)...);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<Params>(params)...);
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p...);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p...);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -183,7 +183,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -200,14 +200,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<Params>(params)...));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<Params>(params)...));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p...));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p...));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -216,7 +216,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -233,14 +233,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<Params>(params)...);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<Params>(params)...);
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p...);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p...);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -249,7 +249,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -266,14 +266,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<Params>(params)...));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<Params>(params)...));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p...));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p...));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -282,7 +282,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -299,14 +299,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<Params>(params)...);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<Params>(params)...);
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p...);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p...);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -315,7 +315,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, Params... params)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, Params... params)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -334,11 +334,11 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)());
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)());
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -346,7 +346,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -363,11 +363,11 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)();
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)();
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -375,7 +375,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -392,11 +392,11 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)());
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)());
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -404,7 +404,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -421,11 +421,11 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)();
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)();
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -433,7 +433,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -450,11 +450,11 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)());
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)());
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -462,7 +462,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -479,11 +479,11 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)();
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)();
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -491,7 +491,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -508,11 +508,11 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)());
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)());
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -520,7 +520,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -537,11 +537,11 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)();
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)();
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -549,7 +549,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -566,14 +566,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -582,7 +582,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -599,14 +599,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -615,7 +615,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -632,14 +632,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -648,7 +648,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -665,14 +665,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -681,7 +681,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -698,14 +698,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -714,7 +714,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -731,14 +731,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -747,7 +747,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -764,14 +764,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -780,7 +780,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -797,14 +797,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -813,7 +813,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -830,14 +830,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -846,7 +846,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -863,14 +863,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -879,7 +879,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -896,14 +896,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -912,7 +912,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -929,14 +929,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -945,7 +945,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -962,14 +962,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -978,7 +978,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -995,14 +995,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1011,7 +1011,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1028,14 +1028,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1044,7 +1044,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1061,14 +1061,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1077,7 +1077,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1094,14 +1094,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1110,7 +1110,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1127,14 +1127,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1143,7 +1143,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1160,14 +1160,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1176,7 +1176,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1193,14 +1193,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1209,7 +1209,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1226,14 +1226,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1242,7 +1242,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1259,14 +1259,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1275,7 +1275,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1292,14 +1292,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1308,7 +1308,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1325,14 +1325,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1341,7 +1341,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1358,14 +1358,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1374,7 +1374,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1391,14 +1391,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1407,7 +1407,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1424,14 +1424,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1440,7 +1440,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1457,14 +1457,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1473,7 +1473,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1490,14 +1490,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1506,7 +1506,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1522,14 +1522,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1538,7 +1538,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1555,14 +1555,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1571,7 +1571,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1588,14 +1588,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1604,7 +1604,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1621,14 +1621,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1637,7 +1637,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1654,14 +1654,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1670,7 +1670,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1687,14 +1687,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1703,7 +1703,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1720,14 +1720,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1736,7 +1736,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1753,14 +1753,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1769,7 +1769,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1786,14 +1786,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1802,7 +1802,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1819,14 +1819,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1835,7 +1835,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1852,14 +1852,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1868,7 +1868,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1885,14 +1885,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1901,7 +1901,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1918,14 +1918,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1934,7 +1934,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1951,14 +1951,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -1967,7 +1967,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1984,14 +1984,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2000,7 +2000,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2017,14 +2017,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2033,7 +2033,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2050,14 +2050,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2066,7 +2066,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2083,14 +2083,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2099,7 +2099,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2116,14 +2116,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2132,7 +2132,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2149,14 +2149,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2165,7 +2165,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2182,14 +2182,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2198,7 +2198,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2215,14 +2215,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2231,7 +2231,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2248,14 +2248,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2264,7 +2264,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2281,14 +2281,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2297,7 +2297,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2314,14 +2314,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2330,7 +2330,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2347,14 +2347,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2363,7 +2363,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2380,14 +2380,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2396,7 +2396,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2413,14 +2413,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2429,7 +2429,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2446,14 +2446,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2462,7 +2462,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2479,14 +2479,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2495,7 +2495,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2512,14 +2512,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2528,7 +2528,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2545,14 +2545,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2561,7 +2561,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2578,14 +2578,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2594,7 +2594,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2611,14 +2611,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2627,7 +2627,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2644,14 +2644,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2660,7 +2660,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2677,14 +2677,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2693,7 +2693,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2710,14 +2710,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2726,7 +2726,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2743,14 +2743,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2759,7 +2759,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2776,14 +2776,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2792,7 +2792,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2809,14 +2809,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2825,7 +2825,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2842,14 +2842,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2858,7 +2858,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2875,14 +2875,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2891,7 +2891,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2908,14 +2908,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2924,7 +2924,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2941,14 +2941,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2957,7 +2957,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2974,14 +2974,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -2990,7 +2990,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3007,14 +3007,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3023,7 +3023,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3040,14 +3040,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3056,7 +3056,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3073,14 +3073,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3089,7 +3089,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3106,14 +3106,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3122,7 +3122,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3139,14 +3139,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3155,7 +3155,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3172,14 +3172,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3188,7 +3188,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3205,14 +3205,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3221,7 +3221,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3238,14 +3238,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3254,7 +3254,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3271,14 +3271,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3287,7 +3287,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3304,14 +3304,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3320,7 +3320,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3337,14 +3337,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3353,7 +3353,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3370,14 +3370,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3386,7 +3386,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3403,14 +3403,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3419,7 +3419,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3436,14 +3436,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3452,7 +3452,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3469,14 +3469,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3485,7 +3485,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3502,14 +3502,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3518,7 +3518,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3535,14 +3535,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3551,7 +3551,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3568,14 +3568,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3584,7 +3584,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3601,14 +3601,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3617,7 +3617,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3634,14 +3634,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3650,7 +3650,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3667,14 +3667,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3683,7 +3683,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3700,14 +3700,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3716,7 +3716,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3733,14 +3733,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3749,7 +3749,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3766,14 +3766,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3782,7 +3782,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3799,14 +3799,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3815,7 +3815,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3832,14 +3832,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3848,7 +3848,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3865,14 +3865,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3881,7 +3881,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3898,14 +3898,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3914,7 +3914,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3931,14 +3931,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3947,7 +3947,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3964,14 +3964,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -3980,7 +3980,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3997,14 +3997,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4013,7 +4013,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4030,14 +4030,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4046,7 +4046,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4063,14 +4063,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4079,7 +4079,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4096,14 +4096,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4112,7 +4112,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4129,14 +4129,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4145,7 +4145,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4162,14 +4162,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4178,7 +4178,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4195,14 +4195,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4211,7 +4211,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4228,14 +4228,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4244,7 +4244,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4261,14 +4261,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4277,7 +4277,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4294,14 +4294,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4310,7 +4310,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4327,14 +4327,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4343,7 +4343,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4360,14 +4360,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4376,7 +4376,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4393,14 +4393,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4409,7 +4409,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4426,14 +4426,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4442,7 +4442,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4459,14 +4459,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4475,7 +4475,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4492,14 +4492,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4508,7 +4508,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4525,14 +4525,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4541,7 +4541,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4558,14 +4558,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4574,7 +4574,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4591,14 +4591,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4607,7 +4607,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4624,14 +4624,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4640,7 +4640,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4657,14 +4657,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4673,7 +4673,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4690,14 +4690,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4706,7 +4706,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4723,14 +4723,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4739,7 +4739,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4756,14 +4756,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4772,7 +4772,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4789,14 +4789,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4805,7 +4805,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4822,14 +4822,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4838,7 +4838,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4855,14 +4855,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4871,7 +4871,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4888,14 +4888,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4904,7 +4904,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4921,14 +4921,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4937,7 +4937,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4954,14 +4954,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -4970,7 +4970,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4987,14 +4987,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5003,7 +5003,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5020,14 +5020,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5036,7 +5036,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5053,14 +5053,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5069,7 +5069,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5086,14 +5086,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5102,7 +5102,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5119,14 +5119,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5135,7 +5135,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5152,14 +5152,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5168,7 +5168,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5185,14 +5185,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5201,7 +5201,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5218,14 +5218,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5234,7 +5234,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5251,14 +5251,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5267,7 +5267,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5284,14 +5284,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5300,7 +5300,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5317,14 +5317,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5333,7 +5333,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5350,14 +5350,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5366,7 +5366,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5383,14 +5383,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5399,7 +5399,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5416,14 +5416,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5432,7 +5432,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5449,14 +5449,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5465,7 +5465,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5482,14 +5482,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5498,7 +5498,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5515,14 +5515,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5531,7 +5531,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5548,14 +5548,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5564,7 +5564,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5581,14 +5581,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5597,7 +5597,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5614,14 +5614,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5630,7 +5630,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5647,14 +5647,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5663,7 +5663,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5680,14 +5680,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5696,7 +5696,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5713,14 +5713,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5729,7 +5729,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5746,14 +5746,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5762,7 +5762,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5779,14 +5779,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5795,7 +5795,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5812,14 +5812,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5828,7 +5828,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5845,14 +5845,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5861,7 +5861,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5878,14 +5878,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5894,7 +5894,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5911,14 +5911,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5927,7 +5927,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5944,14 +5944,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5960,7 +5960,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5977,14 +5977,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -5993,7 +5993,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6010,14 +6010,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6026,7 +6026,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6043,14 +6043,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6059,7 +6059,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6076,14 +6076,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6092,7 +6092,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6109,14 +6109,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6125,7 +6125,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6142,14 +6142,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6158,7 +6158,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6175,14 +6175,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6191,7 +6191,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6208,14 +6208,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6224,7 +6224,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6241,14 +6241,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6257,7 +6257,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6274,14 +6274,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6290,7 +6290,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6307,14 +6307,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6323,7 +6323,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6340,14 +6340,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6356,7 +6356,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6373,14 +6373,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6389,7 +6389,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6406,14 +6406,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6422,7 +6422,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6439,14 +6439,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6455,7 +6455,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6472,14 +6472,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6488,7 +6488,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6505,14 +6505,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6521,7 +6521,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6538,14 +6538,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6554,7 +6554,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6571,14 +6571,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6587,7 +6587,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6604,14 +6604,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6620,7 +6620,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6637,14 +6637,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6653,7 +6653,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6670,14 +6670,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6686,7 +6686,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6703,14 +6703,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6719,7 +6719,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6736,14 +6736,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6752,7 +6752,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6769,14 +6769,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6785,7 +6785,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6802,14 +6802,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6818,7 +6818,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6835,14 +6835,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6851,7 +6851,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6868,14 +6868,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6884,7 +6884,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6901,14 +6901,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6917,7 +6917,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6934,14 +6934,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6950,7 +6950,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6967,14 +6967,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -6983,7 +6983,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7000,14 +7000,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7016,7 +7016,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7033,14 +7033,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7049,7 +7049,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7066,14 +7066,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7082,7 +7082,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7099,14 +7099,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7115,7 +7115,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7132,14 +7132,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7148,7 +7148,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7165,14 +7165,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7181,7 +7181,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7198,14 +7198,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7214,7 +7214,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7231,14 +7231,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7247,7 +7247,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7264,14 +7264,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7280,7 +7280,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7297,14 +7297,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7313,7 +7313,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7330,14 +7330,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7346,7 +7346,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7363,14 +7363,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7379,7 +7379,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7396,14 +7396,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7412,7 +7412,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7429,14 +7429,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7445,7 +7445,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7462,14 +7462,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7478,7 +7478,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7495,14 +7495,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7511,7 +7511,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7528,14 +7528,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7544,7 +7544,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7561,14 +7561,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7577,7 +7577,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7594,14 +7594,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7610,7 +7610,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7627,14 +7627,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7643,7 +7643,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7660,14 +7660,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7676,7 +7676,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7693,14 +7693,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7709,7 +7709,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7726,14 +7726,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7742,7 +7742,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7759,14 +7759,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7775,7 +7775,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7792,14 +7792,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7808,7 +7808,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7825,14 +7825,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7841,7 +7841,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7857,14 +7857,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7873,7 +7873,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7890,14 +7890,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7906,7 +7906,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7923,14 +7923,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7939,7 +7939,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7956,14 +7956,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -7972,7 +7972,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7989,14 +7989,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
 #else
-				(ObjectCaster::template cast<Owner, CastHelper>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
+				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -8005,7 +8005,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -8022,14 +8022,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -8038,7 +8038,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -8055,14 +8055,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
 #else
-				(ObjectCaster::template cast<Owner const, CastHelper const>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
+				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -8071,7 +8071,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -8088,14 +8088,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -8104,7 +8104,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -8121,14 +8121,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
 #else
-				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
+				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -8137,7 +8137,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -8154,14 +8154,14 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
 #else
-				ret = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
+				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -8170,7 +8170,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -8187,14 +8187,14 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
 #else
-				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(impl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
+				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 				return nullptr;
 			}
@@ -8203,7 +8203,7 @@ namespace detail
 		}
 
 		template<typename Interface, typename CastHelper>
-		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile& impl, typename RH::mediator& ret, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static detail::ErrorDetail* BICOMC_CALL callNoOver(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{

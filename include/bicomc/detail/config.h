@@ -3,6 +3,8 @@
 
 #include <cstddef>
 
+#define BICOMC_VERSION 1
+
 #if defined(_MSC_VER) && !defined(__INTEL_COMPILER)
 #	include "compiler/msvc.h"
 

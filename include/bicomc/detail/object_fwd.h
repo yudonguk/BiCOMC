@@ -238,7 +238,7 @@ namespace detail
 			Helper<>::init(table);
 
 			vftable[0] = reinterpret_cast<void*>(depth); // depth
-			vftable[1] = 0; // first
+			vftable[1] = reinterpret_cast<void*>(BICOMC_VERSION); // version
 			vftable[2] = 0; // next
 			vftable[depth + HEADER_SIZE] = &bcc::get<depth>(table); // table
 		}
@@ -321,9 +321,9 @@ namespace detail
 			typedef typename bcc::TupleCat<typename Helper<size - 1>::type, Holder>::type type;
 
 			template<typename H, typename T>
-			static void init(H& holders, T& object, bcc::Object const& firstObject)
+			static void init(H& holders, T& object)
 			{
-				Helper<size - 1>::init(holders, object, firstObject);
+				Helper<size - 1>::init(holders, object);
 
 				Interface& impl = static_cast<Interface&>(object);
 				Holder& holder = bcc::get<size - 1>(holders);
@@ -332,7 +332,7 @@ namespace detail
 
 				TableCopyHelper<RawTable>::copy(table, vftable.data() + HEADER_SIZE, impl);
 				vftable[0] = reinterpret_cast<void*>(bcc::tuple_size<FunctionTypes>::value - 1); // depth
-				vftable[1] = reinterpret_cast<void*>(first(object, firstObject)); // first
+				vftable[1] = reinterpret_cast<void*>(BICOMC_VERSION); // version
 				vftable[2] = reinterpret_cast<void*>(next(object)); // next
 			}
 
@@ -369,21 +369,6 @@ namespace detail
 				return reinterpret_cast<char const*>(&static_cast<bcc::Object const&>(static_cast<Next const&>(object)))
 					- reinterpret_cast<char const*>(&static_cast<bcc::Object const&>(static_cast<Interface const&>(object)));
 			}
-
-			template<typename T>
-			static bcc::Object const* first(T& object)
-			{
-				bcc::Object const* p = Helper<size - 1>::first(object);
-				bcc::Object const* p2 = &static_cast<bcc::Object const&>(static_cast<Interface const&>(object));
-				return p < p2 ? p : p2;
-			}
-
-			template<typename T>
-			static bcc::intptr_t first(T& object, bcc::Object const& firstObject)
-			{
-				return reinterpret_cast<char const*>(&firstObject)
-					- reinterpret_cast<char const*>(&static_cast<bcc::Object const&>(static_cast<Interface const&>(object)));
-			}
 		};
 
 		template<typename Dummy>
@@ -392,22 +377,16 @@ namespace detail
 			typedef bcc::tuple<> type;
 
 			template<typename H, typename T>
-			static void init(H& holder, T& object, bcc::Object const& firstObject) {}
+			static void init(H& holder, T& object) {}
 
 			template<typename H, typename T>
 			static void setVftable(T& object, H& holders) {}
-
-			template<typename T>
-			static bcc::Object const* first(T& object)
-			{
-				return reinterpret_cast<bcc::Object*>(static_cast<char*>(nullptr) - 1);
-			}
 		};
 
 		template<typename T>
 		MultiTableHolder(T& object)
 		{
-			Helper<>::init(holder, object, *Helper<>::first(object));
+			Helper<>::init(holder, object);
 		}
 
 		template<typename T>

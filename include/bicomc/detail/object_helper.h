@@ -56,7 +56,7 @@ namespace detail
 		struct type
 		{
 			bcc::uintptr_t depth;
-			bcc::intptr_t first;
+			bcc::intptr_t version;
 			bcc::intptr_t next;
 			Table* tables[size];
 		};
@@ -68,9 +68,9 @@ namespace detail
 		std::ostream::fmtflags const flags = stream.flags();
 
 		stream << std::dec;
-		stream << "depth : " << probe.depth << std::endl;
-		stream << "first : " << probe.first << std::endl;
-		stream << "next  : " << probe.next << std::endl;
+		stream << "depth   : " << probe.depth << std::endl;
+		stream << "version : " << probe.version << std::endl;
+		stream << "next    : " << probe.next << std::endl;
 
 		for (size_t i = 0, size = probe.depth + 1; i < size; ++i)
 		{
@@ -115,9 +115,9 @@ namespace detail
 	class ObjectHelper
 	{
 	public:
-		static size_t const VFTABLE_HEADER_SIZE = 3; // because of depth, first, next
+		static size_t const VFTABLE_HEADER_SIZE = 3; // because of depth, version, next
 		static size_t const INHERITANCE_DEPTH_INDEX = 0;
-		static size_t const FIRST_OFFSET_INDEX = 1;
+		static size_t const BICOMC_VERSION_INDEX = 1;
 		static size_t const NEXT_OFFSET_INDEX = 2;
 
 		static size_t const INTERFACE_INFO_INDEX = 0;
@@ -130,10 +130,8 @@ namespace detail
 		static bcc::uintptr_t inheritanceDepth(bcc::Object const& object);
 		static bcc::uintptr_t inheritanceDepth(bcc::Object const volatile& object);
 
-		static bcc::Object* first(bcc::Object& object);
-		static bcc::Object const* first(bcc::Object const& object);
-		static bcc::Object volatile* first(bcc::Object volatile& object);
-		static bcc::Object const volatile* first(bcc::Object const volatile& object);
+		static bcc::uintptr_t version(bcc::Object const& object);
+		static bcc::uintptr_t version(bcc::Object const volatile& object);
 
 		static bcc::Object* next(bcc::Object& object);
 		static bcc::Object const* next(bcc::Object const& object);

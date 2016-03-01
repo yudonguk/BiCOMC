@@ -132,38 +132,16 @@ namespace detail
 		return reinterpret_cast<bcc::uintptr_t>(object.vftable__[INHERITANCE_DEPTH_INDEX]);
 	}
 
-	inline bcc::Object* ObjectHelper::first(bcc::Object& object)
+	inline bcc::uintptr_t ObjectHelper::version(bcc::Object const& object)
 	{
-		return reinterpret_cast<bcc::Object*>(
-			reinterpret_cast<char*>(&object)
-			+ reinterpret_cast<bcc::intptr_t>(object.vftable__[FIRST_OFFSET_INDEX])
-		);
+		return reinterpret_cast<bcc::uintptr_t>(object.vftable__[BICOMC_VERSION_INDEX]);
 	}
 
-	inline bcc::Object const* ObjectHelper::first(bcc::Object const& object)
+	inline bcc::uintptr_t ObjectHelper::version(bcc::Object const volatile& object)
 	{
-		return reinterpret_cast<bcc::Object const*>(
-			reinterpret_cast<char const*>(&object)
-			+ reinterpret_cast<bcc::intptr_t>(object.vftable__[FIRST_OFFSET_INDEX])
-		);
+		return reinterpret_cast<bcc::uintptr_t>(object.vftable__[BICOMC_VERSION_INDEX]);
 	}
 
-	inline bcc::Object volatile* ObjectHelper::first(bcc::Object volatile& object)
-	{
-		return reinterpret_cast<bcc::Object volatile*>(
-			reinterpret_cast<char volatile*>(&object)
-			+ reinterpret_cast<bcc::intptr_t>(object.vftable__[FIRST_OFFSET_INDEX])
-		);
-	}
-
-	inline bcc::Object const volatile* ObjectHelper::first(bcc::Object const volatile& object)
-	{
-		return reinterpret_cast<bcc::Object const volatile*>(
-			reinterpret_cast<char const volatile*>(&object)
-			+ reinterpret_cast<bcc::intptr_t>(object.vftable__[FIRST_OFFSET_INDEX])
-		);
-	}
-	
 	inline bcc::Object* ObjectHelper::next(bcc::Object& object)
 	{
 		return reinterpret_cast<bcc::Object*>(
@@ -247,8 +225,10 @@ namespace detail
 	inline bool ObjectHelper::isCompatible(bcc::Object const& object, bcc::Object const& target)
 	{
 		bcc::uintptr_t const targetDepth = ObjectHelper::inheritanceDepth(target);
+		bcc::uintptr_t const targetVersion = ObjectHelper::version(target);
 
-		if (targetDepth > ObjectHelper::inheritanceDepth(object))
+		if (targetVersion != ObjectHelper::version(object)
+			|| targetDepth > ObjectHelper::inheritanceDepth(object))
 			return false;
 
 		for (size_t i = 0, size = targetDepth + 1; i < size; ++i)
@@ -298,11 +278,13 @@ namespace detail
 	inline bcc::Object* ObjectHelper::cast(bcc::Object& object, bcc::Object const& target)
 	{
 		bcc::uintptr_t const targetDepth = ObjectHelper::inheritanceDepth(target);
+		bcc::uintptr_t const targetVersion = ObjectHelper::version(target);
 
 		bcc::Object* itor = &object;
 		do
 		{
-			if (targetDepth > ObjectHelper::inheritanceDepth(*itor))
+			if (targetVersion != ObjectHelper::version(*itor)
+				|| targetDepth > ObjectHelper::inheritanceDepth(*itor))
 			{
 				itor = ObjectHelper::next(*itor);
 				continue;

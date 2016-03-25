@@ -147,6 +147,9 @@ namespace detail
 		static char const* name(bcc::Object const& object, size_t depth);
 		static char const* name(bcc::Object const& object);
 
+		static char const* const* signatures(bcc::Object const& object, size_t depth);
+		static char const* const* signatures(bcc::Object const& object);
+
 		static void setTable(bcc::Object const& object, void** table);
 
 		static bool isMultiple(bcc::Object const& object);

@@ -207,6 +207,17 @@ namespace detail
 		return name(object, inheritanceDepth(object));
 	}
 
+	inline char const* const* ObjectHelper::signatures(bcc::Object const& object, size_t depth)
+	{
+		typedef char const* Result;
+		return reinterpret_cast<Result***>(object.vftable__)[depth + VFTABLE_HEADER_SIZE][INTERFACE_INFO_INDEX] + INTERFACE_NAME_INDEX;
+	}
+
+	inline char const* const* ObjectHelper::signatures(bcc::Object const& object)
+	{
+		return signatures(object, inheritanceDepth(object));
+	}
+
 	inline void ObjectHelper::setTable(bcc::Object const& object, void** table)
 	{
 		const_cast<void**&>(object.vftable__) = table;
@@ -233,40 +244,22 @@ namespace detail
 
 		for (size_t i = 0, size = targetDepth + 1; i < size; ++i)
 		{
-			char const* name = ObjectHelper::name(object, i);
-			char const* name2 = ObjectHelper::name(target, i);
+			bcc::uintptr_t const methodCount = ObjectHelper::methodCount(object, i);
+			bcc::uintptr_t const targetMethodCount = ObjectHelper::methodCount(target, i);
 
-			if (name == name2)
-				continue;
-
-			if (std::strcmp(name, name2) != 0)
-				return false;
-		}
-
-		for (size_t i = 0, end = targetDepth + 1; i < end; ++i)
-		{
-			void** info = reinterpret_cast<void***>(object.vftable__[i + VFTABLE_HEADER_SIZE])[INTERFACE_INFO_INDEX];
-			void** info2 = reinterpret_cast<void***>(target.vftable__[i + VFTABLE_HEADER_SIZE])[INTERFACE_INFO_INDEX];
-
-			bcc::uintptr_t count = reinterpret_cast<bcc::uintptr_t>(info[INTERFACE_COUNT_INDEX]);
-			bcc::uintptr_t count2 = reinterpret_cast<bcc::uintptr_t>(info2[INTERFACE_COUNT_INDEX]);
-
-			if (count2 > count)
+			if (targetMethodCount > methodCount)
 				return false;
 
-			for (size_t j = 0; j < count2; ++j)
+			char const* const* sigItor = ObjectHelper::signatures(object, i);
+			char const* const* targetSigItor = ObjectHelper::signatures(target, i);
+			char const* const* const targetSigEnd = targetSigItor + targetMethodCount + 1; // include interface name
+
+			for (; targetSigItor != targetSigEnd; ++sigItor, ++targetSigItor)
 			{
-				char const* name = reinterpret_cast<char const*>(info[INTERFACE_NAME_INDEX + j + 1]);
-				char const* name2 = reinterpret_cast<char const*>(info[INTERFACE_NAME_INDEX + j + 1]);
-				
-				if (name == name2)
-					continue;
-
-				if (std::strcmp(name, name2) != 0)
+				if (std::strcmp(*sigItor, *targetSigItor) != 0)
 					return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -290,18 +283,15 @@ namespace detail
 				continue;
 			}
 
-			enum
-			{
-				HASH_MATCHED
-				, HASH_WEAK_MATCHED
-				, HASH_NO_MATCHED
-			} matched = HASH_MATCHED;
-
+			bool isMatched = true;
 			for (size_t i = 0, size = targetDepth + 1; i < size; ++i)
 			{
-				if (ObjectHelper::methodCount(target, i) > ObjectHelper::methodCount(*itor, i))
+				bcc::uintptr_t const methodCount = ObjectHelper::methodCount(*itor, i);
+				bcc::uintptr_t const targetMethodCount = ObjectHelper::methodCount(target, i);
+
+				if (targetMethodCount > methodCount)
 				{
-					matched = HASH_NO_MATCHED;
+					isMatched = false;
 					break;
 				}
 
@@ -310,31 +300,31 @@ namespace detail
 
 				if (hash.hash != hash2.hash)
 				{
-					matched = HASH_NO_MATCHED;
+					isMatched = false;
 					break;
 				}
 
-				if (hash.hash != hash2.hash)
+				if (hash.subhash != hash2.subhash)
 				{
-					matched = HASH_WEAK_MATCHED;
-					break;
+					char const* const* sigItor = ObjectHelper::signatures(*itor, i);
+					char const* const* targetSigItor = ObjectHelper::signatures(target, i);
+					char const* const* const targetSigEnd = targetSigItor + targetMethodCount + 1; // include interface name
+
+					for (; targetSigItor != targetSigEnd; ++sigItor, ++targetSigItor)
+					{
+						if (std::strcmp(*sigItor, *targetSigItor) != 0)
+							break;
+					}
+
+					if (targetSigItor != targetSigEnd)
+					{
+						isMatched = false;
+						break;
+					}
 				}
 			}
 
-			switch (matched)
-			{
-			case HASH_MATCHED:
-				return itor;
-
-			case HASH_WEAK_MATCHED:
-				if (ObjectHelper::isCompatible(*itor, target))
-					return itor;
-				break;
-				
-			default:
-				break;
-			}
-
+			if (isMatched) return itor;
 			itor = ObjectHelper::next(*itor);
 		} while (itor != &object);
 

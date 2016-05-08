@@ -27,7 +27,7 @@ struct BICOMC_SIGNATURE_CUSTOM_NAME;
 //	static std::wstring to_wstring();
 
 #define BICOMC_SIGNATURE(FULL_TYPE_NAME) \
-	template<> struct BICOMC_SIGNATURE_CUSTOM_NAME<FULL_TYPE_NAME> \
+	template<> struct BICOMC_SIGNATURE_CUSTOM_NAME<FULL_TYPE_NAME > \
 	{ \
 		static std::wstring to_wstring() { return BICOMC_WSTRINGIZER(FULL_TYPE_NAME); } \
 	};

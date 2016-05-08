@@ -9,6 +9,16 @@
 #include <cstdint>
 
 #else
+#ifndef __STDC_CONSTANT_MACROS
+#	define __STDC_CONSTANT_MACROS
+#endif // !__STDC_CONSTANT_MACROS
+#ifndef __STDC_LIMIT_MACROS
+#	define __STDC_LIMIT_MACROS
+#endif // !__STDC_LIMIT_MACROS
+#ifndef __STDC_FORMAT_MACROS
+#	define __STDC_FORMAT_MACROS
+#endif // !def __STDC_FORMAT_MACROS
+
 #include "detail/pstdint.h"
 
 #endif // BICOMC_IS_STD_INT_SUPPORT_COMPILER
@@ -87,7 +97,7 @@ namespace detail
 #else
 							false
 							, void
-#endif // defined(LLONG_MAX)
+#endif // def LLONG_MAX
 							, typename Helper<
 								sizeof(bcc::intmax_t) == size
 								, bcc::intmax_t
@@ -119,7 +129,7 @@ namespace detail
 #else
 							false
 							, void
-#endif // defined(ULLONG_MAX)
+#endif // def ULLONG_MAX
 							, typename Helper<
 								sizeof(bcc::uintmax_t) == size
 								, bcc::uintmax_t
@@ -138,61 +148,61 @@ namespace detail
 	using ::int8_t;
 #else
 	typedef detail::FixedSizeInt<1>::signed_type int8_t;
-#endif // defined(INT8_MAX)
+#endif // def INT8_MAX
 
 #if defined(INT16_MAX)
 	using ::int16_t;
 #else
 	typedef detail::FixedSizeInt<2>::signed_type int16_t;
-#endif // defined(INT16_MAX)
+#endif // def INT16_MAX
 
 #if defined(INT32_MAX)
 	using ::int32_t;
 #else
 	typedef detail::FixedSizeInt<4>::signed_type int32_t;
-#endif // defined(INT32_MAX)
+#endif // def INT32_MAX
 
 #if defined(INT64_MAX)
 	using ::int64_t;
 #else
 	typedef detail::FixedSizeInt<8>::signed_type int64_t;
-#endif // defined(INT64_MAX)
+#endif // def INT64_MAX
 
 #if defined(UINT8_MAX)
 	using ::uint8_t;
 #else
 	typedef detail::FixedSizeInt<1>::unsigned_type uint8_t;
-#endif // defined(UINT8_MAX)
+#endif // def UINT8_MAX
 
 #if defined(UINT16_MAX)
 	using ::uint16_t;
 #else
 	typedef detail::FixedSizeInt<2>::unsigned_type uint16_t;
-#endif // defined(UINT16_MAX)
+#endif // def UINT16_MAX
 
 #if defined(UINT32_MAX)
 	using ::uint32_t;
 #else
 	typedef detail::FixedSizeInt<4>::unsigned_type uint32_t;
-#endif // defined(UINT32_MAX)
+#endif // def UINT32_MAX
 
 #if defined(UINT64_MAX)
 	using ::uint64_t;
 #else
 	typedef detail::FixedSizeInt<8>::unsigned_type uint64_t;
-#endif // defined(UINT64_MAX)
+#endif // def UINT64_MAX
 
 #if defined(INTPTR_MAX)
 	using ::intptr_t;
 #else
 	typedef detail::FixedSizeInt<sizeof(void*)>::signed_type intptr_t;
-#endif // defined(INTPTR_MAX) 
+#endif // def INTPTR_MAX
 
 #if defined(UINTPTR_MAX)
 	using ::uintptr_t;
 #else	
 	typedef detail::FixedSizeInt<sizeof(void*)>::unsigned_type uintptr_t;
-#endif // defined(UINTPTR_MAX)
+#endif // def UINTPTR_MAX
 }
 
 #endif // !def BICOMC_STD_INT_H__

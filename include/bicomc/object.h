@@ -10,9 +10,6 @@ namespace bcc
 {
 	class Object
 	{
-	private:
-		friend class bcc::detail::ObjectHelper;
-
 	protected:
 		Object();
 		~Object();
@@ -35,11 +32,11 @@ namespace bcc
 		void** const vftable__;
 	};
 
-	BICOMC_SIGNATURE(bcc::Object);
-
 	static_assert(sizeof(Object) == sizeof(void*), "'Object' size must equal 'void*' size.");
 
 } // namespace bcc
+
+BICOMC_SIGNATURE(bcc::Object);
 
 #include "detail/error_code.h"
 #include "detail/object.h"

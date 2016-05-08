@@ -184,11 +184,11 @@ namespace detail
 } // namespace detail
 } // namespace bcc
 
-#define BICOMC_STATIC_ASSERT_TYPE_NAME2(name, number) name ## number
+#define BICOMC_STATIC_ASSERT_TYPE_NAME2(name, number) name ## number ## __
 #define BICOMC_STATIC_ASSERT_TYPE_NAME(name, number) BICOMC_STATIC_ASSERT_TYPE_NAME2(name, number)
 
 #define static_assert(condition, message) \
-	typedef bcc::detail::StaticAssertTester<sizeof(bcc::detail::StaticAssertor<!!(condition)>)> BICOMC_STATIC_ASSERT_TYPE_NAME(bicomc_static_assert_, __COUNTER__)
+	typedef bcc::detail::StaticAssertTester<sizeof(bcc::detail::StaticAssertor<!!(condition)>)> BICOMC_STATIC_ASSERT_TYPE_NAME(BiCOMC_static_assert_, __COUNTER__)
 
 #endif // !BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER
 

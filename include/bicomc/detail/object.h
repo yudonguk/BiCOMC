@@ -56,14 +56,14 @@ namespace detail
 					}
 
 				private:
-					Guard(Guard const&) BICOMC_DELETE;
-					Guard& operator=(Guard const&) BICOMC_DELETE;
+					Guard(Guard const&) : p() { throw std::runtime_error("must not be called."); }
+					Guard& operator=(Guard const&) { throw std::runtime_error("must not be called."); }
 			
 				private:
 					Type* p;
-				} result(new Type(bcc::detail::ObjectCaster::cast<Type const, typename std::remove_cv<CastHelper>::type const>(*pImpl)));
+				} result(new Type(bcc::detail::ObjectCaster::cast<Type const, typename bcc::remove_cv<CastHelper>::type const>(*pImpl)));
 
-				*pRet = bcc::detail::ReturnHelper<bcc::Object*>::fromReturn(static_cast<typename std::remove_cv<CastHelper>::type*>(result.get()));
+				*pRet = bcc::detail::ReturnHelper<bcc::Object*>::fromReturn(static_cast<typename bcc::remove_cv<CastHelper>::type*>(result.get()));
 				result.release();
 				return nullptr;
 			}
@@ -71,7 +71,7 @@ namespace detail
 			return bcc::detail::UnknownError::instance();
 		}
 
-		template<typename Interfaces, size_t size = bcc::tuple_size<Interfaces>::value>
+		template<typename Interfaces, typename MethodType, size_t size = bcc::tuple_size<Interfaces>::value>
 		struct OverrideHelper
 		{
 			typedef typename bcc::tuple_element<size - 1, Interfaces>::type Interface;
@@ -79,47 +79,35 @@ namespace detail
 			template<typename Impl>
 			static void overrideDestroy(Impl& impl)
 			{
-				DefaultCallHelper::overrideDestroy<Interface>(impl, &Helper::destroy<Impl, Interface>);
-				OverrideHelper<Interfaces, size - 1>::overrideDestroy(impl);
+				MethodType::template overrideMethod<Interface>(impl, &Helper::destroy<Impl, Interface>);
+				OverrideHelper<Interfaces, MethodType, size - 1>::overrideDestroy(impl);
 			}
 			template<typename Impl>
 			static void overrideClone(Impl& impl)
 			{
-				DefaultCallHelper::overrideClone<Interface>(impl, &Helper::clone<Impl, Interface>);
-				OverrideHelper<Interfaces, size - 1>::overrideClone(impl);
+				MethodType::template overrideMethod<Interface>(impl, &Helper::clone<Impl, Interface>);
+				OverrideHelper<Interfaces, MethodType, size - 1>::overrideClone(impl);
 			}
 		};
 
-		template<typename Interfaces>
-		struct OverrideHelper<Interfaces, 0>
+		template<typename Interfaces, typename MethodType>
+		struct OverrideHelper<Interfaces, MethodType, 0>
 		{
 			template<typename Impl> static void overrideDestroy(Impl& impl) {}
 			template<typename Impl> static void overrideClone(Impl& impl) {}
 		};
 	};
 
-	template<typename Interface, typename Impl, typename Func>
-	void DefaultCallHelper::overrideDestroy(Impl& impl, Func func)
-	{
-		bcc::Object::BICOMC_METHOD_TYPE_NAME(destroy)<void(), true, true, void>::overrideMethod<Interface>(impl, func);
-	}
-
-	template<typename Interfaces, typename Impl>
+	template<typename Interfaces, typename MethodType, typename Impl>
 	void DefaultCallHelper::overrideDestroy(Impl& impl)
 	{
-		Helper::OverrideHelper<Interfaces>::template overrideDestroy(impl);
+		Helper::OverrideHelper<Interfaces, MethodType>::template overrideDestroy(impl);
 	}
 
-	template<typename Interface, typename Impl, typename Func>
-	void DefaultCallHelper::overrideClone(Impl& impl, Func func)
-	{
-		bcc::Object::BICOMC_METHOD_TYPE_NAME(clone)<bcc::Object*(), true, false, void>::overrideMethod<Interface>(impl, func);
-	}
-
-	template<typename Interfaces, typename Impl>
+	template<typename Interfaces, typename MethodType, typename Impl>
 	void DefaultCallHelper::overrideClone(Impl& impl)
 	{
-		Helper::OverrideHelper<Interfaces>::template overrideClone(impl);
+		Helper::OverrideHelper<Interfaces, MethodType>::template overrideClone(impl);
 	}
 
 	inline bcc::uintptr_t ObjectHelper::inheritanceDepth(bcc::Object const& object)

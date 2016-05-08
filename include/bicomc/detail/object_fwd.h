@@ -31,20 +31,17 @@ namespace detail
 	template<typename Method, Method>
 	struct MethodCallHelper;
 
+	template<typename Method>
+	struct MethodCallNoOverHelper;
+
 	struct DefaultCallHelper
 	{
 		struct Helper;
 
-		template<typename Interface, typename Impl, typename Func>
-		static void overrideDestroy(Impl& imp, Func func);
-
-		template<typename Interfaces, typename Impl>
+		template<typename Interfaces, typename MethodType, typename Impl>
 		static void overrideDestroy(Impl& impl);
 
-		template<typename Interface, typename Impl, typename Func>
-		static void overrideClone(Impl& imp, Func func);
-
-		template<typename Interfaces, typename Impl>
+		template<typename Interfaces, typename MethodType, typename Impl>
 		static void overrideClone(Impl& impl);
 	};
 
@@ -202,9 +199,9 @@ namespace detail
 			{
 				typedef typename bcc::tuple_element<index, typename bcc::tuple_element<depth, FunctionTypes>::type>::type FunctionType;
 				typedef typename FunctionType::deducer deducer;
-				
-				typename deducer::helper* function = &bcc::detail::MethodCallHelper<typename deducer::member, 0>::template callNoOver<typename deducer::owner, typename deducer::owner>;
-				bcc::get<depth>(result)[index] = function;
+
+				typename deducer::helper* function = &bcc::detail::MethodCallNoOverHelper<typename deducer::member>::call;
+				bcc::get<depth>(result)[index] = reinterpret_cast<void*>(function);
 				
 				Helper<index + 1, end>::init(result);
 			}
@@ -276,22 +273,22 @@ namespace detail
 
 			static size_t const now = size;
 
-			template<size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
+			template<size_t count = bcc::tuple_size<Interfaces>::value, typename Dummy2 = void>
 			struct Helper
 			{
 				typedef bcc::int8_t TrueType;
 				typedef bcc::int16_t FalseType;
 
-				static TrueType test(typename bcc::tuple_element<size - 1, Interfaces>::type*);
+				static TrueType test(typename bcc::tuple_element<count - 1, Interfaces>::type*);
 				static FalseType test(...);
 
 				static bool const value =
-					(size != now && sizeof(test(static_cast<Interface*>(0))) == sizeof(TrueType))
-					|| Helper<size - 1>::value;
+					(count != now && sizeof(test(static_cast<Interface*>(0))) == sizeof(TrueType))
+					|| Helper<count - 1>::value;
 			};
 
-			template<typename Dummy>
-			struct Helper<0, Dummy>
+			template<typename Dummy2>
+			struct Helper<0, Dummy2>
 			{
 				static bool const value = false;
 			};
@@ -759,17 +756,19 @@ namespace detail
 using bcc::bicomc_cast;
 
 #define BICOMC_INTERFACE_BASE_CODE(INTERFACE_NAME) \
-protected: \
+	friend class bcc::detail::ObjectHelper; \
+	template<typename> friend struct bcc::detail::is_interface_impl; \
 	template<typename> friend struct bcc::detail::InheritanceDepth; \
-	static size_t const BICOMC_INHERITANCE_DEPTH__ = bcc::detail::InheritanceDepth<INTERFACE_NAME>::value; \
-private: \
 	template<typename> friend struct bcc::detail::LazyBase; \
+protected: \
+	static size_t const BICOMC_INHERITANCE_DEPTH__ = bcc::detail::InheritanceDepth<INTERFACE_NAME >::value; \
+private: \
 	typedef INTERFACE_NAME BiCOMC_My__; \
 	\
-	template<size_t index, typename Dummy = void> \
+	template<size_t BiCOMC_index__, typename BiCOMC_Dummy__ = void> \
 	struct BiCOMC_Type_Enumerator__; \
-	template<typename Dummy> \
-	struct BiCOMC_Type_Enumerator__<bcc::detail::EnumeratorSize<BiCOMC_Type_Enumerator__, __COUNTER__>::value, Dummy> \
+	template<typename BiCOMC_Dummy__> \
+	struct BiCOMC_Type_Enumerator__<bcc::detail::EnumeratorSize<BiCOMC_Type_Enumerator__, __COUNTER__>::value, BiCOMC_Dummy__> \
 	{ \
 		typedef void* type; \
 		typedef bcc::tuple<type> list; \
@@ -779,39 +778,33 @@ private: \
 class INTERFACE_NAME : public BASE_NAME \
 { \
 private: \
-	friend class bcc::detail::ObjectHelper; \
-	template<typename> friend struct bcc::detail::is_interface_impl; \
-	\
 	typedef BASE_NAME BiCOMC_Base__; \
 	static_assert(bcc::is_interface<BiCOMC_Base__>::value, "'" #BASE_NAME "' must be interface."); \
 	BICOMC_INTERFACE_BASE_CODE(INTERFACE_NAME);
 
 #define BICOMC_INTERFACE(INTERFACE_NAME, ...) \
-static_assert(bcc::tuple_size<bcc::tuple<__VA_ARGS__> >::value <= 1, "BICOMC_INTERFACE() has one or two parameters."); \
-class INTERFACE_NAME : public bcc::tuple_element<0, bcc::TupleCat<bcc::tuple<__VA_ARGS__>, bcc::Object>::type>::type \
+static_assert(bcc::tuple_size<bcc::tuple<__VA_ARGS__ > >::value <= 1, "BICOMC_INTERFACE() has one or two parameters."); \
+class INTERFACE_NAME : public bcc::tuple_element<0, bcc::TupleCat<bcc::tuple<__VA_ARGS__ >, bcc::Object>::type>::type \
 { \
 private: \
-	friend class bcc::detail::ObjectHelper; \
-	template<typename> friend struct bcc::detail::is_interface_impl; \
-	\
-	typedef bcc::tuple_element<0, bcc::TupleCat<bcc::tuple<__VA_ARGS__>, bcc::Object>::type>::type BiCOMC_Base__; \
+	typedef bcc::tuple_element<0, bcc::TupleCat<bcc::tuple<__VA_ARGS__ >, bcc::Object>::type>::type BiCOMC_Base__; \
 	static_assert(bcc::is_interface<BiCOMC_Base__>::value, "Base type must be interface."); \
 	BICOMC_INTERFACE_BASE_CODE(INTERFACE_NAME);
 
 #define BICOMC_INTERFACE_FUNCTION_TABLE(INTERFACE_NAME) \
 private: \
-	template<typename Owner, typename Dummy = void> \
+	template<typename BiCOMC_Owner__, typename BiCOMC_Dummy__ = void> \
 	struct BiCOMC_Type_Decider__ \
 	{ \
 		typedef BiCOMC_Type_Enumerator__<bcc::detail::EnumeratorSize<BiCOMC_Type_Enumerator__, __COUNTER__>::value - 1>::list list; \
 		typedef typename bcc::detail::InterfaceInfoDeducer<bcc::tuple<list> >::type info_type; \
 		typedef typename bcc::TupleCat< \
-			typename Owner::BiCOMC_Base__::BiCOMC_Function_Types__ \
+			typename BiCOMC_Owner__::BiCOMC_Base__::BiCOMC_Function_Types__ \
 			, typename bcc::tuple_replace<list, 0, info_type>::type \
 		>::type type; \
 	}; \
-	template<typename Dummy> \
-	struct BiCOMC_Type_Decider__<bcc::Object, Dummy> \
+	template<typename BiCOMC_Dummy__> \
+	struct BiCOMC_Type_Decider__<bcc::Object, BiCOMC_Dummy__> \
 	{ \
 		typedef BiCOMC_Type_Enumerator__<bcc::detail::EnumeratorSize<BiCOMC_Type_Enumerator__, __COUNTER__>::value - 1>::list list; \
 		typedef typename bcc::detail::InterfaceInfoDeducer<bcc::tuple<list> >::type info_type; \
@@ -819,7 +812,7 @@ private: \
 	}; \
 protected: \
 	template<typename> friend struct bcc::detail::FunctionTypes; \
-	typedef BiCOMC_Type_Decider__<INTERFACE_NAME>::type BiCOMC_Function_Types__;
+	typedef BiCOMC_Type_Decider__<INTERFACE_NAME >::type BiCOMC_Function_Types__;
 
 #define BICOMC_INTERFACE_END(INTERFACE_NAME) \
 protected: \
@@ -828,14 +821,14 @@ protected: \
 	INTERFACE_NAME() \
 		: BiCOMC_Base__() \
 	{ \
-		static bcc::detail::TableHolder<INTERFACE_NAME> holder(*this); \
+		static bcc::detail::TableHolder<INTERFACE_NAME > holder(*this); \
 		bcc::detail::ObjectHelper::setTable(*this, holder.vftable.data()); \
 	} \
 	~INTERFACE_NAME() {} \
 private: \
 	INTERFACE_NAME(BiCOMC_My__ const& rhs) BICOMC_DELETE; \
 }; \
-template<> struct BICOMC_SIGNATURE_DEFAULT_NAME<INTERFACE_NAME> { static std::wstring to_wstring() { return BICOMC_WSTRINGIZER(INTERFACE_NAME); } };
+template<> struct BICOMC_SIGNATURE_DEFAULT_NAME<INTERFACE_NAME > { static std::wstring to_wstring() { return BICOMC_WSTRINGIZER(INTERFACE_NAME); } };
 
 #define BICOMC_METHOD_TYPE_NAME(METHOD_NAME) \
 	BiCOMC_ ## METHOD_NAME ## _Type__
@@ -887,9 +880,9 @@ template<> struct BICOMC_SIGNATURE_DEFAULT_NAME<INTERFACE_NAME> { static std::ws
 
 #define BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 protected: \
-	template<typename Function, bool isConst, bool isVolatile, typename Dummy> struct BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME); \
-	template<typename Dummy> \
-	struct BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, Dummy> \
+	template<typename BiCOMC_Function__, bool BiCOMC_is_const__, bool BiCOMC_is_volatile__, typename BiCOMC_Dummy__> struct BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME); \
+	template<typename BiCOMC_Dummy__> \
+	struct BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, BiCOMC_Dummy__> \
 	{ \
 		typedef BiCOMC_My__ METHOD_QUALIFIER owner; \
 		typedef bcc::detail::MethodTypeDeducer<METHOD_TYPE, owner> deducer; \
@@ -900,54 +893,54 @@ protected: \
 		static size_t const depth = owner::BICOMC_INHERITANCE_DEPTH__; \
 		static size_t const index = bcc::detail::EnumeratorSize<owner::BiCOMC_Type_Enumerator__, __COUNTER__>::value; \
 		\
-		template<typename Interfaces, size_t size = bcc::tuple_size<Interfaces>::value> \
+		template<typename BiCOMC_Interfaces__, size_t BiCOMC_size__ = bcc::tuple_size<BiCOMC_Interfaces__>::value> \
 		struct Helper \
 		{ \
-			typedef typename bcc::tuple_element<size - 1, Interfaces>::type Interface; \
+			typedef typename bcc::tuple_element<BiCOMC_size__ - 1, BiCOMC_Interfaces__>::type Interface; \
 			\
-			template<typename Impl> \
-			static void overrideMethod(Impl& impl) \
+			template<typename BiCOMC_Impl__> \
+			static void overrideMethod(BiCOMC_Impl__& impl) \
 			{ \
 				overrideMethodImpl<Interface>(impl, 0); \
-				Helper<Interfaces, size - 1>::overrideMethod(impl); \
+				Helper<BiCOMC_Interfaces__, BiCOMC_size__ - 1>::template overrideMethod(impl); \
 			} \
-			template<typename U, typename Impl> \
-			static void overrideMethodImpl(Impl& impl, typename U::template BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, Dummy>* p) \
+			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
+			static void overrideMethodImpl(BiCOMC_Impl__& impl, typename BiCOMC_U__::template BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, BiCOMC_Dummy__>* p) \
 			{ \
 				access(impl, p); \
 			} \
-			template<typename MethodType, typename Impl> \
-			static void access(Impl& impl, MethodType*) \
+			template<typename MethodType, typename BiCOMC_Impl__> \
+			static void access(BiCOMC_Impl__& impl, MethodType*) \
 			{ \
-				MethodType::overrideMethod<Interface>(impl); \
+				MethodType::template overrideMethod<Interface>(impl); \
 			} \
-			template<typename U, typename Impl> \
-			static void overrideMethodImpl(Impl& impl, ...) {} \
+			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
+			static void overrideMethodImpl(BiCOMC_Impl__& impl, ...) {} \
 		}; \
-		template<typename Interfaces> \
-		struct Helper<Interfaces, 0> \
+		template<typename BiCOMC_Interfaces__> \
+		struct Helper<BiCOMC_Interfaces__, 0> \
 		{ \
-			template<typename Impl> static void overrideMethod(Impl& impl) {} \
+			template<typename BiCOMC_Impl__> static void overrideMethod(BiCOMC_Impl__& impl) {} \
 		}; \
 		\
 		static typename deducer::helper*& function(owner& impl) \
 		{ \
 			return bcc::detail::ObjectHelper::function<index, depth, owner::BiCOMC_Function_Types__>(impl); \
 		} \
-		template<typename Base, typename Impl> \
-		static typename bcc::enable_if<bcc::is_interface<Base>::value>::type overrideMethod(Impl& impl) \
+		template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
+		static typename bcc::enable_if<bcc::is_interface<BiCOMC_U__>::value>::type overrideMethod(BiCOMC_Impl__& impl) \
 		{ \
-			function(static_cast<Base&>(impl)) = &bcc::detail::MethodCallHelper<typename deducer::template change_owner<Impl>::member, (&Impl::METHOD_NAME)>::template call<owner, Base>; \
+			function(static_cast<BiCOMC_U__&>(impl)) = &bcc::detail::MethodCallHelper<typename deducer::template change_owner<BiCOMC_Impl__>::member, &BiCOMC_Impl__::METHOD_NAME >::template call<owner, BiCOMC_U__>; \
 		} \
-		template<typename Base, typename Impl> \
-		static typename bcc::enable_if<bcc::is_interface<Base>::value>::type overrideMethod(Impl& impl, typename deducer::helper* func) \
+		template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
+		static typename bcc::enable_if<bcc::is_interface<BiCOMC_U__>::value>::type overrideMethod(BiCOMC_Impl__& impl, typename deducer::helper* func) \
 		{ \
-			function(static_cast<Base&>(impl)) = func; \
+			function(static_cast<BiCOMC_U__&>(impl)) = func; \
 		} \
-		template<typename Interfaces, typename Impl> \
-		static typename bcc::enable_if<!bcc::is_interface<Interfaces>::value>::type overrideMethod(Impl& impl) \
+		template<typename BiCOMC_Interfaces__, typename BiCOMC_Impl__> \
+		static typename bcc::enable_if<!bcc::is_interface<BiCOMC_Interfaces__>::value>::type overrideMethod(BiCOMC_Impl__& impl) \
 		{ \
-			Helper<Interfaces>::overrideMethod(impl); \
+			Helper<BiCOMC_Interfaces__>::template overrideMethod(impl); \
 		} \
 		static char const* name() \
 		{ \
@@ -965,8 +958,8 @@ protected: \
 		} \
 	}; \
 private: \
-	template<typename Dummy> \
-	struct BiCOMC_Type_Enumerator__<BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void>::index, Dummy> \
+	template<typename BiCOMC_Dummy__> \
+	struct BiCOMC_Type_Enumerator__<BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void>::index, BiCOMC_Dummy__> \
 	{ \
 		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MethodType; \
 		typedef MethodType type; \
@@ -978,40 +971,40 @@ private: \
 
 #define BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_NAME, METHOD_TYPE, METHOD_QUALIFIER) \
 private: \
-	template<typename T, typename Function, bool isConst, bool isVolatile> struct BICOMC_METHOD_TYPE_CHECKER(METHOD_NAME); \
-	template<typename T> \
-	struct BICOMC_METHOD_TYPE_CHECKER(METHOD_NAME)<T, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value> \
+	template<typename BiCOMC_T__, typename BiCOMC_Function__, bool BiCOMC_is_const__, bool BiCOMC_is_volatile__> struct BICOMC_METHOD_TYPE_CHECKER(METHOD_NAME); \
+	template<typename BiCOMC_T__> \
+	struct BICOMC_METHOD_TYPE_CHECKER(METHOD_NAME)<BiCOMC_T__, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value> \
 	{ \
 		typedef bcc::int8_t TrueType; \
 		typedef bcc::int16_t FalseType; \
-		template<template<typename, bool, bool, typename> class U> \
-		struct Helper { typedef U<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> type; }; \
-		template<typename U> static TrueType test(typename Helper<U::template BICOMC_METHOD_TYPE_NAME(METHOD_NAME)>::type::owner*); \
-		template<typename U> static FalseType test(...); \
-		static bool const value = sizeof(test<T>(0)) == sizeof(TrueType); \
+		template<template<typename, bool, bool, typename> class BiCOMC_U__> \
+		struct Helper { typedef BiCOMC_U__<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> type; }; \
+		template<typename BiCOMC_U__> static TrueType test(typename Helper<BiCOMC_U__::template BICOMC_METHOD_TYPE_NAME(METHOD_NAME)>::type::owner*); \
+		template<typename BiCOMC_U__> static FalseType test(...); \
+		static bool const value = sizeof(test<BiCOMC_T__>(0)) == sizeof(TrueType); \
 	};
 
 #define BICOMC_OVER_METHOD(METHOD_NAME, METHOD_TYPE) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, false, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, false, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
 	static_assert(bcc::is_function<METHOD_TYPE>::value, "'" #METHOD_TYPE "' must be function type.");
 
 #define BICOMC_OVER_METHOD_C(METHOD_NAME, METHOD_TYPE) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, false, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, false, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
 	static_assert(bcc::is_function<METHOD_TYPE>::value, "'" #METHOD_TYPE "' must be function type.");
 
 #define BICOMC_OVER_METHOD_V(METHOD_NAME, METHOD_TYPE) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, true, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, true, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
 	static_assert(bcc::is_function<METHOD_TYPE>::value, "'" #METHOD_TYPE "' must be function type.");
 
 #define BICOMC_OVER_METHOD_CV(METHOD_NAME, METHOD_TYPE) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, true, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, true, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
 	static_assert(bcc::is_function<METHOD_TYPE>::value, "'" #METHOD_TYPE "' must be function type.");
 
 #define BICOMC_OVER_DESTROY() \
-	bcc::detail::DefaultCallHelper::overrideDestroy<BiCOMC_Interfaces__>(*this);
+	bcc::detail::DefaultCallHelper::template overrideDestroy<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_TYPE_NAME(destroy)<void(), true, true, void> >(*this);
 
 #define BICOMC_OVER_CLONE() \
-	bcc::detail::DefaultCallHelper::overrideClone<BiCOMC_Interfaces__>(*this);
+	bcc::detail::DefaultCallHelper::template overrideClone<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_TYPE_NAME(clone)<bcc::Object*(), true, false, void> >(*this);
 
 #define BICOMC_OVER_OPERATOR_UNARY_PLUS(METHOD_TYPE) BICOMC_OVER_METHOD(BICOMC_OPERATOR_UNARY_PLUS, METHOD_TYPE)
 #define BICOMC_OVER_OPERATOR_UNARY_PLUS_C(METHOD_TYPE) BICOMC_OVER_METHOD_C(BICOMC_OPERATOR_UNARY_PLUS, METHOD_TYPE)
@@ -1192,13 +1185,13 @@ private: \
 
 #define BICOMC_OVERRIDE(...) \
 private: \
-	static_assert(bcc::tuple_size<bcc::tuple<__VA_ARGS__> >::value != 0, "BICOMC_OVERRIDE() has one or more paramters."); \
+	static_assert(bcc::tuple_size<bcc::tuple<__VA_ARGS__ > >::value != 0, "BICOMC_OVERRIDE() has one or more paramters."); \
 	friend struct bcc::detail::DefaultCallHelper; \
 	\
 	inline bool BiCOMC_Override_Method_Helper__() \
 	{ \
-		typedef bcc::tuple<__VA_ARGS__> BiCOMC_Interfaces__; \
-		static bcc::detail::MultiTableHolder<bcc::tuple<__VA_ARGS__> > holders(*this); \
+		typedef bcc::tuple<__VA_ARGS__ > BiCOMC_Interfaces__; \
+		static bcc::detail::MultiTableHolder<bcc::tuple<__VA_ARGS__ > > holders(*this); \
 		static bool isInitialized = false; \
 		holders.setVftable(*this); \
 		if (!isInitialized) \

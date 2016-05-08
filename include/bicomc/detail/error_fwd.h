@@ -18,4 +18,6 @@ namespace detail
 } // namespace detail
 } // namespace bcc
 
+BICOMC_SIGNATURE(bcc::detail::ErrorDetail);
+
 #endif // !def BICOMC_DETAIL_ERROR_H__

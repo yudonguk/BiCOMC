@@ -9,6 +9,7 @@
 
 #include "error_detail.h"
 #include "method_call.h"
+#include "safe_static.h"
 #include "string_util.h"
 
 namespace bcc
@@ -372,8 +373,12 @@ namespace detail
 	inline Object::Object()
 		: vftable__(nullptr)
 	{
-		static bcc::detail::TableHolder<Object> holder(*this);
-		bcc::detail::ObjectHelper::setTable(*this, holder.vftable.data());
+		typedef bcc::detail::TableHolder<Object> Holder;
+		typedef bcc::detail::SafeStatic<Holder, Object> StaticHolder;
+
+		Holder* pHolder = StaticHolder::get();
+		if (!pHolder) pHolder = StaticHolder::init(Holder::initializer(*this));
+		bcc::detail::ObjectHelper::setTable(*this, pHolder->vftable.data());
 	}
 
 	inline Object::~Object()

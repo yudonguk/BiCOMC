@@ -1,9 +1,9 @@
-#ifndef BICOMC_DETAIL_COMPILER_MSVC_H__
+﻿#ifndef BICOMC_DETAIL_COMPILER_MSVC_H__
 #define BICOMC_DETAIL_COMPILER_MSVC_H__
 
 #if !defined(_MSC_VER)
 #	error "compiler is not msvc"
-#endif // !defined(_MSC_VER)
+#endif // !def _MSC_VER
 
 #if defined(_WIN32) && !defined(_WIN64) && defined(_M_IX86)
 #	define BICOMC_CALL __cdecl
@@ -19,12 +19,14 @@
 #	error "platform is not supported"
 #else
 #	error "platform is not supported"
-#endif // defined(_WIN32) && !defined(_WIN64) && defined(_M_IX86)
+#endif
 
 #define BICOMC_IS_NULLPTR_SUPPORT_COMPILER \
 	(_MSC_VER >= 1600)
 #define BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER \
 	(_MSC_VER >= 1600)
+#define BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER \
+	(_MSC_VER >= 1900)
 #define BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER \
 	(_MSC_VER >= 1900)
 #define BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER \

@@ -13,10 +13,12 @@
 #include "../tuple.h"
 #include "../type_traits.h"
 
+#include "atomic.h"
 #include "compatibility.h"
 #include "hash.h"
 #include "method_traits.h"
 #include "object_helper.h"
+#include "safe_static.h"
 #include "signature.h"
 #include "string_util.h"
 
@@ -224,9 +226,31 @@ namespace detail
 		};
 
 		template<typename T>
-		TableHolder(T& object)
-			: name(bcc::detail::Signature<typename bcc::remove_cv<T>::type>::to_utf8())
+		struct Initializer
 		{
+			Initializer(T& o) : object(o) {}
+
+			void operator()(TableHolder& holder)
+			{
+				holder.init(object);
+			}
+
+			T& object;
+		};
+
+		TableHolder()
+		{}
+
+		template<typename T>
+		static Initializer<T> initializer(T& object)
+		{
+			return Initializer<T>(object);
+		}
+
+		template<typename T>
+		void init(T& object)
+		{
+			name = bcc::detail::Signature<typename bcc::remove_cv<T>::type>::to_utf8();
 			InterfaceInfoDeducer<FunctionTypes>::template init<Interface>(info, name.c_str());
 
 			TableCopyHelper<RawTable, 0, depth>::copy(table, vftable.data() + HEADER_SIZE, object);
@@ -240,7 +264,7 @@ namespace detail
 			vftable[depth + HEADER_SIZE] = &bcc::get<depth>(table); // table
 		}
 
-		std::string const name;
+		std::string name;
 		typename InterfaceInfoDeducer<FunctionTypes>::raw_type info;
 		RawTable table;
 		bcc::array<void*, bcc::tuple_size<RawTable>::value + HEADER_SIZE> vftable;
@@ -381,7 +405,38 @@ namespace detail
 		};
 
 		template<typename T>
-		MultiTableHolder(T& object)
+		struct Initializer
+		{
+			Initializer(T& o) : object(o) {}
+
+			void operator()(MultiTableHolder& holder)
+			{
+				holder.init(object, holder);
+			}
+
+			T& object;
+		};
+
+		MultiTableHolder()
+		{}
+
+		template<typename T>
+		static Initializer<T> initializer(T& object)
+		{
+			return Initializer<T>(object);
+		}
+
+		template<typename T>
+		static void init(T& object, MultiTableHolder& holder)
+		{
+			holder.init(object);
+			holder.setVftable(object);
+			if (!object.BiCOMC_Override_Method_Helper__(bcc::true_type()))
+				throw std::runtime_error("overriding fail");
+		}
+
+		template<typename T>
+		void init(T& object)
 		{
 			Helper<>::init(holder, object);
 		}
@@ -821,8 +876,12 @@ protected: \
 	INTERFACE_NAME() \
 		: BiCOMC_Base__() \
 	{ \
-		static bcc::detail::TableHolder<INTERFACE_NAME > holder(*this); \
-		bcc::detail::ObjectHelper::setTable(*this, holder.vftable.data()); \
+		typedef bcc::detail::TableHolder<INTERFACE_NAME> Holder; \
+		typedef bcc::detail::SafeStatic<Holder, INTERFACE_NAME> StaticHolder; \
+		\
+		Holder* pHolder = StaticHolder::get(); \
+		if (!pHolder) pHolder = StaticHolder::init(Holder::initializer(*this)); \
+		bcc::detail::ObjectHelper::setTable(*this, pHolder->vftable.data()); \
 	} \
 	~INTERFACE_NAME() {} \
 private: \
@@ -1187,21 +1246,26 @@ private: \
 private: \
 	static_assert(bcc::tuple_size<bcc::tuple<__VA_ARGS__ > >::value != 0, "BICOMC_OVERRIDE() has one or more paramters."); \
 	friend struct bcc::detail::DefaultCallHelper; \
+	friend struct bcc::detail::MultiTableHolder<bcc::tuple<__VA_ARGS__ > >; \
+	struct BiCOMC_Override_Method_Local__ {}; \
 	\
 	inline bool BiCOMC_Override_Method_Helper__() \
 	{ \
+		typedef bcc::detail::MultiTableHolder<bcc::tuple<__VA_ARGS__ > > Holder; \
+		typedef bcc::detail::SafeStatic<Holder, BiCOMC_Override_Method_Local__> StaticHolder; \
+		\
+		Holder* pHolder = StaticHolder::get(); \
+		if (!pHolder) pHolder = StaticHolder::init(Holder::initializer(*this)); \
+		pHolder->setVftable(*this); \
+		return true; \
+	} \
+	inline bool BiCOMC_Override_Method_Helper__(bcc::true_type /*isInitMode*/) \
+	{ \
 		typedef bcc::tuple<__VA_ARGS__ > BiCOMC_Interfaces__; \
-		static bcc::detail::MultiTableHolder<bcc::tuple<__VA_ARGS__ > > holders(*this); \
-		static bool isInitialized = false; \
-		holders.setVftable(*this); \
-		if (!isInitialized) \
-		{ \
-			BICOMC_OVER_DESTROY();
+		BICOMC_OVER_DESTROY();
 
 #define BICOMC_OVERRIDE_END() \
-			isInitialized = true; \
-		} \
-		return isInitialized; \
+		return true; \
 	} \
 	bcc::detail::OverrideInitHolder BiCOMC_override_init_holder__; \
 public:

@@ -17,13 +17,13 @@
 #else
 #	error "compiler is not supported"
 
-#endif // defined(_MSC_VER) && !defined(__INTEL_COMPILER)
+#endif
 
 //////////////////////////////////////////////////////////////////////////
 
 #if !defined(BICOMC_CALL) || !defined(BICOMC_EXPORT)
 #	error "compiler is not supported"
-#endif // !defined(BICOMC_CALL) && !defined(BICOMC_EXPORT)
+#endif // !def BICOMC_CALL && !def BICOMC_EXPORT
 
 #if !defined(BICOMC_IS_NULLPTR_SUPPORT_COMPILER)
 #	if defined(nullptr)
@@ -32,8 +32,8 @@
 #	else
 #		define BICOMC_IS_NULLPTR_SUPPORT_COMPILER \
 			(__cplusplus >= 201103L)
-#	endif // defined(nullptr)
-#endif // !defined(BICOMC_IS_NULLPTR_SUPPORT_COMPILER)
+#	endif // def nullptr
+#endif // !def BICOMC_IS_NULLPTR_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER)
 #	if defined(static_assert)
@@ -42,68 +42,73 @@
 #	else
 #		define BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER \
 			(__cplusplus >= 201103L)
-#	endif // defined(static_assert)
-#endif // !defined(BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER)
+#	endif // def static_assert
+#endif // !def BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER
+
+#if !defined(BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER)
+#	define BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER \
+		(__cplusplus >= 201103L)
+#endif // !def BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER)
 #	define BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER)
 #	define BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_EXPLICITY_DEFAULT_DELETE_SUPPORT_COMPILER)
 #	define BICOMC_IS_EXPLICITY_DEFAULT_DELETE_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER)
 #	define BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER)
 #	define BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER)
 #	define BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_STD_INT_SUPPORT_COMPILER)
 #	define BICOMC_IS_STD_INT_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_STD_INT_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_STD_INT_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER)
-#	define BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER	\
+#	define BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_MUTEX_SUPPORT_COMPILER)
 #	define BICOMC_IS_MUTEX_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_MUTEX_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_MUTEX_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER)
 #	define BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_EXTENED_EQUAL_SUPPORT_COMPILER)
 #	define BICOMC_IS_EXTENED_EQUAL_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_EXTENED_EQUAL_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_EXTENED_EQUAL_SUPPORT_COMPILER
 
 #if !defined(BICOMC_IS_ARRAY_SUPPORT_COMPILER)
 #	define BICOMC_IS_ARRAY_SUPPORT_COMPILER \
 		(__cplusplus >= 201103L)
-#endif // !defined(BICOMC_IS_ARRAY_SUPPORT_COMPILER)
+#endif // !def BICOMC_IS_ARRAY_SUPPORT_COMPILER
 
 //////////////////////////////////////////////////////////////////////////
 

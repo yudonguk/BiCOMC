@@ -1,9 +1,9 @@
-#ifndef BICOMC_DETAIL_COMPILER_GCC_H__
+﻿#ifndef BICOMC_DETAIL_COMPILER_GCC_H__
 #define BICOMC_DETAIL_COMPILER_GCC_H__
 
 #if !defined(__GNUC__)
 #	error "compiler is not gcc"
-#endif // !defined(__GNUC__)
+#endif // !def __GNUC__
 
 #if defined(_WIN32) && !defined(_WIN64) && defined(__i386__)
 #	define BICOMC_CALL __attribute__((cdecl))
@@ -24,12 +24,14 @@
 #	error "platform is not supported"
 #else
 #	error "platform is not supported"
-#endif // defined(_WIN32) && !defined(_WIN64) && defined(__i386__)
+#endif
 
 #define BICOMC_IS_NULLPTR_SUPPORT_COMPILER \
 	(__cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__))
 #define BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER \
 	(__cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__))
+#define BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER \
+	(__cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__) || __GNUC__ >= 4)
 #define BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER \
 	(__cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__))
 #define BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER \

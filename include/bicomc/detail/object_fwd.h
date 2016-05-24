@@ -815,10 +815,16 @@ using bcc::bicomc_cast;
 	template<typename> friend struct bcc::detail::is_interface_impl; \
 	template<typename> friend struct bcc::detail::InheritanceDepth; \
 	template<typename> friend struct bcc::detail::LazyBase; \
+	template<typename> friend struct bcc::detail::Signature; \
 protected: \
 	static size_t const BICOMC_INHERITANCE_DEPTH__ = bcc::detail::InheritanceDepth<INTERFACE_NAME >::value; \
 private: \
 	typedef INTERFACE_NAME BiCOMC_My__; \
+	\
+	struct BICOMC_SIGNATURE_DEFAULT_NAME \
+	{ \
+		static std::wstring to_wstring() { return BICOMC_WSTRINGIZER(INTERFACE_NAME); } \
+	}; \
 	\
 	template<size_t BiCOMC_index__, typename BiCOMC_Dummy__ = void> \
 	struct BiCOMC_Type_Enumerator__; \
@@ -886,8 +892,7 @@ protected: \
 	~INTERFACE_NAME() {} \
 private: \
 	INTERFACE_NAME(BiCOMC_My__ const& rhs) BICOMC_DELETE; \
-}; \
-template<> struct BICOMC_SIGNATURE_DEFAULT_NAME<INTERFACE_NAME > { static std::wstring to_wstring() { return BICOMC_WSTRINGIZER(INTERFACE_NAME); } };
+};
 
 #define BICOMC_METHOD_TYPE_NAME(METHOD_NAME) \
 	BiCOMC_ ## METHOD_NAME ## _Type__

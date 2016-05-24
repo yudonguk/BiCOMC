@@ -15,10 +15,6 @@
 #define BICOMC_SIGNATURE_DEFAULT_NAME \
 	BiCOMC_Signature_Default__
 
-template<typename T>
-struct BICOMC_SIGNATURE_DEFAULT_NAME;
-//	static std::wstring to_wstring();
-
 #define BICOMC_SIGNATURE_CUSTOM_NAME \
 	BiCOMC_Signature_Custom__
 
@@ -197,11 +193,14 @@ namespace detail
 
 			template <typename C, C> struct Check;
 
-			template<typename C> static TrueType test(Check<std::wstring(*)(), &C::to_wstring>*);
-			template<typename C> static FalseType test(...);
+			template<typename C> static TrueType test_custom(Check<std::wstring(*)(), &C::to_wstring>*);
+			template<typename C> static FalseType test_custom(...);
 
-			static bool const has_default = sizeof(test<BICOMC_SIGNATURE_DEFAULT_NAME<U> >(0)) == sizeof(TrueType);
-			static bool const has_custom = sizeof(test<BICOMC_SIGNATURE_CUSTOM_NAME<U> >(0)) == sizeof(TrueType);
+			template<typename C> static TrueType test_default(typename C::BICOMC_SIGNATURE_DEFAULT_NAME*);
+			template<typename C> static FalseType test_default(...);
+
+			static bool const has_default = sizeof(test_default<U>(0)) == sizeof(TrueType);
+			static bool const has_custom = sizeof(test_custom<BICOMC_SIGNATURE_CUSTOM_NAME<U> >(0)) == sizeof(TrueType);
 		};
 
 		template<typename U>
@@ -210,9 +209,6 @@ namespace detail
 			, std::wstring
 		>::type to_wstring_impl()
 		{
-			static_assert(HasTypeSignature<U>::has_default || HasTypeSignature<U>::has_custom
-				, "Please use 'BICOMC_SIGNATURE()' or specialize 'bcc::detail::Signature'.");
-
 			typedef typename bcc::conditional<
 				HasTypeSignature<U>::has_custom
 				, bcc::true_type, bcc::false_type
@@ -224,7 +220,11 @@ namespace detail
 		template<typename U>
 		static std::wstring to_wstring_from_custom_signature(bcc::false_type)
 		{
-			return BICOMC_SIGNATURE_DEFAULT_NAME<U>::to_wstring();
+			static_assert(HasTypeSignature<U>::has_default
+				, "Please use 'BICOMC_SIGNATURE()' or specialize 'bcc::detail::Signature'.");
+
+			typedef typename U::BICOMC_SIGNATURE_DEFAULT_NAME DefaultSignature;
+			return DefaultSignature::to_wstring();
 		}
 
 		template<typename U>

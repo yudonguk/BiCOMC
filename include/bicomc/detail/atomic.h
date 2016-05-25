@@ -11,10 +11,10 @@ namespace detail
 {
 	typedef bcc::intptr_t atomic_intptr_t;
 
-	void atomic_store(atomic_intptr_t* pObject, bcc::intptr_t desired);
-	bcc::intptr_t atomic_load(atomic_intptr_t const* pObject);
-	bcc::intptr_t atomic_exchange(atomic_intptr_t* pObject, bcc::intptr_t desired);
-	bool atomic_compare_exchange_strong(atomic_intptr_t* pObject, bcc::intptr_t* pExpected, bcc::intptr_t desired);
+	void atomic_store(atomic_intptr_t* pObject, bcc::intptr_t desired) BICOMC_NOEXCEPT;
+	bcc::intptr_t atomic_load(atomic_intptr_t const* pObject) BICOMC_NOEXCEPT;
+	bcc::intptr_t atomic_exchange(atomic_intptr_t* pObject, bcc::intptr_t desired) BICOMC_NOEXCEPT;
+	bool atomic_compare_exchange_strong(atomic_intptr_t* pObject, bcc::intptr_t* pExpected, bcc::intptr_t desired) BICOMC_NOEXCEPT;
 } // namespace detail
 } // namespace bcc
 

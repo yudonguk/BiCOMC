@@ -8,7 +8,7 @@
 #include "type_traits.h"
 
 #if BICOMC_IS_ARRAY_SUPPORT_COMPILER
-#include <array>
+#	include <array>
 
 namespace bcc
 {
@@ -16,11 +16,11 @@ namespace bcc
 }
 
 #else
-#include "stdint.h"
+#	include "stdint.h"
 
-#include <algorithm>
-#include <iterator>
-#include <stdexcept>
+#	include <algorithm>
+#	include <iterator>
+#	include <stdexcept>
 
 namespace bcc
 {
@@ -54,133 +54,133 @@ namespace bcc
 			return mArray[position];
 		}
 
-		reference operator[](size_type position)
+		reference operator[](size_type position) BICOMC_NOEXCEPT
 		{
 			return mArray[position];
 		}
 
-		BICOMC_CONSTEXPR const_reference operator[](size_type position) const
+		BICOMC_CONSTEXPR const_reference operator[](size_type position) const BICOMC_NOEXCEPT
 		{
 			return mArray[position];
 		}
 
-		reference front()
+		reference front() BICOMC_NOEXCEPT
 		{
 			return mArray[0];
 		}
 
-		BICOMC_CONSTEXPR const_reference front() const
+		BICOMC_CONSTEXPR const_reference front() const BICOMC_NOEXCEPT
 		{
 			return mArray[0];
 		}
 
-		reference back()
+		reference back() BICOMC_NOEXCEPT
 		{
 			return mArray[N - 1];
 		}
 
-		BICOMC_CONSTEXPR const_reference back() const
+		BICOMC_CONSTEXPR const_reference back() const BICOMC_NOEXCEPT
 		{
 			return mArray[N - 1];
 		}
 
-		pointer data()
+		pointer data() BICOMC_NOEXCEPT
 		{
 			return mArray;
 		}
 
-		const_pointer data() const
+		const_pointer data() const BICOMC_NOEXCEPT
 		{
 			return mArray;
 		}
 
 	public:
 		// iterators
-		iterator begin()
+		iterator begin() BICOMC_NOEXCEPT
 		{
 			return mArray;
 		}
 
-		const_iterator begin() const
+		const_iterator begin() const BICOMC_NOEXCEPT
 		{
 			return mArray;
 		}
 
-		const_iterator cbegin() const
+		const_iterator cbegin() const BICOMC_NOEXCEPT
 		{
 			return mArray;
 		}
 
-		iterator end()
+		iterator end() BICOMC_NOEXCEPT
 		{
 			return mArray + N;
 		}
 
-		const_iterator end() const
+		const_iterator end() const BICOMC_NOEXCEPT
 		{
 			return mArray + N;
 		}
 
-		const_iterator cend() const
+		const_iterator cend() const BICOMC_NOEXCEPT
 		{
 			return mArray + N;
 		}
 
-		reverse_iterator rbegin()
+		reverse_iterator rbegin() BICOMC_NOEXCEPT
 		{
 			return reverse_iterator(end());
 		}
 
-		reverse_iterator rbegin() const
+		reverse_iterator rbegin() const BICOMC_NOEXCEPT
 		{
 			return const_reverse_iterator(end());
 		}
 
-		reverse_iterator crbegin() const
+		reverse_iterator crbegin() const BICOMC_NOEXCEPT
 		{
 			return const_reverse_iterator(end());
 		}
 
-		reverse_iterator rend()
+		reverse_iterator rend() BICOMC_NOEXCEPT
 		{
 			return reverse_iterator(begin());
 		}
 
-		reverse_iterator rend() const
+		reverse_iterator rend() const BICOMC_NOEXCEPT
 		{
 			return const_reverse_iterator(begin());
 		}
 
-		reverse_iterator crend() const
+		reverse_iterator crend() const BICOMC_NOEXCEPT
 		{
 			return const_reverse_iterator(begin());
 		}
 
 	public:
 		// capacity
-		BICOMC_CONSTEXPR bool empty() const
+		BICOMC_CONSTEXPR bool empty() const BICOMC_NOEXCEPT
 		{
 			return N == 0;
 		}
 
-		BICOMC_CONSTEXPR size_type size() const
+		BICOMC_CONSTEXPR size_type size() const BICOMC_NOEXCEPT
 		{
 			return N;
 		}
 
-		BICOMC_CONSTEXPR size_type max_size() const
+		BICOMC_CONSTEXPR size_type max_size() const BICOMC_NOEXCEPT
 		{
 			return N;
 		}
 
 	public:
 		// operations
-		void fill(const_reference value)
+		void fill(const_reference value) BICOMC_NOEXCEPT_EX(std::fill_n(mArray, N, value))
 		{
 			std::fill_n(mArray, N, value);
 		}
 
-		void swap(array& rhs)
+		void swap(array& rhs) BICOMC_NOEXCEPT_EX(std::swap_ranges(mArray, mArray + N, rhs.mArray))
 		{
 			if (this == &rhs) return;
 			std::swap_ranges(mArray, mArray + N, rhs.mArray);
@@ -191,39 +191,39 @@ namespace bcc
 	};
 
 	template<typename T, size_t N>
-	bool operator==(array<T, N> const& lhs, array<T, N> const& rhs)
+	bool operator==(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(std::equal(lhs.begin(), lhs.end(), rhs.begin()))
 	{
 		if (&lhs == &rhs) return true;
 		return std::equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 
 	template<typename T, size_t N>
-	bool operator!=(array<T, N> const& lhs, array<T, N> const& rhs)
+	bool operator!=(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(!(lhs == rhs))
 	{
 		return !(lhs == rhs);
 	}
 
 	template<typename T, size_t N>
-	bool operator<(array<T, N> const& lhs, array<T, N> const& rhs)
+	bool operator<(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))
 	{
 		if (&lhs == &rhs) return false;
 		return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
 	template<typename T, size_t N>
-	bool operator<=(array<T, N> const& lhs, array<T, N> const& rhs)
+	bool operator<=(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(!(rhs < lhs))
 	{
 		return !(rhs < lhs);
 	}
 
 	template<typename T, size_t N>
-	bool operator>(array<T, N> const& lhs, array<T, N> const& rhs)
+	bool operator>(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(rhs < lhs)
 	{
 		return rhs < lhs;
 	}
 
 	template<typename T, size_t N>
-	bool operator>=(array<T, N> const& lhs, array<T, N> const& rhs)
+	bool operator>=(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(!(lhs < rhs))
 	{
 		return !(lhs < rhs);
 	}
@@ -261,14 +261,14 @@ namespace bcc
 	};
 
 	template<size_t index, typename T, size_t N>
-	BICOMC_CONSTEXPR T& get(array<T, N>& a)
+	BICOMC_CONSTEXPR T& get(array<T, N>& a) BICOMC_NOEXCEPT
 	{
 		static_assert(index < N, "'index' is out of range");
 		return a[index];
 	}
 
 	template<size_t index, typename T, size_t N>
-	BICOMC_CONSTEXPR T const& get(array<T, N> const& a)
+	BICOMC_CONSTEXPR T const& get(array<T, N> const& a) BICOMC_NOEXCEPT
 	{
 		static_assert(index < N, "'index' is out of range");
 		return a[index];
@@ -276,7 +276,7 @@ namespace bcc
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 	template<size_t index, typename T, size_t N>
-	BICOMC_CONSTEXPR T&& get(array<T, N>&& a)
+	BICOMC_CONSTEXPR T&& get(array<T, N>&& a) BICOMC_NOEXCEPT
 	{
 		static_assert(index < N, "'index' is out of range");
 		return std::move(a[index]);

@@ -61,18 +61,18 @@ namespace bcc
 		typedef tuple<Head, Tails...> TupleType;
 		typedef typename tuple_element<index - 1, tuple<Tails...> >::type type;
 
-		static BICOMC_CONSTEXPR type& get(TupleType& tuple)
+		static BICOMC_CONSTEXPR type& get(TupleType& tuple) BICOMC_NOEXCEPT
 		{
 			return tuple_element<index - 1, typename TupleType::Next>::get(tuple.next);
 		}
 
-		static BICOMC_CONSTEXPR type const& get(TupleType const& tuple)
+		static BICOMC_CONSTEXPR type const& get(TupleType const& tuple) BICOMC_NOEXCEPT
 		{
 			return tuple_element<index - 1, typename TupleType::Next>::get(tuple.next);
 		}
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple)
+		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple) BICOMC_NOEXCEPT
 		{
 			return std::move(tuple_element<index - 1, typename TupleType::Next>::get(tuple.next));
 		}
@@ -85,18 +85,18 @@ namespace bcc
 		typedef tuple<Head, Tails...> TupleType;
 		typedef Head type;
 
-		static BICOMC_CONSTEXPR type& get(TupleType& tuple)
+		static BICOMC_CONSTEXPR type& get(TupleType& tuple) BICOMC_NOEXCEPT
 		{
 			return tuple.value;
 		}
 
-		static BICOMC_CONSTEXPR type const& get(TupleType const& tuple)
+		static BICOMC_CONSTEXPR type const& get(TupleType const& tuple) BICOMC_NOEXCEPT
 		{
 			return tuple.value;
 		}
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple)
+		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple) BICOMC_NOEXCEPT
 		{
 			return std::move(tuple.value);
 		}
@@ -104,20 +104,20 @@ namespace bcc
 	};
 
 	template<size_t index, typename... Types>
-	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type& get(tuple<Types...>& tuple)
+	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type& get(tuple<Types...>& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<Types...> >::get(tuple);
 	}
 
 	template<size_t index, typename... Types>
-	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type const& get(tuple<Types...> const& tuple)
+	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type const& get(tuple<Types...> const& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<Types...> >::get(tuple);
 	}
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 	template<size_t index, typename... Types>
-	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type&& get(tuple<Types...>&& tuple)
+	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type&& get(tuple<Types...>&& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<Types...> >::get(std::move(tuple));
 	}
@@ -197,18 +197,18 @@ namespace bcc
 			, T30> TupleType;
 		typedef typename tuple_element<index - 1, typename TupleType::Next>::type type;
 
-		static BICOMC_CONSTEXPR type& get(TupleType& tuple)
+		static BICOMC_CONSTEXPR type& get(TupleType& tuple) BICOMC_NOEXCEPT
 		{
 			return tuple_element<index - 1, typename TupleType::Next>::get(tuple.next);
 		}
 
-		static BICOMC_CONSTEXPR type const& get(TupleType const& tuple)
+		static BICOMC_CONSTEXPR type const& get(TupleType const& tuple) BICOMC_NOEXCEPT
 		{
 			return tuple_element<index - 1, typename TupleType::Next>::get(tuple.next);
 		}
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple)
+		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple) BICOMC_NOEXCEPT
 		{
 			return std::move(tuple_element<index - 1, typename TupleType::Next>::get(tuple.next));
 		}
@@ -229,18 +229,18 @@ namespace bcc
 			, T30> TupleType;
 		typedef typename TupleType::Value type;
 
-		static BICOMC_CONSTEXPR type& get(TupleType& tuple)
+		static BICOMC_CONSTEXPR type& get(TupleType& tuple) BICOMC_NOEXCEPT
 		{
 			return tuple.value;
 		}
 
-		static BICOMC_CONSTEXPR type const& get(TupleType const& tuple)
+		static BICOMC_CONSTEXPR type const& get(TupleType const& tuple) BICOMC_NOEXCEPT
 		{
 			return tuple.value;
 		}
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple)
+		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple) BICOMC_NOEXCEPT
 		{
 			return std::move(tuple.value);
 		}
@@ -258,7 +258,7 @@ namespace bcc
 			, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29
 			, T30>
 		>::type& get(tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
-			, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>& tuple)
+			, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
 				, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> >::get(tuple);
@@ -275,7 +275,7 @@ namespace bcc
 			, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29
 			, T30>
 		>::type const& get(tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
-			, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> const& tuple)
+			, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> const& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
 				, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> >::get(tuple);
@@ -293,7 +293,7 @@ namespace bcc
 			, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29
 			, T30>
 		>::type&& get(tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
-			, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>&& tuple)
+			, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>&& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
 				, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> >::get(std::move(tuple));

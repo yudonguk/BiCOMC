@@ -125,9 +125,11 @@
 #endif // BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
 
 #if BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER
-#	define BICOMC_NOEXCEPT(...) noexcept(__VA_ARGS__)
+#	define BICOMC_NOEXCEPT noexcept
+#	define BICOMC_NOEXCEPT_EX(...) noexcept(noexcept(__VA_ARGS__))
 #else
-#	define BICOMC_NOEXCEPT(...)
+#	define BICOMC_NOEXCEPT throw()
+#	define BICOMC_NOEXCEPT_EX(...)
 #endif // BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER
 
 #if BICOMC_IS_EXPLICITY_DEFAULT_DELETE_SUPPORT_COMPILER
@@ -145,13 +147,13 @@ namespace detail
 	{
 	public:
 		template<typename T>
-		inline operator T*() const
+		inline BICOMC_CONSTEXPR operator T*() const BICOMC_NOEXCEPT
 		{
 			return 0;
 		}
 
 		template<typename U, typename T>
-		inline operator T U::*() const
+		inline BICOMC_CONSTEXPR operator T U::*() const BICOMC_NOEXCEPT
 		{
 			return 0;
 		}

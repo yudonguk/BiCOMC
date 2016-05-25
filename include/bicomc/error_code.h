@@ -17,18 +17,18 @@ namespace detail
 	class ErrorCode
 	{
 	public:
-		ErrorCode();
+		ErrorCode() BICOMC_NOEXCEPT;
 
-		ErrorCode(std::nullptr_t);
+		ErrorCode(std::nullptr_t) BICOMC_NOEXCEPT;
 
 		ErrorCode(detail::ErrorDetail const& detail);
 
-		explicit ErrorCode(detail::ErrorDetail* pDetail);
+		explicit ErrorCode(detail::ErrorDetail* pDetail) BICOMC_NOEXCEPT;
 			
 		ErrorCode(ErrorCode const& error);
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-		ErrorCode(ErrorCode&& error);
+		ErrorCode(ErrorCode&& error) BICOMC_NOEXCEPT;
 #endif
 		
 		~ErrorCode();
@@ -37,15 +37,15 @@ namespace detail
 		ErrorCode& operator=(ErrorCode const& error);
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-		ErrorCode& operator=(ErrorCode&& error);
+		ErrorCode& operator=(ErrorCode&& error) BICOMC_NOEXCEPT;
 #endif
 
 	public:
 		typedef void(*unspecified_bool_type)();
 
-		operator unspecified_bool_type() const;
+		operator unspecified_bool_type() const BICOMC_NOEXCEPT;
 
-		bool operator!() const;
+		bool operator!() const BICOMC_NOEXCEPT;
 
 	public:
 		bcc::uint32_t value() const;
@@ -56,9 +56,9 @@ namespace detail
 
 		void reset(detail::ErrorDetail* pDetail = nullptr);
 
-		detail::ErrorDetail* release();
+		detail::ErrorDetail* release() BICOMC_NOEXCEPT;
 		
-		void swap(ErrorCode& error);
+		void swap(ErrorCode& error) BICOMC_NOEXCEPT;
 		
 	private:
 		detail::ErrorDetail* mpDetail;

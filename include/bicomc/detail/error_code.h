@@ -12,11 +12,11 @@
 
 namespace bcc
 {
-	inline ErrorCode::ErrorCode()
+	inline ErrorCode::ErrorCode() BICOMC_NOEXCEPT
 		: mpDetail(nullptr)
 	{}
 
-	inline ErrorCode::ErrorCode(std::nullptr_t)
+	inline ErrorCode::ErrorCode(std::nullptr_t) BICOMC_NOEXCEPT
 		: mpDetail(nullptr)
 	{}
 
@@ -24,7 +24,7 @@ namespace bcc
 		: mpDetail(bicomc_cast<detail::ErrorDetail*>(detail.clone()))
 	{}
 
-	inline ErrorCode::ErrorCode(detail::ErrorDetail* pDetail)
+	inline ErrorCode::ErrorCode(detail::ErrorDetail* pDetail) BICOMC_NOEXCEPT
 		: mpDetail(pDetail)
 	{}
 
@@ -48,26 +48,26 @@ namespace bcc
 	}
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-	inline ErrorCode::ErrorCode(ErrorCode&& error)
+	inline ErrorCode::ErrorCode(ErrorCode&& error) BICOMC_NOEXCEPT
 		: mpDetail(nullptr)
 	{
 		swap(error);
 	}
 
-	inline ErrorCode& ErrorCode::operator=(ErrorCode&& error)
+	inline ErrorCode& ErrorCode::operator=(ErrorCode&& error) BICOMC_NOEXCEPT
 	{
 		swap(error);
 		return *this;
 	}
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
-	inline ErrorCode::operator ErrorCode::unspecified_bool_type() const
+	inline ErrorCode::operator ErrorCode::unspecified_bool_type() const BICOMC_NOEXCEPT
 	{
 		struct bool_true_helper { static void bool_true() {} };
 		return mpDetail == nullptr ? nullptr : &bool_true_helper::bool_true;
 	}
 
-	inline bool ErrorCode::operator!() const
+	inline bool ErrorCode::operator!() const BICOMC_NOEXCEPT
 	{
 		return mpDetail == nullptr;
 	}
@@ -84,7 +84,7 @@ namespace bcc
 
 	inline std::string ErrorCode::message() const
 	{
-		return mpDetail ? std::string(mpDetail->message()) : std::string("");
+		return mpDetail ? std::string(mpDetail->message()) : std::string();
 	}
 
 	inline void ErrorCode::reset(detail::ErrorDetail* pDetail)
@@ -95,14 +95,14 @@ namespace bcc
 		if (pTemp) pTemp->destroy();
 	}
 
-	inline detail::ErrorDetail* ErrorCode::release()
+	inline detail::ErrorDetail* ErrorCode::release() BICOMC_NOEXCEPT
 	{
 		detail::ErrorDetail* pDetail = mpDetail;
 		mpDetail = nullptr;
 		return pDetail;
 	}
 
-	inline void ErrorCode::swap(ErrorCode& error)
+	inline void ErrorCode::swap(ErrorCode& error) BICOMC_NOEXCEPT
 	{
 		if (this == &error) return;
 		std::swap(mpDetail, error.mpDetail);

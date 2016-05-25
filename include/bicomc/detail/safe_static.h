@@ -54,7 +54,7 @@ namespace detail
 		};
 
 	public:
-		static T* get()
+		static T* get() BICOMC_NOEXCEPT
 		{
 			return get(nullptr);
 		}
@@ -99,7 +99,7 @@ namespace detail
 		};
 
 	public:
-		static T* get()
+		static T* get() BICOMC_NOEXCEPT
 		{
 			static T* p = 0;
 			if (p) return p;

@@ -24,12 +24,12 @@ namespace detail
 	};
 	static_assert(sizeof(Hash) == 16, "'Hash' size must equal 16.");
 
-	inline bool operator==(Hash const& lhs, Hash const& rhs)
+	inline bool operator==(Hash const& lhs, Hash const& rhs) BICOMC_NOEXCEPT
 	{
 		return lhs.hash == rhs.hash && lhs.subhash == rhs.subhash;
 	}
 
-	inline bool operator!=(Hash const& lhs, Hash const& rhs)
+	inline bool operator!=(Hash const& lhs, Hash const& rhs) BICOMC_NOEXCEPT
 	{
 		return lhs.hash != rhs.hash || lhs.subhash != rhs.subhash;
 	}
@@ -42,12 +42,12 @@ namespace detail
 	template<typename T>
 	struct Hasher<T const>
 	{
-		static bcc::uint64_t hash()
+		static bcc::uint64_t hash() BICOMC_NOEXCEPT_EX(Hasher<T>::hash())
 		{
 			return Hasher<T>::hash();
 		}
 
-		static bcc::uint64_t subhash()
+		static bcc::uint64_t subhash() BICOMC_NOEXCEPT_EX(Hasher<T>::subhash())
 		{
 			return Hasher<T>::subhash();
 		}
@@ -56,12 +56,12 @@ namespace detail
 	template<typename T>
 	struct Hasher<T volatile>
 	{
-		static bcc::uint64_t hash()
+		static bcc::uint64_t hash() BICOMC_NOEXCEPT_EX(Hasher<T>::hash())
 		{
 			return Hasher<T>::hash();
 		}
 
-		static bcc::uint64_t subhash()
+		static bcc::uint64_t subhash() BICOMC_NOEXCEPT_EX(Hasher<T>::subhash())
 		{
 			return Hasher<T>::subhash();
 		}
@@ -70,12 +70,12 @@ namespace detail
 	template<typename T>
 	struct Hasher<T const volatile>
 	{
-		static bcc::uint64_t hash()
+		static bcc::uint64_t hash() BICOMC_NOEXCEPT_EX(Hasher<T>::hash())
 		{
 			return Hasher<T>::hash();
 		}
 
-		static bcc::uint64_t subhash()
+		static bcc::uint64_t subhash() BICOMC_NOEXCEPT_EX(Hasher<T>::subhash())
 		{
 			return Hasher<T>::subhash();
 		}
@@ -84,12 +84,12 @@ namespace detail
 	template<typename T>
 	struct Hasher<T&>
 	{
-		static bcc::uint64_t hash()
+		static bcc::uint64_t hash() BICOMC_NOEXCEPT_EX(Hasher<T>::hash())
 		{
 			return Hasher<T>::hash();
 		}
 
-		static bcc::uint64_t subhash()
+		static bcc::uint64_t subhash() BICOMC_NOEXCEPT_EX(Hasher<T>::subhash())
 		{
 			return Hasher<T>::subhash();
 		}
@@ -99,12 +99,12 @@ namespace detail
 	template<typename T>
 	struct Hasher<T&&>
 	{
-		static bcc::uint64_t hash()
+		static bcc::uint64_t hash() BICOMC_NOEXCEPT_EX(Hasher<T>::hash())
 		{
 			return Hasher<T>::hash();
 		}
 
-		static bcc::uint64_t subhash()
+		static bcc::uint64_t subhash() BICOMC_NOEXCEPT_EX(Hasher<T>::subhash())
 		{
 			return Hasher<T>::subhash();
 		}
@@ -114,12 +114,12 @@ namespace detail
 	template<typename T>
 	struct Hasher<T*>
 	{
-		static bcc::uint64_t hash()
+		static bcc::uint64_t hash() BICOMC_NOEXCEPT_EX(Hasher<T>::hash())
 		{
 			return Hasher<T>::hash();
 		}
 
-		static bcc::uint64_t subhash()
+		static bcc::uint64_t subhash() BICOMC_NOEXCEPT_EX(Hasher<T>::hash())
 		{
 			return Hasher<T>::subhash();
 		}

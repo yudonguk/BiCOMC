@@ -127,56 +127,56 @@ namespace detail
 		static size_t const INTERFACE_NAME_INDEX = INTERFACE_COUNT_INDEX + 1;
 
 	public:
-		static bcc::uintptr_t inheritanceDepth(bcc::Object const& object);
-		static bcc::uintptr_t inheritanceDepth(bcc::Object const volatile& object);
+		static bcc::uintptr_t inheritanceDepth(bcc::Object const& object) BICOMC_NOEXCEPT;
+		static bcc::uintptr_t inheritanceDepth(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
-		static bcc::uintptr_t version(bcc::Object const& object);
-		static bcc::uintptr_t version(bcc::Object const volatile& object);
+		static bcc::uintptr_t version(bcc::Object const& object) BICOMC_NOEXCEPT;
+		static bcc::uintptr_t version(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
-		static bcc::Object* next(bcc::Object& object);
-		static bcc::Object const* next(bcc::Object const& object);
-		static bcc::Object volatile* next(bcc::Object volatile& object);
-		static bcc::Object const volatile* next(bcc::Object const volatile& object);
+		static bcc::Object* next(bcc::Object& object) BICOMC_NOEXCEPT;
+		static bcc::Object const* next(bcc::Object const& object) BICOMC_NOEXCEPT;
+		static bcc::Object volatile* next(bcc::Object volatile& object) BICOMC_NOEXCEPT;
+		static bcc::Object const volatile* next(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
-		static bcc::detail::Hash const& hash(bcc::Object const& object, size_t depth);
-		static bcc::detail::Hash const& hash(bcc::Object const& object);
+		static bcc::detail::Hash const& hash(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT;
+		static bcc::detail::Hash const& hash(bcc::Object const& object) BICOMC_NOEXCEPT;
 
-		static bcc::uintptr_t methodCount(bcc::Object const& object, size_t depth);
-		static bcc::uintptr_t methodCount(bcc::Object const& object);
+		static bcc::uintptr_t methodCount(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT;
+		static bcc::uintptr_t methodCount(bcc::Object const& object) BICOMC_NOEXCEPT;
 
-		static char const* name(bcc::Object const& object, size_t depth);
-		static char const* name(bcc::Object const& object);
+		static char const* name(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT;
+		static char const* name(bcc::Object const& object) BICOMC_NOEXCEPT;
 
-		static char const* const* signatures(bcc::Object const& object, size_t depth);
-		static char const* const* signatures(bcc::Object const& object);
+		static char const* const* signatures(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT;
+		static char const* const* signatures(bcc::Object const& object) BICOMC_NOEXCEPT;
 
-		static void setTable(bcc::Object const& object, void** table);
+		static void setTable(bcc::Object const& object, void** table) BICOMC_NOEXCEPT;
 
-		static bool isMultiple(bcc::Object const& object);
-		static bool isMultiple(bcc::Object const volatile& object);
+		static bool isMultiple(bcc::Object const& object) BICOMC_NOEXCEPT;
+		static bool isMultiple(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
-		static bool isCompatible(bcc::Object const& object, bcc::Object const& target);
-		static bool isCompatible(bcc::Object const volatile& object, bcc::Object const& target);
+		static bool isCompatible(bcc::Object const& object, bcc::Object const& target) BICOMC_NOEXCEPT;
+		static bool isCompatible(bcc::Object const volatile& object, bcc::Object const& target) BICOMC_NOEXCEPT;
 
-		static bcc::Object* cast(bcc::Object& object, bcc::Object const& target);
-		static bcc::Object const* cast(bcc::Object const& object, bcc::Object const& target);
-		static bcc::Object volatile* cast(bcc::Object volatile& object, bcc::Object const& target);
-		static bcc::Object const volatile* cast(bcc::Object const volatile& object, bcc::Object const& target);
-
-		template<size_t depth, typename FuntionTypes>
-		static typename bcc::tuple_element<depth, FuntionTypes>::type& ownTable(bcc::Object const& object);
+		static bcc::Object* cast(bcc::Object& object, bcc::Object const& target) BICOMC_NOEXCEPT;
+		static bcc::Object const* cast(bcc::Object const& object, bcc::Object const& target) BICOMC_NOEXCEPT;
+		static bcc::Object volatile* cast(bcc::Object volatile& object, bcc::Object const& target) BICOMC_NOEXCEPT;
+		static bcc::Object const volatile* cast(bcc::Object const volatile& object, bcc::Object const& target) BICOMC_NOEXCEPT;
 
 		template<size_t depth, typename FuntionTypes>
-		static typename bcc::tuple_element<depth, FuntionTypes>::type& ownTable(bcc::Object const volatile& object);
+		static typename bcc::tuple_element<depth, FuntionTypes>::type& ownTable(bcc::Object const& object) BICOMC_NOEXCEPT;
+
+		template<size_t depth, typename FuntionTypes>
+		static typename bcc::tuple_element<depth, FuntionTypes>::type& ownTable(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
 		template<size_t index, size_t depth, typename FunctionTables>
-		static typename Function<index, depth, FunctionTables>::type& function(bcc::Object const& object);
+		static typename Function<index, depth, FunctionTables>::type& function(bcc::Object const& object) BICOMC_NOEXCEPT;
 
 		template<size_t index, size_t depth, typename FunctionTables>
-		static typename Function<index, depth, FunctionTables>::type& function(bcc::Object const volatile& object);
+		static typename Function<index, depth, FunctionTables>::type& function(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
 		template<typename T>
-		static ProbeDeducer::type<bcc::tuple_size<typename T::BiCOMC_Function_Types__>::value> const& vftable(T const& object);
+		static ProbeDeducer::type<bcc::tuple_size<typename T::BiCOMC_Function_Types__>::value> const& vftable(T const& object) BICOMC_NOEXCEPT;
 	};
 } // namespace detail
 } // namespace bcc

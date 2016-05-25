@@ -38,7 +38,7 @@ namespace detail
 	struct ObjectCaster
 	{
 		template<typename Origin, typename CastHelper, typename Interface>
-		static Origin& cast(Interface& impl)
+		static Origin& cast(Interface& impl) BICOMC_NOEXCEPT
 		{
 			typedef typename bcc::remove_cv<CastHelper>::type RawHelper;
 			typedef typename bcc::conditional<
@@ -71,7 +71,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -93,7 +93,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -114,7 +114,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -131,7 +131,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -153,7 +153,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -174,7 +174,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -191,7 +191,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -213,7 +213,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -234,7 +234,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -251,7 +251,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -273,7 +273,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -294,7 +294,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, Params... params)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, Params... params) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -312,7 +312,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -330,7 +330,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -347,7 +347,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -364,7 +364,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -382,7 +382,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -399,7 +399,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -416,7 +416,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -434,7 +434,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -451,7 +451,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -468,7 +468,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -486,7 +486,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -503,7 +503,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -521,7 +521,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -543,7 +543,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -564,7 +564,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -581,7 +581,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -603,7 +603,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -624,7 +624,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -641,7 +641,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -663,7 +663,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -684,7 +684,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -701,7 +701,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -723,7 +723,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -744,7 +744,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -762,7 +762,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -784,7 +784,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -805,7 +805,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -822,7 +822,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -844,7 +844,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -865,7 +865,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -882,7 +882,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -904,7 +904,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -925,7 +925,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -942,7 +942,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -964,7 +964,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -985,7 +985,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1003,7 +1003,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1025,7 +1025,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1046,7 +1046,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1063,7 +1063,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1085,7 +1085,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1106,7 +1106,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1123,7 +1123,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1145,7 +1145,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1166,7 +1166,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1183,7 +1183,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1205,7 +1205,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1226,7 +1226,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1244,7 +1244,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1266,7 +1266,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1287,7 +1287,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1304,7 +1304,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1326,7 +1326,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1347,7 +1347,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1364,7 +1364,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1386,7 +1386,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1407,7 +1407,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1424,7 +1424,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1446,7 +1446,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1467,7 +1467,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1485,7 +1485,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1507,7 +1507,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1528,7 +1528,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1545,7 +1545,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1567,7 +1567,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1588,7 +1588,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1605,7 +1605,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1627,7 +1627,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1648,7 +1648,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1665,7 +1665,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1687,7 +1687,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1708,7 +1708,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1726,7 +1726,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1748,7 +1748,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1769,7 +1769,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1786,7 +1786,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1808,7 +1808,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1829,7 +1829,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1846,7 +1846,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1868,7 +1868,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1889,7 +1889,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1906,7 +1906,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1928,7 +1928,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1949,7 +1949,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1967,7 +1967,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -1989,7 +1989,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2010,7 +2010,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2027,7 +2027,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2049,7 +2049,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2070,7 +2070,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2087,7 +2087,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2109,7 +2109,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2130,7 +2130,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2147,7 +2147,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2169,7 +2169,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2190,7 +2190,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2208,7 +2208,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2230,7 +2230,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2251,7 +2251,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2268,7 +2268,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2290,7 +2290,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2311,7 +2311,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2328,7 +2328,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2350,7 +2350,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2371,7 +2371,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2388,7 +2388,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2410,7 +2410,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2431,7 +2431,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2449,7 +2449,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2471,7 +2471,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2492,7 +2492,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2509,7 +2509,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2531,7 +2531,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2552,7 +2552,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2569,7 +2569,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2591,7 +2591,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2612,7 +2612,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2629,7 +2629,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2651,7 +2651,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2672,7 +2672,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2690,7 +2690,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2712,7 +2712,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2733,7 +2733,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2750,7 +2750,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2772,7 +2772,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2793,7 +2793,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2810,7 +2810,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2832,7 +2832,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2853,7 +2853,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2870,7 +2870,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2892,7 +2892,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2913,7 +2913,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2931,7 +2931,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2953,7 +2953,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2974,7 +2974,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -2991,7 +2991,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3013,7 +3013,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3034,7 +3034,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3051,7 +3051,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3073,7 +3073,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3094,7 +3094,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3111,7 +3111,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3133,7 +3133,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3154,7 +3154,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3172,7 +3172,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3194,7 +3194,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3215,7 +3215,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3232,7 +3232,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3254,7 +3254,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3275,7 +3275,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3292,7 +3292,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3314,7 +3314,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3335,7 +3335,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3352,7 +3352,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3374,7 +3374,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3395,7 +3395,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3413,7 +3413,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3435,7 +3435,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3456,7 +3456,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3473,7 +3473,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3495,7 +3495,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3516,7 +3516,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3533,7 +3533,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3555,7 +3555,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3576,7 +3576,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3593,7 +3593,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3615,7 +3615,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3636,7 +3636,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3654,7 +3654,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3676,7 +3676,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3697,7 +3697,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3714,7 +3714,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3736,7 +3736,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3757,7 +3757,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3774,7 +3774,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3796,7 +3796,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3817,7 +3817,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3834,7 +3834,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3856,7 +3856,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3877,7 +3877,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3895,7 +3895,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3917,7 +3917,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3938,7 +3938,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3955,7 +3955,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3977,7 +3977,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -3998,7 +3998,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4015,7 +4015,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4037,7 +4037,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4058,7 +4058,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4075,7 +4075,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4097,7 +4097,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4118,7 +4118,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4136,7 +4136,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4158,7 +4158,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4179,7 +4179,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4196,7 +4196,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4218,7 +4218,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4239,7 +4239,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4256,7 +4256,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4278,7 +4278,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4299,7 +4299,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4316,7 +4316,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4338,7 +4338,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4359,7 +4359,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4377,7 +4377,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4399,7 +4399,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4420,7 +4420,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4437,7 +4437,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4459,7 +4459,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4480,7 +4480,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4497,7 +4497,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4519,7 +4519,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4540,7 +4540,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4557,7 +4557,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4579,7 +4579,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4600,7 +4600,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4618,7 +4618,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4640,7 +4640,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4661,7 +4661,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4678,7 +4678,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4700,7 +4700,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4721,7 +4721,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4738,7 +4738,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4760,7 +4760,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4781,7 +4781,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4798,7 +4798,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4820,7 +4820,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4841,7 +4841,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4859,7 +4859,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4881,7 +4881,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4902,7 +4902,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4919,7 +4919,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4941,7 +4941,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4962,7 +4962,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -4979,7 +4979,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5001,7 +5001,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5022,7 +5022,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5039,7 +5039,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5061,7 +5061,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5082,7 +5082,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5100,7 +5100,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5122,7 +5122,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5143,7 +5143,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5160,7 +5160,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5182,7 +5182,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5203,7 +5203,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5220,7 +5220,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5242,7 +5242,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5263,7 +5263,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5280,7 +5280,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5302,7 +5302,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5323,7 +5323,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5341,7 +5341,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5363,7 +5363,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5384,7 +5384,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5401,7 +5401,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5423,7 +5423,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5444,7 +5444,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5461,7 +5461,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5483,7 +5483,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5504,7 +5504,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5521,7 +5521,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5543,7 +5543,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5564,7 +5564,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5582,7 +5582,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5604,7 +5604,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5625,7 +5625,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5642,7 +5642,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5664,7 +5664,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5685,7 +5685,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5702,7 +5702,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5724,7 +5724,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5745,7 +5745,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5762,7 +5762,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5784,7 +5784,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5805,7 +5805,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5823,7 +5823,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5845,7 +5845,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5866,7 +5866,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5883,7 +5883,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5905,7 +5905,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5926,7 +5926,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5943,7 +5943,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5965,7 +5965,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -5986,7 +5986,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6003,7 +6003,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6025,7 +6025,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6046,7 +6046,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6064,7 +6064,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6086,7 +6086,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6107,7 +6107,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6124,7 +6124,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6146,7 +6146,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6167,7 +6167,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6184,7 +6184,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6206,7 +6206,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6227,7 +6227,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6244,7 +6244,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6266,7 +6266,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6287,7 +6287,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6305,7 +6305,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6327,7 +6327,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6348,7 +6348,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6365,7 +6365,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6387,7 +6387,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6408,7 +6408,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6425,7 +6425,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6447,7 +6447,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6468,7 +6468,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6485,7 +6485,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6507,7 +6507,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6528,7 +6528,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6546,7 +6546,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6568,7 +6568,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6589,7 +6589,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6606,7 +6606,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6628,7 +6628,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6649,7 +6649,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6666,7 +6666,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6688,7 +6688,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6709,7 +6709,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6726,7 +6726,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6748,7 +6748,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6769,7 +6769,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6787,7 +6787,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6809,7 +6809,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6830,7 +6830,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6847,7 +6847,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6869,7 +6869,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6890,7 +6890,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6907,7 +6907,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6929,7 +6929,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6950,7 +6950,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6967,7 +6967,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -6989,7 +6989,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7010,7 +7010,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7028,7 +7028,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7050,7 +7050,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7071,7 +7071,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7088,7 +7088,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7110,7 +7110,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7131,7 +7131,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7148,7 +7148,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7170,7 +7170,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7191,7 +7191,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7208,7 +7208,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7230,7 +7230,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7251,7 +7251,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7269,7 +7269,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7291,7 +7291,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Interface* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7312,7 +7312,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Owner* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7329,7 +7329,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7351,7 +7351,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Interface const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7372,7 +7372,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Owner const* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7389,7 +7389,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7411,7 +7411,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Interface volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7432,7 +7432,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Owner volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7449,7 +7449,7 @@ namespace detail
 		typedef ReturnHelper<Ret> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7471,7 +7471,7 @@ namespace detail
 		typedef ReturnHelper<void> RH;
 
 		template<typename Interface, typename CastHelper>
-		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Interface const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
@@ -7492,7 +7492,7 @@ namespace detail
 	{
 		typedef ReturnHelper<Ret> RH;
 
-		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29)
+		static ErrorDetail* BICOMC_CALL call(Owner const volatile* pImpl, typename RH::mediator* pRet, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7, P8 p8, P9 p9, P10 p10, P11 p11, P12 p12, P13 p13, P14 p14, P15 p15, P16 p16, P17 p17, P18 p18, P19 p19, P20 p20, P21 p21, P22 p22, P23 p23, P24 p24, P25 p25, P26 p26, P27 p27, P28 p28, P29 p29) BICOMC_NOEXCEPT
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{

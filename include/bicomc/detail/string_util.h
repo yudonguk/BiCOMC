@@ -140,7 +140,7 @@ namespace detail
 #endif // BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
 		}
 
-		static size_t convertToUtf8(char output[6], wchar_t ch)
+		static size_t convertToUtf8(char output[6], wchar_t ch) BICOMC_NOEXCEPT
 		{
 			if (ch <= 0x7F)
 			{
@@ -192,7 +192,7 @@ namespace detail
 			return 0;
 		}
 
-		static size_t convertFromUtf8(wchar_t& output, char const* utf8)
+		static size_t convertFromUtf8(wchar_t& output, char const* utf8) BICOMC_NOEXCEPT
 		{
 			unsigned char ch = *utf8;
 			if (ch <= 0x7F)

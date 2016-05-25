@@ -6,7 +6,7 @@
 namespace bcc
 {
 	template<typename T>
-	T* addressof(T& o)
+	T* addressof(T& o) BICOMC_NOEXCEPT
 	{
 		return reinterpret_cast<T*>(&const_cast<char&>(reinterpret_cast<char const volatile&>(o)));
 	}

@@ -550,7 +550,7 @@ namespace detail
 			return murmurHashNeutral64v2(data.c_str(), data.size(), 0);
 		}
 
-		static bcc::uint64_t getBlock(bcc::uint8_t const* data)
+		static bcc::uint64_t getBlock(bcc::uint8_t const* data) BICOMC_NOEXCEPT
 		{
 			return bcc::uint64_t(data[0])
 				| bcc::uint64_t(data[1]) << 8
@@ -562,12 +562,12 @@ namespace detail
 				| bcc::uint64_t(data[7]) << 56;
 		}
 
-		static bcc::uint64_t rotl64(bcc::uint64_t x, int r)
+		static bcc::uint64_t rotl64(bcc::uint64_t x, int r) BICOMC_NOEXCEPT
 		{
 			return (x << r) | (x >> (64 - r));
 		}
 		
-		static bcc::uint64_t fmix(bcc::uint64_t k)
+		static bcc::uint64_t fmix(bcc::uint64_t k) BICOMC_NOEXCEPT
 		{
 			k ^= k >> 33;
 			k *= UINT64_C(0xFF51AFD7ED558CCD);
@@ -577,7 +577,7 @@ namespace detail
 			return k;
 		}
 
-		static bcc::uint64_t murmurHashNeutral64v2(void const* key, size_t len, bcc::uint64_t seed)
+		static bcc::uint64_t murmurHashNeutral64v2(void const* key, size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
 		{
 			bcc::uint64_t const m = UINT64_C(0xC6A4A7935BD1E995);
 			int const r = 47;
@@ -618,7 +618,7 @@ namespace detail
 			return h;
 		}
 
-		static bcc::array<bcc::uint64_t, 2> murmurHashNeutral128v3(void const* key, size_t len, bcc::uint64_t seed)
+		static bcc::array<bcc::uint64_t, 2> murmurHashNeutral128v3(void const* key, size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
 		{
 			bcc::uint8_t const* data = static_cast<bcc::uint8_t const*>(key);
 			bcc::uint8_t const* end = data + (len - len % 16);
@@ -701,7 +701,7 @@ namespace detail
 			return result;
 		}
 
-		static bcc::uint64_t fnv1a64(void const* key, size_t len, bcc::uint64_t seed)
+		static bcc::uint64_t fnv1a64(void const* key, size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
 		{
 			bcc::uint8_t const* data = static_cast<bcc::uint8_t const*>(key);
 			bcc::uint8_t const* end = data + len;
@@ -775,18 +775,18 @@ namespace detail
 	struct is_interface : public bcc::integral_constant<bool, detail::is_interface_impl<typename bcc::remove_cv<T>::type>::value>
 	{};
 
-	inline bool is_multiple(bcc::Object const& object)
+	inline bool is_multiple(bcc::Object const& object) BICOMC_NOEXCEPT
 	{
 		return bcc::detail::ObjectHelper::isMultiple(object);
 	}
 
-	inline bool is_multiple(bcc::Object const volatile& object)
+	inline bool is_multiple(bcc::Object const volatile& object) BICOMC_NOEXCEPT
 	{
 		return bcc::detail::ObjectHelper::isMultiple(object);
 	}
 
 	template<typename Target>
-	bool is_compatible(bcc::Object const& object)
+	bool is_compatible(bcc::Object const& object) BICOMC_NOEXCEPT
 	{
 		static_assert(bcc::is_interface<Target>::value, "'Target' type must be interface.");
 		class Temp : public bcc::remove_cv<Target>::type {} target;
@@ -794,7 +794,7 @@ namespace detail
 	}
 
 	template<typename Target>
-	bool is_compatible(bcc::Object const volatile& object)
+	bool is_compatible(bcc::Object const volatile& object) BICOMC_NOEXCEPT
 	{
 		static_assert(bcc::is_interface<Target>::value, "'Target' type must be interface.");
 		class Temp : public bcc::remove_cv<Target>::type {} target;
@@ -805,7 +805,7 @@ namespace detail
 	T bicomc_cast(U& object);
 
 	template<typename T, typename U>
-	T bicomc_cast(U* object);
+	T bicomc_cast(U* object) BICOMC_NOEXCEPT;
 } // namespace bcc
 
 using bcc::bicomc_cast;

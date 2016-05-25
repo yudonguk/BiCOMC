@@ -42,7 +42,7 @@ namespace detail
 		UnknownError& operator=(UnknownError const&) BICOMC_DELETE;
 
 	public:
-		static UnknownError* instance()
+		static UnknownError* instance() BICOMC_NOEXCEPT
 		{
 			static UnknownError error;
 			return &error;
@@ -127,8 +127,7 @@ namespace detail
 	public:
 		RuntimeError& operator=(RuntimeError const& error)
 		{
-			if (this == &error)
-				return *this;
+			if (this == &error) return *this;
 			mMessage = error.mMessage;
 			return *this;
 		}
@@ -136,8 +135,7 @@ namespace detail
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 		RuntimeError& operator=(RuntimeError&& error)
 		{
-			if (this == &error)
-				return *this;
+			if (this == &error) return *this;
 			mMessage = std::move(error.mMessage);
 			return *this;
 		}
@@ -192,7 +190,7 @@ namespace detail
 		UncaughtException& operator=(UncaughtException const&) BICOMC_DELETE;
 
 	public:
-		static UncaughtException* instance()
+		static UncaughtException* instance() BICOMC_NOEXCEPT
 		{
 			static UncaughtException error;
 			return &error;

@@ -1006,16 +1006,11 @@ protected: \
 		{ \
 			Helper<BiCOMC_Interfaces__>::template overrideMethod(impl); \
 		} \
-		static char const* name() \
-		{ \
-			static std::string const name_(bcc::detail::StringUtil::convertToUtf8(BICOMC_WSTRINGIZER(METHOD_NAME))); \
-			return name_.c_str(); \
-		} \
+		\
 		static char const* signature() \
 		{ \
 			static std::string const signature_( \
-				std::string(name()) \
-				.append(bcc::detail::StringUtil::convertToUtf8(L"=")) \
+				bcc::detail::StringUtil::convertToUtf8(BICOMC_WSTRINGIZER(METHOD_NAME) L"=") \
 				.append(bcc::detail::StringUtil::convertToUtf8(bcc::detail::Signature<deducer>::to_wstring())) \
 			); \
 			return signature_.c_str(); \

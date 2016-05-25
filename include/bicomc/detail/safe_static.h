@@ -93,7 +93,7 @@ namespace detail
 	private:
 		enum {SAFE_STATIC_NONE = 0, SAFE_STATIC_PREPARING = -1};
 
-		struct NoInitializer : InitFunctor
+		struct NoInitializer
 		{
 			void operator()(T&) {}
 		};
@@ -119,7 +119,7 @@ namespace detail
 
 		static T* init()
 		{
-			NoInitializer helper
+			NoInitializer helper;
 			return init(helper);
 		}
 

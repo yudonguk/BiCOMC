@@ -7,6 +7,7 @@
 #include <utility>
 
 #include "error_fwd.h"
+#include "safe_static.h"
 #include "string_util.h"
 
 namespace bcc
@@ -15,6 +16,12 @@ namespace detail
 {
 	class UnknownError : public ErrorDetail
 	{
+	private:
+		struct StaticLocal {};
+		typedef bcc::detail::SafeStatic<UnknownError, StaticLocal> StaticHolder;
+
+		friend class bcc::detail::SafeStatic<UnknownError, StaticLocal>;
+
 	public:
 		static bcc::uint32_t const VALUE = 1;
 		static bcc::uint32_t const CATEGORY = 1;
@@ -44,8 +51,9 @@ namespace detail
 	public:
 		static UnknownError* instance() BICOMC_NOEXCEPT
 		{
-			static UnknownError error;
-			return &error;
+			UnknownError* pInstance = StaticHolder::get();
+			if (!pInstance) pInstance = StaticHolder::init();
+			return pInstance;
 		}
 
 	public:
@@ -69,9 +77,17 @@ namespace detail
 
 		char const* message() const
 		{
-			static std::string raw
-				= StringUtil::convertToUtf8(L"unknown error");
-			return raw.c_str();
+			typedef bcc::detail::SafeStatic<std::string, StaticLocal> StaticHolder;
+
+			std::string* pMessage = StaticHolder::get();
+			if (!pMessage) pMessage = StaticHolder::init(&UnknownError::getMessage);
+			return pMessage->c_str();
+		}
+
+	private:
+		static void getMessage(std::string& message)
+		{
+			message = StringUtil::convertToUtf8(L"unknown error");
 		}
 	};
 
@@ -163,6 +179,12 @@ namespace detail
 
 	class UncaughtException : public ErrorDetail
 	{
+	private:
+		struct StaticLocal {};
+		typedef bcc::detail::SafeStatic<UncaughtException, StaticLocal> StaticHolder;
+
+		friend class bcc::detail::SafeStatic<UncaughtException, StaticLocal>;
+
 	public:
 		static bcc::uint32_t const VALUE = 3;
 		static bcc::uint32_t const CATEGORY = 1;
@@ -192,8 +214,9 @@ namespace detail
 	public:
 		static UncaughtException* instance() BICOMC_NOEXCEPT
 		{
-			static UncaughtException error;
-			return &error;
+			UncaughtException* pInstance = StaticHolder::get();
+			if (!pInstance) pInstance = StaticHolder::init();
+			return pInstance;
 		}
 
 	public:
@@ -217,9 +240,17 @@ namespace detail
 
 		char const* message() const
 		{
-			static std::string raw
-				= StringUtil::convertToUtf8(L"uncaught exception");
-			return raw.c_str();
+			typedef bcc::detail::SafeStatic<std::string, StaticLocal> StaticHolder;
+
+			std::string* pMessage = StaticHolder::get();
+			if (!pMessage) pMessage = StaticHolder::init(&UncaughtException::getMessage);
+			return pMessage->c_str();
+		}
+
+	private:
+		static void getMessage(std::string& message)
+		{
+			message = StringUtil::convertToUtf8(L"uncaught exception");
 		}
 	};
 

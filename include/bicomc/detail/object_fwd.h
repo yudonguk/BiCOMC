@@ -1009,11 +1009,18 @@ protected: \
 		\
 		static char const* signature() \
 		{ \
-			static std::string const signature_( \
-				bcc::detail::StringUtil::convertToUtf8(BICOMC_WSTRINGIZER(METHOD_NAME) L"=") \
-				.append(bcc::detail::StringUtil::convertToUtf8(bcc::detail::Signature<deducer>::to_wstring())) \
+			typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, BiCOMC_Dummy__> MethodType; \
+			typedef bcc::detail::SafeStatic<std::string, MethodType> StaticHolder; \
+			std::string* pSignature = StaticHolder::get(); \
+			if (!pSignature) pSignature = StaticHolder::init(&MethodType::getSignature); \
+			return pSignature->c_str(); \
+		} \
+		static void getSignature(std::string& result) \
+		{ \
+			result = bcc::detail::StringUtil::convertToUtf8( \
+				std::wstring(BICOMC_WSTRINGIZER(METHOD_NAME) L"=") \
+				.append(bcc::detail::Signature<deducer>::to_wstring()) \
 			); \
-			return signature_.c_str(); \
 		} \
 	}; \
 private: \

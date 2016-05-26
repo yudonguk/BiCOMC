@@ -118,6 +118,12 @@
 #define BICOMC_STRINGIZER2(str) str
 #define BICOMC_STRINGIZER(str) BICOMC_STRINGIZER2(#str)
 
+#if defined(__COUNTER__)
+#	define BICOMC_LINE_COUNTER __COUNTER__
+#else
+#	define BICOMC_LINE_COUNTER __LINE__
+#endif // !def __COUNTER__
+
 #if BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
 #	define BICOMC_CONSTEXPR constexpr
 #else
@@ -169,11 +175,15 @@ namespace std
 	using bcc::detail::nullptr_t;
 } // namespace std
 
-#define nullptr std::nullptr_t()
+#	define nullptr std::nullptr_t()
 
 #endif // !BICOMC_IS_NULLPTR_SUPPORT_COMPILER
 
-#if !BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER
+#if BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER
+#	define BICOMC_STATIC_ASSERT(CONDITION, MESSAGE, HINT_NAME) \
+		static_assert(CONDITION, MESSAGE)
+
+#else
 namespace bcc
 {
 namespace detail
@@ -191,12 +201,16 @@ namespace detail
 } // namespace detail
 } // namespace bcc
 
-#define BICOMC_STATIC_ASSERT_TYPE_NAME2(name, number) name ## number ## __
-#define BICOMC_STATIC_ASSERT_TYPE_NAME(name, number) BICOMC_STATIC_ASSERT_TYPE_NAME2(name, number)
+#	define BICOMC_STATIC_ASSERT_TYPE_NAME2(NAME, NUMBER) NAME ## NUMBER ## __
+#	define BICOMC_STATIC_ASSERT_TYPE_NAME(NAME, NUMBER) BICOMC_STATIC_ASSERT_TYPE_NAME2(NAME, NUMBER)
 
-#define static_assert(condition, message) \
-	typedef bcc::detail::StaticAssertTester<sizeof(bcc::detail::StaticAssertor<!!(condition)>)> BICOMC_STATIC_ASSERT_TYPE_NAME(BiCOMC_static_assert_, __COUNTER__)
+#	define BICOMC_STATIC_ASSERT(CONDITION, MESSAGE, HINT_NAME) \
+		typedef bcc::detail::StaticAssertTester<sizeof(bcc::detail::StaticAssertor<!!(CONDITION)>)> \
+			BICOMC_STATIC_ASSERT_TYPE_NAME(BiCOMC_static_assert_ ## HINT_NAME ## _, BICOMC_LINE_COUNTER)
 
-#endif // !BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER
+#	define static_assert(CONDITION, MESSAGE) \
+		BICOMC_STATIC_ASSERT(CONDITION, MESSAGE, )
+
+#endif // BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER
 
 #endif // !def BICOMC_DETAIL_CONFIG_H__

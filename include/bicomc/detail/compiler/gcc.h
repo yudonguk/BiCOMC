@@ -5,26 +5,7 @@
 #	error "compiler is not gcc"
 #endif // !def __GNUC__
 
-#if defined(_WIN32) && !defined(_WIN64) && defined(__i386__)
-#	define BICOMC_CALL __attribute__((cdecl))
-#	define BICOMC_EXPORT __attribute__((visibility("default")))
-#elif defined(_WIN64) && defined(__x86_64__)
-#	define BICOMC_CALL
-#	define BICOMC_EXPORT __attribute__((visibility("default")))
-#elif defined(__linux__) && defined(__i386__)
-#	define BICOMC_CALL __attribute__((cdecl))
-#	define BICOMC_EXPORT __attribute__((visibility("default")))
-#elif defined(__linux__) && defined(__x86_64__)
-#	error "platform is not supported"
-#elif defined(__linux__) && defined(__arm__)
-#	error "platform is not supported"
-#elif defined(__linux__) && defined(__thumb__)
-#	error "platform is not supported"
-#elif defined(__linux__) && defined(__aarch64__)
-#	error "platform is not supported"
-#else
-#	error "platform is not supported"
-#endif
+#define BICOMC_EXPORT __attribute__((visibility("default")))
 
 #define BICOMC_IS_NULLPTR_SUPPORT_COMPILER \
 	(__cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__))

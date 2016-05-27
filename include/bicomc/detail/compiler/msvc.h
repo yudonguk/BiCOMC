@@ -5,21 +5,7 @@
 #	error "compiler is not msvc"
 #endif // !def _MSC_VER
 
-#if defined(_WIN32) && !defined(_WIN64) && defined(_M_IX86)
-#	define BICOMC_CALL __cdecl
-#	define BICOMC_EXPORT __declspec(dllexport)
-#elif defined(_WIN32) && !defined(_WIN64) && defined(_M_ARM)
-#	error "platform is not supported"
-#elif defined(_WIN32) && !defined(_WIN64) && defined(_M_ARMT)
-#	error "platform is not supported"
-#elif defined(_WIN64) && defined(_M_X64)
-#	define BICOMC_CALL
-#	define BICOMC_EXPORT __declspec(dllexport)
-#elif defined(_WIN64) && defined(_M_IA64)
-#	error "platform is not supported"
-#else
-#	error "platform is not supported"
-#endif
+#define BICOMC_EXPORT __declspec(dllexport)
 
 #define BICOMC_IS_NULLPTR_SUPPORT_COMPILER \
 	(_MSC_VER >= 1600)

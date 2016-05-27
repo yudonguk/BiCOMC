@@ -3,27 +3,18 @@
 
 #include <cstddef>
 
+#include "compiler/bicomc_call.h"
+#include "compiler/compiler.h"
+
 #define BICOMC_VERSION 1
 
-#if defined(_MSC_VER) && !defined(__INTEL_COMPILER)
-#	include "compiler/msvc.h"
-
-#elif defined(__GNUC__) && !defined(__INTEL_COMPILER) && !defined(__clang__) 
-#	include "compiler/gcc.h"
-
-#elif defined(__INTEL_COMPILER)
-#	include "compiler/intel.h"
-
-#else
+#if !defined(BICOMC_CALL)
 #	error "compiler is not supported"
+#endif // !def BICOMC_CALL
 
-#endif
-
-//////////////////////////////////////////////////////////////////////////
-
-#if !defined(BICOMC_CALL) || !defined(BICOMC_EXPORT)
-#	error "compiler is not supported"
-#endif // !def BICOMC_CALL && !def BICOMC_EXPORT
+#if !defined(BICOMC_EXPORT)
+#	define BICOMC_EXPORT
+#endif // !def BICOMC_EXPORT
 
 #if !defined(BICOMC_IS_NULLPTR_SUPPORT_COMPILER)
 #	if defined(nullptr)

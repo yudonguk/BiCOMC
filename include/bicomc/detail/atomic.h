@@ -27,6 +27,9 @@ namespace detail
 #elif defined(__INTEL_COMPILER)
 #	include "compiler/intel_atomic.h"
 
+#elif defined(__clang__)
+#	include "compiler/clang_atomic.h"
+
 #endif
 
 #endif // !def BICOMC_DETAIL_ATOMIC_H__

@@ -3,6 +3,8 @@
 
 #include "config.h"
 
+#include <stdexcept>
+
 namespace bcc
 {
 namespace detail
@@ -28,9 +30,22 @@ namespace detail
 			Mutex()
 			{
 				::pthread_mutexattr_t attr;
-				::pthread_mutexattr_init(&attr);
-				::pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
-				::pthread_mutex_init(&mutex, &attr);
+				if (::pthread_mutexattr_init(&attr) != 0)
+					throw std::runtime_error("can't initialize mutexattr.");
+				
+				try
+				{
+					if (::pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE) != 0)
+						throw std::runtime_error("can't set mutexattr.");
+					if (::pthread_mutex_init(&mutex, &attr) != 0)
+						throw std::runtime_error("can't initialize mutex.");
+				}
+				catch (...)
+				{
+					::pthread_mutexattr_destroy(&attr);
+					throw;
+				}
+
 				::pthread_mutexattr_destroy(&attr);
 			}
 
@@ -47,7 +62,7 @@ namespace detail
 
 			bool try_lock()
 			{
-				::pthread_mutex_trylock(&mutex) == 0;
+				return ::pthread_mutex_trylock(&mutex) == 0;
 			}
 
 			void unlock()
@@ -61,22 +76,33 @@ namespace detail
 
 		static Mutex& getMutex()
 		{
-			static Mutex* pMutex;
 			static ::pthread_once_t flag = PTHREAD_ONCE_INIT;
 
 			struct Helper
 			{
 				static void init()
 				{
-					static Mutex mutex;
-					mutex.lock();
-					pMutex = &mutex;
-					mutex.unlock();
+					try
+					{
+						mutex().lock();
+						mutex().unlock();
+					}
+					catch (...)
+					{
+						std::terminate();
+					}
+				}
+
+				static Mutex& mutex()
+				{
+					static Mutex instance;
+					return instance;
 				}
 			};
 
-			::pthread_once(&flag, &Helper::init);
-			return *pMutex;
+			if (::pthread_once(&flag, &Helper::init) != 0)
+				throw std::runtime_error("can't initialize mutex for SafeStatic.");
+			return Helper::mutex();
 		}
 
 		static void lock()

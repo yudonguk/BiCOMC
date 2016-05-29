@@ -74,7 +74,7 @@ namespace detail
 			::pthread_mutex_t mutex;
 		};
 
-		static Mutex& getMutex()
+		static Mutex& mutex()
 		{
 			static ::pthread_once_t flag = PTHREAD_ONCE_INIT;
 
@@ -107,12 +107,103 @@ namespace detail
 
 		static void lock()
 		{
-			getMutex().lock();
+			mutex().lock();
 		}
 
 		static void unlock()
 		{
-			getMutex().unlock();
+			mutex().unlock();
+		}
+	};
+
+#elif defined(_WINDOWS_)
+
+#	define BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE 1
+
+	class SafeStaticMutex
+	{
+	private:
+		template<typename, typename> friend class SafeStatic;
+
+		struct Guard
+		{
+			Guard() { SafeStaticMutex::lock(); }
+			~Guard() { SafeStaticMutex::unlock(); }
+		};
+
+		class Mutex
+		{
+		public:
+			Mutex()
+			{
+				::InitializeCriticalSection(&mutex);
+			}
+
+			~Mutex()
+			{
+				::DeleteCriticalSection(&mutex);
+			}
+
+		public:
+			void lock()
+			{
+				::EnterCriticalSection(&mutex);
+			}
+
+			bool try_lock()
+			{
+				return ::TryEnterCriticalSection(&mutex) == TRUE;
+			}
+
+			void unlock()
+			{
+				::LeaveCriticalSection(&mutex);
+			}
+
+		private:
+			::CRITICAL_SECTION mutex;
+		};
+
+		static Mutex& mutex()
+		{
+			static ::INIT_ONCE flag = INIT_ONCE_STATIC_INIT;
+
+			struct Helper
+			{
+				static BOOL WINAPI init(PINIT_ONCE pFlag, PVOID paramter, PVOID* context)
+				{
+					try
+					{
+						mutex().lock();
+						mutex().unlock();
+					}
+					catch (...)
+					{
+						return FALSE;
+					}
+					return TRUE;
+				}
+
+				static Mutex& mutex()
+				{
+					static Mutex instance;
+					return instance;
+				}
+			};
+
+			if (::InitOnceExecuteOnce(&flag, &Helper::init, nullptr, nullptr) == FALSE)
+				throw std::runtime_error("can't initialize mutex for SafeStatic.");
+			return Helper::mutex();
+		}
+
+		static void lock()
+		{
+			mutex().lock();
+		}
+
+		static void unlock()
+		{
+			mutex().unlock();
 		}
 	};
 

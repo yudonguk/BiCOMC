@@ -20,11 +20,14 @@
 
 //////////////////////////////////////////////////////////////////////////
 
+#define BICOMC_MACRO_PASS2(...) __VA_ARGS__
+#define BICOMC_MACRO_PASS(PARAMETER) BICOMC_MACRO_PASS2 PARAMETER
+
 #define BICOMC_WSTRINGIZER2(str) L ## str
-#define BICOMC_WSTRINGIZER(str) BICOMC_WSTRINGIZER2(#str)
+#define BICOMC_WSTRINGIZER(...) BICOMC_WSTRINGIZER2(#__VA_ARGS__)
 
 #define BICOMC_STRINGIZER2(str) str
-#define BICOMC_STRINGIZER(str) BICOMC_STRINGIZER2(#str)
+#define BICOMC_STRINGIZER(...) BICOMC_STRINGIZER2(#__VA_ARGS__)
 
 #if defined(__COUNTER__)
 #	define BICOMC_LINE_COUNTER __COUNTER__

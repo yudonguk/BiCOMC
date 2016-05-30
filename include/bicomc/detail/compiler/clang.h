@@ -62,6 +62,10 @@
 			(__cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__))
 #	endif
 #endif // !def BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER
+#if !defined(BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER)
+#	define BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER \
+		(__has_feature(cxx_unicode_literals))
+#endif // !def BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
 #if !defined(BICOMC_IS_STD_INT_SUPPORT_COMPILER)
 #	define BICOMC_IS_STD_INT_SUPPORT_COMPILER \
 		(__has_include(<cstdint>))

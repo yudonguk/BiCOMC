@@ -821,10 +821,7 @@ protected: \
 private: \
 	typedef INTERFACE_NAME BiCOMC_My__; \
 	\
-	struct BICOMC_SIGNATURE_DEFAULT_NAME \
-	{ \
-		static std::wstring to_wstring() { return BICOMC_WSTRINGIZER(INTERFACE_NAME); } \
-	}; \
+	BICOMC_SIGNATURE_DEFAULT(INTERFACE_NAME) \
 	\
 	template<size_t BiCOMC_index__, typename BiCOMC_Dummy__ = void> \
 	struct BiCOMC_Type_Enumerator__; \
@@ -942,11 +939,17 @@ private: \
 #define BICOMC_OPERATOR_SUBSCRIPT BiCOMC_Operator_Subscript__ // operator[]
 #define BICOMC_OPERATOR_CALL BiCOMC_Operator_Call__ // operator()
 
-#define BICOMC_METHOD_TYPE_DEF_SIGNATURE_STRING(...) \
-	bcc::detail::StringUtil::convertToUtf8( \
-		std::wstring(BICOMC_WSTRINGIZER(__VA_ARGS__) L"=") \
-		.append(bcc::detail::Signature<deducer>::to_wstring()) \
-	)
+#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#	define BICOMC_METHOD_TYPE_DEF_SIGNATURE_STRING(...) \
+		std::string(BICOMC_STRINGIZER(__VA_ARGS__)) \
+			.append(1, char(61)) /* 61 == u8'=' */ \
+			.append(bcc::detail::Signature<deducer>::to_utf8())
+#else
+#	define BICOMC_METHOD_TYPE_DEF_SIGNATURE_STRING(...) \
+		bcc::detail::StringUtil::convertToUtf8(BICOMC_WSTRINGIZER(__VA_ARGS__)) \
+			.append(1, char(61)) /* 61 == u8'=' */ \
+			.append(bcc::detail::Signature<deducer>::to_utf8())
+#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
 
 #define BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 protected: \

@@ -1,17 +1,20 @@
-﻿#include <Windows.h>
-
+﻿
 #include <cassert>
-
-#include <bicomc/object.h>
 
 #include <Simple.h>
 
+namespace helper {
+	void* loadLibrary(char const* path);
+	void closeLibrary(void* handle);
+	void* getSymbol(void* handle, char const* name);
+} // namespace helper
+
 int main()
 {
-	HMODULE module = LoadLibraryA("library");
+	void* module = helper::loadLibrary("library-simple");
 	assert(module != nullptr);
 
-	bcc::Object*(*create)() = reinterpret_cast<bcc::Object*(*)()>(GetProcAddress(module, "CreateObject"));
+	bcc::Object*(*create)() = reinterpret_cast<bcc::Object*(*)()>(helper::getSymbol(module, "CreateObject"));
 	assert(create != nullptr);
 
 	bcc::Object* pObject = create();
@@ -28,7 +31,7 @@ int main()
 
 	pObject->destroy();
 	
-	FreeLibrary(module);
+	helper::closeLibrary(module);
 
 	return 0;
 }

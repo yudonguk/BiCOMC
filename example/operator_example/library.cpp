@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿
+#include <iostream>
 
 #include "Callable.h"
 
@@ -56,7 +57,7 @@ private:
 	bcc::Object* mpObject;
 };
 
-extern "C" __declspec(dllexport) bcc::Object* CreateObject()
+extern "C" BICOMC_EXPORT bcc::Object* CreateObject()
 {
 	try
 	{

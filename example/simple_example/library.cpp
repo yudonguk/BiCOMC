@@ -1,6 +1,5 @@
-﻿#include <iostream>
-
-#include <bicomc/object.h>
+﻿
+#include <iostream>
 
 #include "Simple.h"
 
@@ -44,7 +43,7 @@ private:
 	bcc::int32_t mNumber;
 };
 
-extern "C" __declspec(dllexport) bcc::Object* CreateObject()
+extern "C" BICOMC_EXPORT bcc::Object* CreateObject()
 {
 	try
 	{

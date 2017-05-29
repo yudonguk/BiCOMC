@@ -1,4 +1,5 @@
-﻿#ifndef BICOMC_DETAIL_CONFIG_H__
+﻿
+#ifndef BICOMC_DETAIL_CONFIG_H__
 #define BICOMC_DETAIL_CONFIG_H__
 
 #include <cstddef>
@@ -11,7 +12,7 @@
 #define BICOMC_VERSION 1
 
 #if !defined(BICOMC_CALL)
-#	error "compiler is not supported"
+#	define BICOMC_CALL
 #endif // !def BICOMC_CALL
 
 #if !defined(BICOMC_EXPORT)

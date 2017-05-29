@@ -1,4 +1,5 @@
-﻿#ifndef BICOMC_DETAIL_COMPILER_GCC_ATOMIC_H__
+﻿
+#ifndef BICOMC_DETAIL_COMPILER_GCC_ATOMIC_H__
 #define BICOMC_DETAIL_COMPILER_GCC_ATOMIC_H__
 
 #if !defined(__GNUC__)
@@ -12,7 +13,7 @@ namespace bcc
 {
 namespace detail
 {
-#if __GNUC__ >= 4 && __GNUC_MINOR__ >= 7
+#if (__GNUC__ >= 4 && __GNUC_MINOR__ >= 7) || __GNUC__ > 4
 	inline void atomic_store(atomic_intptr_t* pObject, bcc::intptr_t desired) BICOMC_NOEXCEPT
 	{
 		__atomic_store_n(pObject, desired, __ATOMIC_SEQ_CST);
@@ -55,7 +56,7 @@ namespace detail
 		return e == (*pExpected = __sync_val_compare_and_swap(pObject, e, desired));
 	}
 
-#endif // __GNUC__ >= 4 && __GNUC_MINOR__ >= 7
+#endif // (__GNUC__ >= 4 && __GNUC_MINOR__ >= 7) || __GNUC__ > 4
 
 } // namespace detail
 } // namespace bcc

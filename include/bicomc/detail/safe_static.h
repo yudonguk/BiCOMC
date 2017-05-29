@@ -1,4 +1,5 @@
-﻿#ifndef BICOMC_DETAIL_SAFE_STATIC_H__
+﻿
+#ifndef BICOMC_DETAIL_SAFE_STATIC_H__
 #define BICOMC_DETAIL_SAFE_STATIC_H__
 
 #include "config.h"
@@ -6,14 +7,13 @@
 #include "../memory.h"
 #include "../type_traits.h"
 
-#include "atomic.h"
 #include "safe_static_mutex.h"
 
+#if BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER || BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE
 namespace bcc
 {
 namespace detail
 {
-#if BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER || defined(BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE)
 	template<typename T, typename Local = void>
 	class SafeStatic
 	{
@@ -86,7 +86,16 @@ namespace detail
 		}
 	};
 
+} // namespace detail
+} // namespace bcc
+
 #else
+#	include "atomic.h"
+
+namespace bcc
+{
+namespace detail
+{
 	template<typename T, typename Local = void>
 	class SafeStatic
 	{
@@ -162,9 +171,9 @@ namespace detail
 		}
 	};
 
-#endif // BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER
-
 } // namespace detail
 } // namespace bcc
+
+#endif // BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER || BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE
 
 #endif // !def BICOMC_DETAIL_SAFE_STATIC_H__

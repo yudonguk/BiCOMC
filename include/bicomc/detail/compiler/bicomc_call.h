@@ -1,4 +1,5 @@
-﻿#ifndef BICOMC_DETAIL_COMPILER_BICOMC_CALL_H__
+﻿
+#ifndef BICOMC_DETAIL_COMPILER_BICOMC_CALL_H__
 #define BICOMC_DETAIL_COMPILER_BICOMC_CALL_H__
 
 #if defined(_WIN32) && !defined(_WIN64) && defined(_M_IX86) /* Windows on x86 */
@@ -54,6 +55,7 @@
 
 
 #elif defined(_WIN32) && defined(_WIN64) && defined(_M_IA64) /* Windows on IA-64 */
+#	define BICOMC_CALL
 
 
 #elif defined(__linux__) && defined(__i386__) /* linux on x86 */
@@ -96,10 +98,14 @@
 #	endif
 
 
+#else /* other OS */
+#	define BICOMC_CALL
+
+
 #endif
 
 #if !defined(BICOMC_CALL)
-#	error "compiler is not supported"
+#	error "please define 'BICOMC_CALL' for the integrity of function calling convention"
 #endif // !def BICOMC_CALL
 
 #endif // !def BICOMC_DETAIL_COMPILER_BICOMC_CALL_H__

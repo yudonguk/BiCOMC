@@ -1,4 +1,5 @@
-﻿#ifndef BICOMC_DETAIL_SAFE_STATIC_MUTEX_H__
+﻿
+#ifndef BICOMC_DETAIL_SAFE_STATIC_MUTEX_H__
 #define BICOMC_DETAIL_SAFE_STATIC_MUTEX_H__
 
 #include "config.h"
@@ -10,7 +11,6 @@ namespace bcc
 namespace detail
 {
 #if defined(PTHREAD_ONCE_INIT) && defined(PTHREAD_MUTEX_RECURSIVE)
-
 #	define BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE 1
 
 	class SafeStaticMutex
@@ -116,8 +116,8 @@ namespace detail
 		}
 	};
 
-#elif defined(_WINDOWS_)
 
+#elif defined(_WINDOWS_)
 #	define BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE 1
 
 	class SafeStaticMutex
@@ -206,6 +206,11 @@ namespace detail
 			mutex().unlock();
 		}
 	};
+
+
+#else
+#	define BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE 0
+
 
 #endif
 

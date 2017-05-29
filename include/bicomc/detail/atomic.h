@@ -1,4 +1,5 @@
-﻿#ifndef BICOMC_DETAIL_ATOMIC_H__
+﻿
+#ifndef BICOMC_DETAIL_ATOMIC_H__
 #define BICOMC_DETAIL_ATOMIC_H__
 
 #include "config.h"
@@ -29,6 +30,10 @@ namespace detail
 
 #elif defined(__clang__)
 #	include "compiler/clang_atomic.h"
+
+#else
+#	error "please write atomic operations consist of compiler intrinsics or dismiss this error without guarantee of atomicity"
+#	include "compiler/naive_atomic.h"
 
 #endif
 

@@ -8,6 +8,8 @@
 #if BICOMC_IS_STD_INT_SUPPORT_COMPILER
 #include <cstdint>
 
+#define BICOMC_STD_INT_REF_NAMESPACE ::std
+
 #else
 #ifndef __STDC_CONSTANT_MACROS
 #	define __STDC_CONSTANT_MACROS
@@ -21,33 +23,35 @@
 
 #include "detail/pstdint.h"
 
+#define BICOMC_STD_INT_REF_NAMESPACE
+
 #endif // BICOMC_IS_STD_INT_SUPPORT_COMPILER
 
 namespace bcc
 {
-	using ::int_fast8_t;
-	using ::int_fast16_t;
-	using ::int_fast32_t;
-	using ::int_fast64_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int_fast8_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int_fast16_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int_fast32_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int_fast64_t;
 
-	using ::int_least8_t;
-	using ::int_least16_t;
-	using ::int_least32_t;
-	using ::int_least64_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int_least8_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int_least16_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int_least32_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int_least64_t;
 
-	using ::intmax_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::intmax_t;
 
-	using ::uint_fast8_t;
-	using ::uint_fast16_t;
-	using ::uint_fast32_t;
-	using ::uint_fast64_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint_fast8_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint_fast16_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint_fast32_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint_fast64_t;
 
-	using ::uint_least8_t;
-	using ::uint_least16_t;
-	using ::uint_least32_t;
-	using ::uint_least64_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint_least8_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint_least16_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint_least32_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint_least64_t;
 
-	using ::uintmax_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uintmax_t;
 
 namespace detail
 {
@@ -108,7 +112,7 @@ namespace detail
 				>::type
 			>::type
 		>::type signed_type;
-		static_assert(!IsVoid<signed_type>::value, "Mathced int type is not exist.");
+		static_assert(!IsVoid<signed_type>::value, "Matched int type does not exist.");
 
 		typedef typename Helper<
 			sizeof(unsigned char) == size
@@ -140,69 +144,71 @@ namespace detail
 				>::type
 			>::type
 		>::type unsigned_type;
-		static_assert(!IsVoid<unsigned_type>::value, "Mathced int type is not exist.");
+		static_assert(!IsVoid<unsigned_type>::value, "Matched int type does not exist.");
 	};
 }
 
 #if defined(INT8_MAX)
-	using ::int8_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int8_t;
 #else
 	typedef detail::FixedSizeInt<1>::signed_type int8_t;
 #endif // def INT8_MAX
 
 #if defined(INT16_MAX)
-	using ::int16_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int16_t;
 #else
 	typedef detail::FixedSizeInt<2>::signed_type int16_t;
 #endif // def INT16_MAX
 
 #if defined(INT32_MAX)
-	using ::int32_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int32_t;
 #else
 	typedef detail::FixedSizeInt<4>::signed_type int32_t;
 #endif // def INT32_MAX
 
 #if defined(INT64_MAX)
-	using ::int64_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::int64_t;
 #else
 	typedef detail::FixedSizeInt<8>::signed_type int64_t;
 #endif // def INT64_MAX
 
 #if defined(UINT8_MAX)
-	using ::uint8_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint8_t;
 #else
 	typedef detail::FixedSizeInt<1>::unsigned_type uint8_t;
 #endif // def UINT8_MAX
 
 #if defined(UINT16_MAX)
-	using ::uint16_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint16_t;
 #else
 	typedef detail::FixedSizeInt<2>::unsigned_type uint16_t;
 #endif // def UINT16_MAX
 
 #if defined(UINT32_MAX)
-	using ::uint32_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint32_t;
 #else
 	typedef detail::FixedSizeInt<4>::unsigned_type uint32_t;
 #endif // def UINT32_MAX
 
 #if defined(UINT64_MAX)
-	using ::uint64_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uint64_t;
 #else
 	typedef detail::FixedSizeInt<8>::unsigned_type uint64_t;
 #endif // def UINT64_MAX
 
 #if defined(INTPTR_MAX)
-	using ::intptr_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::intptr_t;
 #else
 	typedef detail::FixedSizeInt<sizeof(void*)>::signed_type intptr_t;
 #endif // def INTPTR_MAX
 
 #if defined(UINTPTR_MAX)
-	using ::uintptr_t;
+	using BICOMC_STD_INT_REF_NAMESPACE::uintptr_t;
 #else	
 	typedef detail::FixedSizeInt<sizeof(void*)>::unsigned_type uintptr_t;
 #endif // def UINTPTR_MAX
 }
+
+#undef BICOMC_STD_INT_REF_NAMESPACE
 
 #endif // !def BICOMC_STD_INT_H__

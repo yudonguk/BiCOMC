@@ -980,15 +980,18 @@ protected: \
 			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
 			static void overrideMethodImpl(BiCOMC_Impl__& impl, typename BiCOMC_U__::template BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, BiCOMC_Dummy__>* p) \
 			{ \
-				access(impl, p); \
-			} \
-			template<typename MethodType, typename BiCOMC_Impl__> \
-			static void access(BiCOMC_Impl__& impl, MethodType*) \
-			{ \
-				MethodType::template overrideMethod<Interface>(impl); \
+				access(impl, p, 0); \
 			} \
 			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
 			static void overrideMethodImpl(BiCOMC_Impl__& impl, ...) {} \
+			\
+			template<typename MethodType, typename BiCOMC_Impl__> \
+			static void access(BiCOMC_Impl__& impl, MethodType*, typename MethodType::owner*) \
+			{ \
+				MethodType::template overrideMethod<Interface>(impl); \
+			} \
+			template<typename MethodType, typename BiCOMC_Impl__> \
+			static void access(BiCOMC_Impl__& impl, MethodType*, ...) {} \
 		}; \
 		template<typename BiCOMC_Interfaces__> \
 		struct Helper<BiCOMC_Interfaces__, 0> \

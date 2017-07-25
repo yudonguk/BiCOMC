@@ -838,7 +838,8 @@ class INTERFACE_NAME : public BASE_NAME \
 private: \
 	typedef BASE_NAME BiCOMC_Base__; \
 	BICOMC_STATIC_ASSERT((bcc::is_interface<BiCOMC_Base__>::value), "'" #BASE_NAME "' must be interface.", interface_base_check); \
-	BICOMC_INTERFACE_BASE_CODE(INTERFACE_NAME);
+	BICOMC_INTERFACE_BASE_CODE(INTERFACE_NAME); \
+public:
 
 #define BICOMC_INTERFACE(INTERFACE_NAME, ...) \
 BICOMC_STATIC_ASSERT((bcc::tuple_size<bcc::tuple<__VA_ARGS__ > >::value <= 1), "BICOMC_INTERFACE() has one or two parameters.", interface_parameter_check); \
@@ -847,7 +848,8 @@ class INTERFACE_NAME : public bcc::tuple_element<0, bcc::TupleCat<bcc::tuple<__V
 private: \
 	typedef bcc::tuple_element<0, bcc::TupleCat<bcc::tuple<__VA_ARGS__ >, bcc::Object>::type>::type BiCOMC_Base__; \
 	BICOMC_STATIC_ASSERT((bcc::is_interface<BiCOMC_Base__>::value), "Base type must be interface.", interface_base_check); \
-	BICOMC_INTERFACE_BASE_CODE(INTERFACE_NAME);
+	BICOMC_INTERFACE_BASE_CODE(INTERFACE_NAME); \
+public:
 
 #define BICOMC_INTERFACE_FUNCTION_TABLE(INTERFACE_NAME) \
 private: \
@@ -1305,8 +1307,8 @@ public:
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_0_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -1385,8 +1387,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_1_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -1568,8 +1570,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_2_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -1616,8 +1618,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_3_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -1666,8 +1668,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_4_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -1718,8 +1720,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_5_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -1772,8 +1774,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_6_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -1828,8 +1830,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_7_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -1886,8 +1888,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_8_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -1946,8 +1948,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_9_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -2008,8 +2010,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_10_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -2072,8 +2074,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_11_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -2138,8 +2140,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_12_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -2206,8 +2208,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_13_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -2276,8 +2278,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_14_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
@@ -2348,8 +2350,8 @@ public: \
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 
 #define BICOMC_DECL_METHOD_15_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
-	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 private: \
+	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
 	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
 	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \

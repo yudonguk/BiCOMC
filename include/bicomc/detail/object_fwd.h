@@ -1282,7 +1282,7 @@ private: \
 		typedef bcc::tuple<__VA_ARGS__ > BiCOMC_Interfaces__; \
 		BICOMC_OVER_DESTROY();
 
-#define BICOMC_OVERRIDE_END() \
+#define BICOMC_OVERRIDE_END(...) \
 		return true; \
 	} \
 	bcc::detail::OverrideInitHolder BiCOMC_override_init_holder__; \

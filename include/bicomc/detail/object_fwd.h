@@ -1062,26 +1062,26 @@ private: \
 	};
 
 #define BICOMC_OVER_METHOD(METHOD_NAME, METHOD_TYPE, ...) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, false, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, false, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
 #define BICOMC_OVER_METHOD_C(METHOD_NAME, METHOD_TYPE, ...) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, false, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, false, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
 #define BICOMC_OVER_METHOD_V(METHOD_NAME, METHOD_TYPE, ...) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, true, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, true, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
 #define BICOMC_OVER_METHOD_CV(METHOD_NAME, METHOD_TYPE, ...) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, true, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, true, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
 #define BICOMC_OVER_DESTROY() \
-	bcc::detail::DefaultCallHelper::template overrideDestroy<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_TYPE_NAME(destroy)<void(), true, true, void> >(*this);
+	bcc::detail::DefaultCallHelper::overrideDestroy<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_TYPE_NAME(destroy)<void(), true, true, void> >(*this);
 
 #define BICOMC_OVER_CLONE() \
-	bcc::detail::DefaultCallHelper::template overrideClone<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_TYPE_NAME(clone)<bcc::Object*(), true, false, void> >(*this);
+	bcc::detail::DefaultCallHelper::overrideClone<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_TYPE_NAME(clone)<bcc::Object*(), true, false, void> >(*this);
 
 #define BICOMC_OVER_OPERATOR_UNARY_PLUS(METHOD_TYPE) BICOMC_OVER_METHOD(BICOMC_OPERATOR_UNARY_PLUS, METHOD_TYPE)
 #define BICOMC_OVER_OPERATOR_UNARY_PLUS_C(METHOD_TYPE) BICOMC_OVER_METHOD_C(BICOMC_OPERATOR_UNARY_PLUS, METHOD_TYPE)

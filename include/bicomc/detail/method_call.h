@@ -13,19 +13,25 @@
 
 #define BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY try
 #define BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH \
-	catch (std::exception const& e) \
-	{ \
-		try { return new bcc::detail::RuntimeError(e.what()); } catch(...) { return bcc::detail::UncaughtException::instance(); } \
-	} \
 	catch (bcc::detail::ErrorDetail const& e) \
 	{ \
-		try { return bcc::ErrorCode(e).release(); } catch(...) { return bcc::detail::UncaughtException::instance(); } \
+		try { return bcc::ErrorCode(e).release(); } \
+		catch(...) { return bcc::detail::UncaughtException::instance(); } \
 	} \
 	catch (bcc::ErrorCode const& e) \
 	{ \
-		try { return bcc::ErrorCode(e).release(); } catch(...) { return bcc::detail::UncaughtException::instance(); } \
+		try { return bcc::ErrorCode(e).release(); } \
+		catch(...) { return bcc::detail::UncaughtException::instance(); } \
 	} \
-	catch (...) { return bcc::detail::UnknownError::instance(); }
+	catch (std::exception const& e) \
+	{ \
+		try { return new bcc::detail::RuntimeError(e.what()); } \
+		catch(...) { return bcc::detail::UncaughtException::instance(); } \
+	} \
+	catch (...) \
+	{ \
+		return bcc::detail::UnknownError::instance(); \
+	}
 
 namespace bcc
 {

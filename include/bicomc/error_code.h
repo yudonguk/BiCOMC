@@ -5,6 +5,7 @@
 
 #include "stdint.h"
 
+#include <exception>
 #include <string>
 
 namespace bcc
@@ -14,8 +15,11 @@ namespace detail
 	class ErrorDetail;
 }
 
-	class ErrorCode
+	class ErrorCode : public std::exception
 	{
+	public:
+		static bcc::uint32_t const UNKNOWN = static_cast<bcc::uint32_t>(-1);
+
 	public:
 		ErrorCode() BICOMC_NOEXCEPT;
 
@@ -31,7 +35,7 @@ namespace detail
 		ErrorCode(ErrorCode&& error) BICOMC_NOEXCEPT;
 #endif
 		
-		~ErrorCode();
+		~ErrorCode() BICOMC_NOEXCEPT;
 
 	public:
 		ErrorCode& operator=(ErrorCode const& error);
@@ -48,12 +52,15 @@ namespace detail
 		bool operator!() const BICOMC_NOEXCEPT;
 
 	public:
-		bcc::uint32_t value() const;
+		bcc::uint32_t value() const BICOMC_NOEXCEPT;
 
-		bcc::uint32_t category() const;
+		bcc::uint32_t category() const BICOMC_NOEXCEPT;
 
 		std::string message() const;
 
+		char const* what() const BICOMC_NOEXCEPT;
+
+	public:
 		void reset(detail::ErrorDetail* pDetail = nullptr);
 
 		detail::ErrorDetail* release() BICOMC_NOEXCEPT;

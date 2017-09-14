@@ -13,11 +13,11 @@
 namespace bcc
 {
 	inline ErrorCode::ErrorCode() BICOMC_NOEXCEPT
-		: mpDetail(nullptr)
+		: mpDetail()
 	{}
 
 	inline ErrorCode::ErrorCode(std::nullptr_t) BICOMC_NOEXCEPT
-		: mpDetail(nullptr)
+		: mpDetail()
 	{}
 
 	inline ErrorCode::ErrorCode(detail::ErrorDetail const& detail)
@@ -34,9 +34,15 @@ namespace bcc
 			: nullptr)
 	{}
 
-	inline ErrorCode::~ErrorCode()
+	inline ErrorCode::~ErrorCode() BICOMC_NOEXCEPT
 	{
-		if (mpDetail) mpDetail->destroy();
+		try
+		{
+			if (mpDetail)
+				mpDetail->destroy();
+		}
+		catch (...)
+		{}
 	}
 
 	inline ErrorCode& ErrorCode::operator=(ErrorCode const& error)
@@ -49,7 +55,7 @@ namespace bcc
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 	inline ErrorCode::ErrorCode(ErrorCode&& error) BICOMC_NOEXCEPT
-		: mpDetail(nullptr)
+		: mpDetail()
 	{
 		swap(error);
 	}
@@ -64,27 +70,53 @@ namespace bcc
 	inline ErrorCode::operator ErrorCode::unspecified_bool_type() const BICOMC_NOEXCEPT
 	{
 		struct bool_true_helper { static void bool_true() {} };
-		return mpDetail == nullptr ? nullptr : &bool_true_helper::bool_true;
+		return !mpDetail ? nullptr : &bool_true_helper::bool_true;
 	}
 
 	inline bool ErrorCode::operator!() const BICOMC_NOEXCEPT
 	{
-		return mpDetail == nullptr;
+		return !mpDetail;
 	}
 	
-	inline bcc::uint32_t ErrorCode::value() const
+	inline bcc::uint32_t ErrorCode::value() const BICOMC_NOEXCEPT
 	{
-		return mpDetail ? mpDetail->value() : 0;
+		try
+		{
+			return mpDetail ? mpDetail->value() : 0;
+		}
+		catch (...)
+		{
+			return ErrorCode::UNKNOWN;
+		}
 	}
 
-	inline bcc::uint32_t ErrorCode::category() const
+	inline bcc::uint32_t ErrorCode::category() const BICOMC_NOEXCEPT
 	{
-		return mpDetail ? mpDetail->category() : 0;
+		try
+		{
+			return mpDetail ? mpDetail->category() : 0;
+		}
+		catch (...)
+		{
+			return ErrorCode::UNKNOWN;
+		}
 	}
 
 	inline std::string ErrorCode::message() const
 	{
 		return mpDetail ? std::string(mpDetail->message()) : std::string();
+	}
+
+	inline char const* ErrorCode::what() const BICOMC_NOEXCEPT
+	{
+		try
+		{
+			return mpDetail ? mpDetail->message() : "";
+		}
+		catch (...)
+		{
+			return "";
+		}
 	}
 
 	inline void ErrorCode::reset(detail::ErrorDetail* pDetail)

@@ -1061,19 +1061,19 @@ private: \
 		static bool const value = sizeof(test<BiCOMC_T__>(0)) == sizeof(TrueType); \
 	};
 
-#define BICOMC_OVER_METHOD(METHOD_NAME, METHOD_TYPE) \
+#define BICOMC_OVER_METHOD(METHOD_NAME, METHOD_TYPE, ...) \
 	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, false, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
-#define BICOMC_OVER_METHOD_C(METHOD_NAME, METHOD_TYPE) \
+#define BICOMC_OVER_METHOD_C(METHOD_NAME, METHOD_TYPE, ...) \
 	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, false, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
-#define BICOMC_OVER_METHOD_V(METHOD_NAME, METHOD_TYPE) \
+#define BICOMC_OVER_METHOD_V(METHOD_NAME, METHOD_TYPE, ...) \
 	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, true, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
-#define BICOMC_OVER_METHOD_CV(METHOD_NAME, METHOD_TYPE) \
+#define BICOMC_OVER_METHOD_CV(METHOD_NAME, METHOD_TYPE, ...) \
 	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, true, void>::template overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 

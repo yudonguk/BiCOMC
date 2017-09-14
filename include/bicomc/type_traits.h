@@ -388,17 +388,23 @@ namespace detail
 
 namespace bcc
 {
+namespace detail 
+{
 	template<typename T>
-	struct is_character
+	struct is_character_impl
 		: public integral_constant<bool
 			, is_same<T, char>::value
-			|| is_same<T, signed char>::value
 			|| is_same<T, wchar_t>::value
 #if BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER
 			|| is_same<T, char16_t>::value
 			|| is_same<T, char32_t>::value
 #endif // BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER
 			>
+	{};
+}
+	template<typename T>
+	struct is_character
+		: public detail::is_character_impl<typename remove_cv<T>::type>
 	{};
 } // namespace bcc
 

@@ -149,16 +149,8 @@ namespace detail
 #endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
 
 		template<typename U>
-		struct IsCharSignature
-			: public bcc::integral_constant<bool
-				, bcc::is_character<U>::value
-				&& !bcc::is_same<U, signed char>::value
-				&& !bcc::is_same<U, unsigned char>::value>
-		{};
-
-		template<typename U>
 		static typename bcc::enable_if<
-			IsCharSignature<U>::value
+			bcc::is_character<U>::value
 			, std::wstring
 		>::type to_wstring_impl()
 		{
@@ -181,7 +173,7 @@ namespace detail
 #if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
 		template<typename U>
 		static typename bcc::enable_if<
-			IsCharSignature<U>::value
+			bcc::is_character<U>::value
 			, std::string
 		>::type to_utf8_impl()
 		{
@@ -206,7 +198,7 @@ namespace detail
 		static typename bcc::enable_if<
 			bcc::is_integral<U>::value
 			&& bcc::is_signed<U>::value
-			&& !IsCharSignature<U>::value
+			&& !bcc::is_character<U>::value
 			&& !bcc::is_same<U, bool>::value
 			, std::wstring
 		>::type to_wstring_impl()
@@ -232,7 +224,7 @@ namespace detail
 		static typename bcc::enable_if<
 			bcc::is_integral<U>::value
 			&& bcc::is_signed<U>::value
-			&& !IsCharSignature<U>::value
+			&& !bcc::is_character<U>::value
 			&& !bcc::is_same<U, bool>::value
 			, std::string
 		>::type to_utf8_impl()
@@ -258,7 +250,7 @@ namespace detail
 		static typename bcc::enable_if<
 			bcc::is_integral<U>::value
 			&& !bcc::is_signed<U>::value
-			&& !IsCharSignature<U>::value
+			&& !bcc::is_character<U>::value
 			&& !bcc::is_same<U, bool>::value
 			, std::wstring
 		>::type to_wstring_impl()
@@ -284,7 +276,7 @@ namespace detail
 		static typename bcc::enable_if<
 			bcc::is_integral<U>::value
 			&& !bcc::is_signed<U>::value
-			&& !IsCharSignature<U>::value
+			&& !bcc::is_character<U>::value
 			&& !bcc::is_same<U, bool>::value
 			, std::string
 		>::type to_utf8_impl()

@@ -204,7 +204,7 @@ namespace detail
 
 				typename deducer::helper* function = &bcc::detail::MethodCallNoOverHelper<typename deducer::member>::call;
 				bcc::get<depth>(result)[index] = reinterpret_cast<void*>(function);
-				
+
 				Helper<index + 1, end>::init(result);
 			}
 		};
@@ -566,20 +566,20 @@ namespace detail
 		{
 			return (x << r) | (x >> (64 - r));
 		}
-		
+
 		static bcc::uint64_t fmix(bcc::uint64_t k) BICOMC_NOEXCEPT
 		{
 			k ^= k >> 33;
-			k *= UINT64_C(0xFF51AFD7ED558CCD);
+			k *= bcc::uint64_t(0xFF51AFD7ED558CCD);
 			k ^= k >> 33;
-			k *= UINT64_C(0xC4CEB9FE1A85EC53);
+			k *= bcc::uint64_t(0xC4CEB9FE1A85EC53);
 			k ^= k >> 33;
 			return k;
 		}
 
 		static bcc::uint64_t murmurHashNeutral64v2(void const* key, size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
 		{
-			bcc::uint64_t const m = UINT64_C(0xC6A4A7935BD1E995);
+			bcc::uint64_t const m = bcc::uint64_t(0xC6A4A7935BD1E995);
 			int const r = 47;
 
 			bcc::uint64_t h = seed ^ (len * m);
@@ -626,9 +626,9 @@ namespace detail
 			bcc::uint64_t h1 = seed;
 			bcc::uint64_t h2 = seed;
 
-			bcc::uint64_t const c1 = UINT64_C(0x87C37B91114253D5);
-			bcc::uint64_t const c2 = UINT64_C(0x4CF5AD432745937F);
-			
+			bcc::uint64_t const c1 = bcc::uint64_t(0x87C37B91114253D5);
+			bcc::uint64_t const c2 = bcc::uint64_t(0x4CF5AD432745937F);
+
 			for (; data != end; data += 16)
 			{
 				bcc::uint64_t k1 = getBlock(data);
@@ -641,7 +641,7 @@ namespace detail
 				h1 ^= k1;
 				h1 = rotl64(h1, 27);
 				h1 += h2;
-				h1 = h1 * 5 + UINT32_C(0x52DCE729);
+				h1 = h1 * 5 + bcc::uint32_t(0x52DCE729);
 
 				k2 *= c2;
 				k2 = rotl64(k2, 33);
@@ -650,7 +650,7 @@ namespace detail
 				h2 ^= k2;
 				h2 = rotl64(h2, 31);
 				h2 += h1;
-				h2 = h2 * 5 + UINT32_C(0x38495AB5);
+				h2 = h2 * 5 + bcc::uint32_t(0x38495AB5);
 			}
 
 			bcc::uint64_t k1 = 0, k2 = 0;
@@ -668,7 +668,7 @@ namespace detail
 				k2 = rotl64(k2, 33);
 				k2 *= c1;
 				h2 ^= k2;
-					
+
 			case 8: k1 ^= bcc::uint64_t(data[7]) << 56;
 			case 7: k1 ^= bcc::uint64_t(data[6]) << 48;
 			case 6: k1 ^= bcc::uint64_t(data[5]) << 40;
@@ -694,7 +694,7 @@ namespace detail
 
 			h1 += h2;
 			h2 += h1;
-	
+
 			bcc::array<bcc::uint64_t, 2> result;
 			result[0] = h1;
 			result[1] = h2;
@@ -707,11 +707,11 @@ namespace detail
 			bcc::uint8_t const* end = data + len;
 
 			bcc::uint64_t h = seed;
-			
+
 			for (; data != end; ++data)
 			{
 				h ^= bcc::uint64_t(*data);
-				h *= UINT64_C(0x100000001B3);
+				h *= bcc::uint64_t(0x100000001B3);
 			}
 
 			return h;

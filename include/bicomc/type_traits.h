@@ -347,13 +347,14 @@ namespace detail
 
 namespace detail
 {
-	template<typename T, bool isArithmetic = bcc::is_arithmetic<T>::value>
+	template<typename T, bool isInteger = bcc::is_integral<T>::value>
 	struct is_signed_impl
 		: public bcc::integral_constant<bool, T(-1) < T(0)>
 	{};
 
 	template<typename T>
-	struct is_signed_impl<T, false> : public bcc::false_type
+	struct is_signed_impl<T, false>
+		: public bcc::is_floating_point<T>
 	{};
 } // namespace detail
 

@@ -6,7 +6,11 @@
 #endif // !def __GNUC__
 
 #if !defined(BICOMC_EXPORT)
-#	define BICOMC_EXPORT __attribute__((visibility("default")))
+#	if defined(_WIN32)
+#		define BICOMC_EXPORT __attribute__((dllexport))
+#	else
+#		define BICOMC_EXPORT __attribute__((visibility("default")))
+#	endif
 #endif // !def BICOMC_EXPORT
 
 #if !defined(BICOMC_IS_NULLPTR_SUPPORT_COMPILER)

@@ -11,7 +11,7 @@
 namespace bcc
 {
 	class Object;
-	
+
 	template<typename T>
 	struct is_interface;
 
@@ -22,15 +22,21 @@ namespace detail
 	static_assert(sizeof(bcc::uintptr_t) == sizeof(void*), "'bcc::uintptr_t' size must equal pointer size.");
 	static_assert(sizeof(bcc::intptr_t) == sizeof(void*), "'bcc::intptr_t' size must equal pointer size.");
 
-	template<typename T>
-	struct Compatibility
+	template<typename T, bool isCompatible = bcc::is_arithmetic<T>::value || bcc::is_void<T>::value || bcc::is_interface<T>::value>
+	struct CompatibilityHelper
 	{
-		static_assert(bcc::is_arithmetic<T>::value
-			|| bcc::is_void<T>::value
-			|| bcc::is_interface<T>::value
-			, "'T' is not compatible type. Please specialize 'bcc::detail::Compatibility'.");
-
 		typedef T type;
+	};
+
+	template<typename T>
+	struct CompatibilityHelper<T, false>
+	{};
+
+	template<typename T>
+	struct Compatibility : public CompatibilityHelper<T>
+	{
+		// 'T' is not compatible type. Please specialize 'bcc::detail::Compatibility'.
+		// typedef T type;
 	};
 
 	template<typename T>
@@ -70,7 +76,40 @@ namespace detail
 	{
 		typedef typename Compatibility<T>::type* type;
 	};
+
+	template<typename T>
+	struct has_compatibility_impl
+	{
+		typedef bcc::int8_t TrueType;
+		typedef bcc::int16_t FalseType;
+
+		typedef typename bcc::remove_cv<T>::type type;
+
+		template<typename U> static TrueType test(typename U::type*);
+		template<typename U> static FalseType test(...);
+
+		static bool const value = sizeof(test<Compatibility<type> >(0)) == sizeof(TrueType);
+	};
+
+	template<typename T>
+	struct has_compatibility_impl<T*>
+	{
+		static bool const value = has_compatibility_impl<T>::value;
+	};
+
+	template<typename T>
+	struct has_compatibility_impl<T&>
+	{
+		static bool const value = has_compatibility_impl<T>::value;
+	};
+
 } // namepsace detail
+
+	template<typename T>
+	struct has_compatibility
+		: public integral_constant<bool, detail::has_compatibility_impl<T>::value>
+	{};
+
 } // namespace bcc
 
 #endif // !def BICOMC_DETAIL_COMPATIBILITY_H__

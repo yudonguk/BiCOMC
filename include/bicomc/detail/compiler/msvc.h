@@ -5,6 +5,8 @@
 #	error "compiler is not msvc"
 #endif // !def _MSC_VER
 
+#pragma warning(disable:4503)
+
 #if !defined(BICOMC_EXPORT)
 #	define BICOMC_EXPORT __declspec(dllexport)
 #endif // !def BICOMC_EXPORT

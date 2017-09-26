@@ -769,10 +769,24 @@ namespace detail
 	{
 		static bool const value = true;
 	};
+
+	template<typename T>
+	struct base_of_impl
+	{
+		typedef typename T::BiCOMC_Base__ type;
+	};
+
+	template<>
+	struct base_of_impl<bcc::Object>
+	{};
 } // namespace detail
 
 	template<typename T>
 	struct is_interface : public bcc::integral_constant<bool, detail::is_interface_impl<typename bcc::remove_cv<T>::type>::value>
+	{};
+
+	template<typename T>
+	struct base_of : public detail::base_of_impl<typename bcc::remove_cv<T>::type>
 	{};
 
 	inline bool is_multiple(bcc::Object const& object) BICOMC_NOEXCEPT
@@ -813,6 +827,7 @@ using bcc::bicomc_cast;
 #define BICOMC_INTERFACE_BASE_CODE(INTERFACE_NAME) \
 	friend class bcc::detail::ObjectHelper; \
 	template<typename> friend struct bcc::detail::is_interface_impl; \
+	template<typename> friend struct bcc::detail::base_of_impl; \
 	template<typename> friend struct bcc::detail::InheritanceDepth; \
 	template<typename> friend struct bcc::detail::LazyBase; \
 	template<typename> friend struct bcc::detail::Signature; \
@@ -979,21 +994,33 @@ protected: \
 				overrideMethodImpl<Interface>(impl, 0); \
 				Helper<BiCOMC_Interfaces__, BiCOMC_size__ - 1>::template overrideMethod(impl); \
 			} \
+			\
 			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
 			static void overrideMethodImpl(BiCOMC_Impl__& impl, typename BiCOMC_U__::template BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, BiCOMC_Dummy__>* p) \
 			{ \
-				access(impl, p, 0); \
+				access<BiCOMC_U__>(impl, p, 0); \
 			} \
 			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
 			static void overrideMethodImpl(BiCOMC_Impl__& impl, ...) {} \
 			\
-			template<typename MethodType, typename BiCOMC_Impl__> \
+			template<typename BiCOMC_U__, typename MethodType, typename BiCOMC_Impl__> \
 			static void access(BiCOMC_Impl__& impl, MethodType*, typename MethodType::owner*) \
 			{ \
 				MethodType::template overrideMethod<Interface>(impl); \
 			} \
-			template<typename MethodType, typename BiCOMC_Impl__> \
-			static void access(BiCOMC_Impl__& impl, MethodType*, ...) {} \
+			template<typename BiCOMC_U__, typename MethodType, typename BiCOMC_Impl__> \
+			static void access(BiCOMC_Impl__& impl, MethodType*, ...) \
+			{ \
+				 accessBase<BiCOMC_U__>(impl, 0); \
+			} \
+			\
+			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
+			static void accessBase(BiCOMC_Impl__& impl, typename bcc::base_of<BiCOMC_U__>::type*) \
+			{ \
+				overrideMethodImpl<typename bcc::base_of<BiCOMC_U__>::type>(impl, 0); \
+			} \
+			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
+			static void accessBase(BiCOMC_Impl__& impl, ...) {} \
 		}; \
 		template<typename BiCOMC_Interfaces__> \
 		struct Helper<BiCOMC_Interfaces__, 0> \

@@ -25,6 +25,7 @@ install(TARGETS ${PROJECT_NAME}
 	INCLUDES DESTINATION include
 )
 install(DIRECTORY include/bicomc DESTINATION include)
+install(FILES LICENSE DESTINATION include/bicomc)
 
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
@@ -53,6 +54,7 @@ configure_package_config_file(cmake/config.cmake.in
 install(FILES
 		${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config-version.cmake
 		${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config.cmake
+		LICENSE
 	DESTINATION ${confiInstallDir}
 )
 

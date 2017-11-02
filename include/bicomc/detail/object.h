@@ -19,6 +19,7 @@
 
 #include "config.h"
 
+#include <stdexcept>
 #include <typeinfo>
 
 #include "../object.h"

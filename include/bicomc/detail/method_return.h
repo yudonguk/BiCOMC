@@ -19,6 +19,8 @@
 
 #include "config.h"
 
+#include <stdexcept>
+
 #include "../memory.h"
 
 namespace bcc

@@ -29,7 +29,7 @@ namespace bcc
 	template<typename TupleType>
 	struct tuple_size;
 
-	template<size_t index, typename TupleType>
+	template<std::size_t index, typename TupleType>
 	struct tuple_element;
 
 #if BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
@@ -46,7 +46,7 @@ namespace bcc
 		template<typename>
 		friend struct tuple_size;
 
-		template<size_t, typename>
+		template<std::size_t, typename>
 		friend struct tuple_element;
 
 	public:
@@ -68,10 +68,10 @@ namespace bcc
 
 	template<typename... Types>
 	struct tuple_size<tuple<Types...> >
-		: public bcc::integral_constant<size_t, sizeof...(Types)>
+		: public bcc::integral_constant<std::size_t, sizeof...(Types)>
 	{};
 
-	template<size_t index, typename Head, typename... Tails>
+	template<std::size_t index, typename Head, typename... Tails>
 	struct tuple_element<index, tuple<Head, Tails...> >
 	{
 		typedef tuple<Head, Tails...> TupleType;
@@ -119,20 +119,20 @@ namespace bcc
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 	};
 
-	template<size_t index, typename... Types>
+	template<std::size_t index, typename... Types>
 	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type& get(tuple<Types...>& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<Types...> >::get(tuple);
 	}
 
-	template<size_t index, typename... Types>
+	template<std::size_t index, typename... Types>
 	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type const& get(tuple<Types...> const& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<Types...> >::get(tuple);
 	}
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-	template<size_t index, typename... Types>
+	template<std::size_t index, typename... Types>
 	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type&& get(tuple<Types...>&& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<Types...> >::get(std::move(tuple));
@@ -161,7 +161,7 @@ namespace bcc
 		template<typename>
 		friend struct tuple_size;
 
-		template<size_t, typename>
+		template<std::size_t, typename>
 		friend struct tuple_element;
 
 		template<typename, typename>
@@ -198,7 +198,7 @@ namespace bcc
 		, T27, T28, T29, T30>::Next>::value + 1>
 	{};
 
-	template<size_t index, typename T1, typename T2, typename T3, typename T4, typename T5
+	template<std::size_t index, typename T1, typename T2, typename T3, typename T4, typename T5
 		, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11
 		, typename T12, typename T13, typename T14, typename T15, typename T16, typename T17
 		, typename T18, typename T19, typename T20, typename T21, typename T22, typename T23
@@ -263,7 +263,7 @@ namespace bcc
 #endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
 	};
 
-	template<size_t index
+	template<std::size_t index
 		, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6
 		, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12
 		, typename T13, typename T14, typename T15, typename T16, typename T17, typename T18
@@ -280,7 +280,7 @@ namespace bcc
 				, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> >::get(tuple);
 	}
 
-	template<size_t index
+	template<std::size_t index
 		, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6
 		, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12
 		, typename T13, typename T14, typename T15, typename T16, typename T17, typename T18
@@ -298,7 +298,7 @@ namespace bcc
 	}
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-	template<size_t index
+	template<std::size_t index
 		, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6
 		, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12
 		, typename T13, typename T14, typename T15, typename T16, typename T17, typename T18
@@ -320,22 +320,22 @@ namespace bcc
 
 	template<>
 	struct tuple_size<tuple<> >
-		: public bcc::integral_constant<size_t, 0>
+		: public bcc::integral_constant<std::size_t, 0>
 	{};
 
-	template<size_t index, typename TupleType>
+	template<std::size_t index, typename TupleType>
 	struct tuple_element<index, TupleType const>
 	{
 		typedef typename tuple_element<index, TupleType>::type const type;
 	};
 
-	template<size_t index, typename TupleType>
+	template<std::size_t index, typename TupleType>
 	struct tuple_element<index, TupleType volatile>
 	{
 		typedef typename tuple_element<index, TupleType>::type volatile type;
 	};
 
-	template<size_t index, typename TupleType>
+	template<std::size_t index, typename TupleType>
 	struct tuple_element<index, TupleType const volatile>
 	{
 		typedef typename tuple_element<index, TupleType>::type const volatile type;
@@ -376,10 +376,10 @@ namespace bcc
 	template<typename TupleType, typename T1>
 	struct TupleCat
 	{
-		static size_t const size = tuple_size<TupleType>::value;
+		static std::size_t const size = tuple_size<TupleType>::value;
 		static_assert(size < 30, "limit of tuple element count is 30.");
 
-		template<size_t index, typename Tuple, typename Default = void>
+		template<std::size_t index, typename Tuple, typename Default = void>
 		struct Helper
 		{
 			typedef typename Helper<index - 1, typename Tuple::Next, Default>::type type;
@@ -391,7 +391,7 @@ namespace bcc
 			typedef typename Tuple::Value type;
 		};
 
-		template<size_t index, typename Default>
+		template<std::size_t index, typename Default>
 		struct Helper<index, tuple<>, Default>
 		{
 			typedef Default type;
@@ -457,7 +457,7 @@ namespace bcc
 
 #endif // BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
 
-	template<typename TupleType, typename T, size_t n>
+	template<typename TupleType, typename T, std::size_t n>
 	struct tuple_cat_n
 	{
 		typedef typename tuple_cat_n<typename bcc::TupleCat<TupleType, T>::type, T, n - 1>::type type;
@@ -469,21 +469,21 @@ namespace bcc
 		typedef TupleType type;
 	};
 
-	template<typename TupleType, size_t position, typename T, size_t index = 0, size_t size = bcc::tuple_size<TupleType>::value, typename PreviousResult = bcc::tuple<> >
+	template<typename TupleType, std::size_t position, typename T, std::size_t index = 0, std::size_t size = bcc::tuple_size<TupleType>::value, typename PreviousResult = bcc::tuple<> >
 	struct tuple_replace
 	{
 		static_assert(position < size, "'position' must be less than 'size'.");
 		typedef typename tuple_replace<TupleType, position, T, index + 1, size, typename bcc::TupleCat<PreviousResult, typename bcc::tuple_element<index, TupleType>::type>::type>::type type;
 	};
 
-	template<typename TupleType, size_t position, typename T, size_t size, typename PreviousResult>
+	template<typename TupleType, std::size_t position, typename T, std::size_t size, typename PreviousResult>
 	struct tuple_replace<TupleType, position, T, position, size, PreviousResult>
 	{
 		static_assert(position < size, "'position' must be less than 'size'.");
 		typedef typename tuple_replace<TupleType, position, T, position + 1, size, typename bcc::TupleCat<PreviousResult, T>::type>::type type;
 	};
 
-	template<typename TupleType, size_t position, typename T, size_t size, typename PreviousResult>
+	template<typename TupleType, std::size_t position, typename T, std::size_t size, typename PreviousResult>
 	struct tuple_replace<TupleType, position, T, size, size, PreviousResult>
 	{
 		static_assert(position < size, "'position' must be less than 'size'.");

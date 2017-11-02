@@ -71,7 +71,7 @@ namespace bcc
 
 namespace detail
 {
-	template<size_t size>
+	template<std::size_t size>
 	struct FixedSizeInt
 	{
 		template<bool condition, typename T1, typename T2>

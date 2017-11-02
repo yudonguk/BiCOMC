@@ -585,10 +585,10 @@ namespace detail
 		typedef typename Trait::ret Ret;
 		typedef typename Trait::params Params;
 
-		template<typename Tuple, size_t index = bcc::tuple_size<Tuple>::value>
+		template<typename Tuple, std::size_t index = bcc::tuple_size<Tuple>::value>
 		struct Itor
 		{
-			static size_t const size = bcc::tuple_size<Tuple>::value;
+			static std::size_t const size = bcc::tuple_size<Tuple>::value;
 			typedef typename bcc::tuple_element<size - index, Tuple>::type type;
 
 			static void to_wstring(std::wstring& result)
@@ -597,13 +597,13 @@ namespace detail
 				Itor<Tuple, index - 1>::to_wstring(result);
 			}
 
-			template<size_t i>
+			template<std::size_t i>
 			static typename bcc::enable_if<i == size>::type to_wstring_impl(std::wstring& result)
 			{
 				result.append(Signature<type>::to_wstring());
 			}
 
-			template<size_t i>
+			template<std::size_t i>
 			static typename bcc::enable_if<i < size>::type to_wstring_impl(std::wstring& result)
 			{
 				result.append(1, L',');
@@ -616,13 +616,13 @@ namespace detail
 				Itor<Tuple, index - 1>::to_utf8(result);
 			}
 
-			template<size_t i>
+			template<std::size_t i>
 			static typename bcc::enable_if<i == size>::type to_utf8_impl(std::string& result)
 			{
 				result.append(Signature<type>::to_utf8());
 			}
 
-			template<size_t i>
+			template<std::size_t i>
 			static typename bcc::enable_if<i < size>::type to_utf8_impl(std::string& result)
 			{
 				result.append(1, char(44)); // 44 == u8','

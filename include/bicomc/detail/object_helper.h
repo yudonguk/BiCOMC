@@ -34,7 +34,7 @@ namespace detail
 {
 	struct ProbeDeducer
 	{
-		static size_t const MAX_PROBE_SIZE = 100;
+		static std::size_t const MAX_PROBE_SIZE = 100;
 
 		struct RawHash
 		{
@@ -68,7 +68,7 @@ namespace detail
 			void(*functions[MAX_PROBE_SIZE])();
 		};
 
-		template<size_t size>
+		template<std::size_t size>
 		struct type
 		{
 			bcc::uintptr_t depth;
@@ -78,7 +78,7 @@ namespace detail
 		};
 	};
 
-	template<size_t tableSize>
+	template<std::size_t tableSize>
 	std::ostream& operator<<(std::ostream& stream, ProbeDeducer::type<tableSize> const& probe)
 	{
 		std::ostream::fmtflags const flags = stream.flags();
@@ -88,7 +88,7 @@ namespace detail
 		stream << "version : " << probe.version << std::endl;
 		stream << "next    : " << probe.next << std::endl;
 
-		for (size_t i = 0, size = probe.depth + 1; i < size; ++i)
+		for (std::size_t i = 0, size = probe.depth + 1; i < size; ++i)
 		{
 			ProbeDeducer::Table& table = *probe.tables[i];
 			ProbeDeducer::RawHash& hash = table.info.hash;
@@ -120,7 +120,7 @@ namespace detail
 		return stream;
 	}
 
-	template<size_t index, size_t depth, typename FunctionTypes>
+	template<std::size_t index, std::size_t depth, typename FunctionTypes>
 	struct Function
 	{
 		typedef typename bcc::tuple_element<index, typename bcc::tuple_element<depth, FunctionTypes>::type>::type MethodType;
@@ -131,16 +131,16 @@ namespace detail
 	class ObjectHelper
 	{
 	public:
-		static size_t const VFTABLE_HEADER_SIZE = 3; // because of depth, version, next
-		static size_t const INHERITANCE_DEPTH_INDEX = 0;
-		static size_t const BICOMC_VERSION_INDEX = 1;
-		static size_t const NEXT_OFFSET_INDEX = 2;
+		static std::size_t const VFTABLE_HEADER_SIZE = 3; // because of depth, version, next
+		static std::size_t const INHERITANCE_DEPTH_INDEX = 0;
+		static std::size_t const BICOMC_VERSION_INDEX = 1;
+		static std::size_t const NEXT_OFFSET_INDEX = 2;
 
-		static size_t const INTERFACE_INFO_INDEX = 0;
+		static std::size_t const INTERFACE_INFO_INDEX = 0;
 
-		static size_t const INTERFACE_HASH_INDEX = 0;
-		static size_t const INTERFACE_COUNT_INDEX = sizeof(bcc::detail::Hash) / sizeof(bcc::uintptr_t) + (sizeof(bcc::detail::Hash) % sizeof(bcc::uintptr_t) == 0 ? 0 : 1);
-		static size_t const INTERFACE_NAME_INDEX = INTERFACE_COUNT_INDEX + 1;
+		static std::size_t const INTERFACE_HASH_INDEX = 0;
+		static std::size_t const INTERFACE_COUNT_INDEX = sizeof(bcc::detail::Hash) / sizeof(bcc::uintptr_t) + (sizeof(bcc::detail::Hash) % sizeof(bcc::uintptr_t) == 0 ? 0 : 1);
+		static std::size_t const INTERFACE_NAME_INDEX = INTERFACE_COUNT_INDEX + 1;
 
 	public:
 		static bcc::uintptr_t inheritanceDepth(bcc::Object const& object) BICOMC_NOEXCEPT;
@@ -154,16 +154,16 @@ namespace detail
 		static bcc::Object volatile* next(bcc::Object volatile& object) BICOMC_NOEXCEPT;
 		static bcc::Object const volatile* next(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
-		static bcc::detail::Hash const& hash(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT;
+		static bcc::detail::Hash const& hash(bcc::Object const& object, std::size_t depth) BICOMC_NOEXCEPT;
 		static bcc::detail::Hash const& hash(bcc::Object const& object) BICOMC_NOEXCEPT;
 
-		static bcc::uintptr_t methodCount(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT;
+		static bcc::uintptr_t methodCount(bcc::Object const& object, std::size_t depth) BICOMC_NOEXCEPT;
 		static bcc::uintptr_t methodCount(bcc::Object const& object) BICOMC_NOEXCEPT;
 
-		static char const* name(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT;
+		static char const* name(bcc::Object const& object, std::size_t depth) BICOMC_NOEXCEPT;
 		static char const* name(bcc::Object const& object) BICOMC_NOEXCEPT;
 
-		static char const* const* signatures(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT;
+		static char const* const* signatures(bcc::Object const& object, std::size_t depth) BICOMC_NOEXCEPT;
 		static char const* const* signatures(bcc::Object const& object) BICOMC_NOEXCEPT;
 
 		static void setTable(bcc::Object const& object, void** table) BICOMC_NOEXCEPT;
@@ -179,16 +179,16 @@ namespace detail
 		static bcc::Object volatile* cast(bcc::Object volatile& object, bcc::Object const& target) BICOMC_NOEXCEPT;
 		static bcc::Object const volatile* cast(bcc::Object const volatile& object, bcc::Object const& target) BICOMC_NOEXCEPT;
 
-		template<size_t depth, typename FuntionTypes>
+		template<std::size_t depth, typename FuntionTypes>
 		static typename bcc::tuple_element<depth, FuntionTypes>::type& ownTable(bcc::Object const& object) BICOMC_NOEXCEPT;
 
-		template<size_t depth, typename FuntionTypes>
+		template<std::size_t depth, typename FuntionTypes>
 		static typename bcc::tuple_element<depth, FuntionTypes>::type& ownTable(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
-		template<size_t index, size_t depth, typename FunctionTables>
+		template<std::size_t index, std::size_t depth, typename FunctionTables>
 		static typename Function<index, depth, FunctionTables>::type& function(bcc::Object const& object) BICOMC_NOEXCEPT;
 
-		template<size_t index, size_t depth, typename FunctionTables>
+		template<std::size_t index, std::size_t depth, typename FunctionTables>
 		static typename Function<index, depth, FunctionTables>::type& function(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
 		template<typename T>

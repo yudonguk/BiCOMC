@@ -47,7 +47,7 @@ namespace detail
 			return convertToWstring(source, std::strlen(source));
 		}
 
-		static std::wstring convertToWstring(char const* source, size_t size)
+		static std::wstring convertToWstring(char const* source, std::size_t size)
 		{
 			if (size == 0)
 				return std::wstring();
@@ -56,15 +56,15 @@ namespace detail
 			result.resize(size + 1);
 
 #if defined(_MSC_VER) && _MSC_VER >= 1400
-			size_t convertedSize = static_cast<size_t>(-1);
+			std::size_t convertedSize = static_cast<std::size_t>(-1);
 			if (mbstowcs_s(&convertedSize, &result[0], result.size(), source, size) != 0)
 				return std::wstring();
 			convertedSize -= 1;
 #else // defined(_MSC_VER) && _MSC_VER >= 1400
-			size_t convertedSize = std::mbstowcs(&result[0], source, result.size());
+			std::size_t convertedSize = std::mbstowcs(&result[0], source, result.size());
 #endif // defined(_MSC_VER) && _MSC_VER >= 1400
 
-			if (convertedSize == static_cast<size_t>(-1))
+			if (convertedSize == static_cast<std::size_t>(-1))
 				return std::wstring();
 			result.resize(convertedSize);
 			return result;
@@ -80,7 +80,7 @@ namespace detail
 			return ConvertFromWstring(source, std::wcslen(source));
 		}
 
-		static std::string ConvertFromWstring(wchar_t const* source, size_t size)
+		static std::string ConvertFromWstring(wchar_t const* source, std::size_t size)
 		{
 			if (size == 0)
 				return std::string();
@@ -89,15 +89,15 @@ namespace detail
 			result.resize(size * MB_CUR_MAX + 1);
 
 #if defined(_MSC_VER) && _MSC_VER >= 1400
-			size_t convertedSize = static_cast<size_t>(-1);
+			std::size_t convertedSize = static_cast<std::size_t>(-1);
 			if (wcstombs_s(&convertedSize, &result[0], result.size(), source, size) == 0)
 				return std::string();
 			convertedSize -= 1;
 #else // defined(_MSC_VER) && _MSC_VER >= 1400
-			size_t convertedSize = std::wcstombs(&result[0], source, result.size());
+			std::size_t convertedSize = std::wcstombs(&result[0], source, result.size());
 #endif // defined(_MSC_VER) && _MSC_VER >= 1400
 
-			if (convertedSize == static_cast<size_t>(-1))
+			if (convertedSize == static_cast<std::size_t>(-1))
 				return std::string();
 			result.resize(convertedSize);
 			return result;
@@ -113,7 +113,7 @@ namespace detail
 			return convertFromUtf8(utf8, std::strlen(utf8));
 		}
 
-		static std::wstring convertFromUtf8(char const* utf8, size_t size)
+		static std::wstring convertFromUtf8(char const* utf8, std::size_t size)
 		{
 #if BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
 			return std::wstring_convert<std::codecvt_utf8<wchar_t> >().from_bytes(utf8, utf8 + size);
@@ -121,7 +121,7 @@ namespace detail
 			std::wstring result;
 			result.reserve(size);
 			wchar_t temp = L'\0';
-			for (size_t i = 0; i < size;)
+			for (std::size_t i = 0; i < size;)
 			{
 				i += convertFromUtf8(temp, utf8 + i);
 				result.append(1, temp);
@@ -140,14 +140,14 @@ namespace detail
 			return convertToUtf8(source, std::wcslen(source));
 		}
 
-		static std::string convertToUtf8(wchar_t const* source, size_t size)
+		static std::string convertToUtf8(wchar_t const* source, std::size_t size)
 		{
 #if BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
 			return std::wstring_convert<std::codecvt_utf8<wchar_t> >().to_bytes(source, source + size);
 #else // BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
 			std::string result;
 			result.reserve(size * 6);
-			for (size_t i = 0; i < size; ++i)
+			for (std::size_t i = 0; i < size; ++i)
 			{
 				char buff[6];
 				result.append(buff, buff + convertToUtf8(buff, source[i]));
@@ -156,7 +156,7 @@ namespace detail
 #endif // BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
 		}
 
-		static size_t convertToUtf8(char output[6], wchar_t ch) BICOMC_NOEXCEPT
+		static std::size_t convertToUtf8(char output[6], wchar_t ch) BICOMC_NOEXCEPT
 		{
 			if (ch <= 0x7F)
 			{
@@ -208,7 +208,7 @@ namespace detail
 			return 0;
 		}
 
-		static size_t convertFromUtf8(wchar_t& output, char const* utf8) BICOMC_NOEXCEPT
+		static std::size_t convertFromUtf8(wchar_t& output, char const* utf8) BICOMC_NOEXCEPT
 		{
 			unsigned char ch = *utf8;
 			if (ch <= 0x7F)

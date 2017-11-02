@@ -78,13 +78,13 @@ namespace detail
 	template<typename T>
 	struct InheritanceDepth
 	{
-		static size_t const value = T::BiCOMC_Base__::BICOMC_INHERITANCE_DEPTH__ + 1;
+		static std::size_t const value = T::BiCOMC_Base__::BICOMC_INHERITANCE_DEPTH__ + 1;
 	};
 
 	template<>
 	struct InheritanceDepth<bcc::Object>
 	{
-		static size_t const value = 0;
+		static std::size_t const value = 0;
 	};
 
 	template<typename T>
@@ -93,7 +93,7 @@ namespace detail
 		typedef typename T::BiCOMC_Function_Types__ type;
 	};
 
-	template<typename FunctionTypes, size_t size = bcc::tuple_size<FunctionTypes>::value>
+	template<typename FunctionTypes, std::size_t size = bcc::tuple_size<FunctionTypes>::value>
 	struct RawTable
 	{
 		typedef typename bcc::TupleCat<
@@ -116,10 +116,10 @@ namespace detail
 		> type;
 	};
 
-	template<typename FunctionTypes, size_t depth = bcc::tuple_size<FunctionTypes>::value - 1>
+	template<typename FunctionTypes, std::size_t depth = bcc::tuple_size<FunctionTypes>::value - 1>
 	struct InterfaceInfoDeducer
 	{
-		static size_t const HASH_HOLD_SIZE = sizeof(Hash) / sizeof(bcc::uintptr_t) + (sizeof(Hash) % sizeof(bcc::uintptr_t) == 0 ? 0 : 1);
+		static std::size_t const HASH_HOLD_SIZE = sizeof(Hash) / sizeof(bcc::uintptr_t) + (sizeof(Hash) % sizeof(bcc::uintptr_t) == 0 ? 0 : 1);
 
 		typedef typename bcc::TupleCat<
 			typename bcc::conditional<
@@ -138,7 +138,7 @@ namespace detail
 
 		typedef bcc::array<void const*, bcc::tuple_size<type>::value> raw_type;
 
-		template<size_t size = bcc::tuple_size<type>::value - bcc::tuple_size<header>::value, typename Dummy = void>
+		template<std::size_t size = bcc::tuple_size<type>::value - bcc::tuple_size<header>::value, typename Dummy = void>
 		struct Helper
 		{
 			static void init(raw_type& result)
@@ -170,7 +170,7 @@ namespace detail
 		{
 			Helper<>::init(result);
 
-			size_t const count = bcc::tuple_size<type>::value - bcc::tuple_size<header>::value;
+			std::size_t const count = bcc::tuple_size<type>::value - bcc::tuple_size<header>::value;
 
 			Hash& hash = reinterpret_cast<Hash&>(bcc::get<0>(result));
 			hash.hash = bcc::detail::Hasher<Interface>::hash();
@@ -181,10 +181,10 @@ namespace detail
 		}
 	};
 
-	template<typename FunctionTypes, size_t begin = 0, size_t end = bcc::tuple_size<FunctionTypes>::value>
+	template<typename FunctionTypes, std::size_t begin = 0, std::size_t end = bcc::tuple_size<FunctionTypes>::value>
 	struct TableCopyHelper
 	{
-		static size_t const depth = begin;
+		static std::size_t const depth = begin;
 
 		static void copy(FunctionTypes& result, void** table, bcc::Object const& object)
 		{
@@ -194,7 +194,7 @@ namespace detail
 		}
 	};
 
-	template<typename FunctionTypes, size_t end>
+	template<typename FunctionTypes, std::size_t end>
 	struct TableCopyHelper<FunctionTypes, end, end>
 	{
 		static void copy(FunctionTypes& result, void** table, bcc::Object const& object) {}
@@ -203,14 +203,14 @@ namespace detail
 	template<typename Interface>
 	struct TableHolder
 	{
-		static size_t const HEADER_SIZE = ObjectHelper::VFTABLE_HEADER_SIZE;
+		static std::size_t const HEADER_SIZE = ObjectHelper::VFTABLE_HEADER_SIZE;
 
 		typedef typename bcc::detail::FunctionTypes<Interface>::type FunctionTypes;
-		static size_t const depth = bcc::tuple_size<FunctionTypes>::value - 1;
+		static std::size_t const depth = bcc::tuple_size<FunctionTypes>::value - 1;
 
 		typedef typename bcc::detail::RawTable<FunctionTypes>::type RawTable;
 
-		template<size_t index = 0, size_t end = bcc::tuple_size<typename bcc::tuple_element<depth, RawTable>::type>::value>
+		template<std::size_t index = 0, std::size_t end = bcc::tuple_size<typename bcc::tuple_element<depth, RawTable>::type>::value>
 		struct Helper
 		{
 			static void init(RawTable& result)
@@ -225,7 +225,7 @@ namespace detail
 			}
 		};
 
-		template<size_t end>
+		template<std::size_t end>
 		struct Helper<0, end>
 		{
 			static void init(RawTable& result)
@@ -235,7 +235,7 @@ namespace detail
 			}
 		};
 
-		template<size_t end>
+		template<std::size_t end>
 		struct Helper<end, end>
 		{
 			static void init(RawTable& result) {}
@@ -289,9 +289,9 @@ namespace detail
 	template<typename Interfaces>
 	struct MultiTableHolder
 	{
-		static size_t const HEADER_SIZE = ObjectHelper::VFTABLE_HEADER_SIZE;
+		static std::size_t const HEADER_SIZE = ObjectHelper::VFTABLE_HEADER_SIZE;
 
-		template<size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
+		template<std::size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
 		struct InterfaceTester
 		{
 			static bool const value = bcc::is_interface<typename bcc::tuple_element<size - 1, Interfaces>::type>::value
@@ -306,14 +306,14 @@ namespace detail
 
 		static_assert(InterfaceTester<>::value, "'Interfaces' must be a list of interface.");
 
-		template<size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
+		template<std::size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
 		struct DuplicationTester
 		{
 			typedef typename bcc::tuple_element<size - 1, Interfaces>::type Interface;
 
-			static size_t const now = size;
+			static std::size_t const now = size;
 
-			template<size_t count = bcc::tuple_size<Interfaces>::value, typename Dummy2 = void>
+			template<std::size_t count = bcc::tuple_size<Interfaces>::value, typename Dummy2 = void>
 			struct Helper
 			{
 				typedef bcc::int8_t TrueType;
@@ -344,10 +344,10 @@ namespace detail
 
 		static_assert(!DuplicationTester<>::value, "'Interfaces' must not be duplicated.");
 
-		template<size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
+		template<std::size_t size = bcc::tuple_size<Interfaces>::value, typename Dummy = void>
 		struct Helper
 		{
-			static size_t const max_size = bcc::tuple_size<Interfaces>::value;
+			static std::size_t const max_size = bcc::tuple_size<Interfaces>::value;
 
 			typedef typename bcc::tuple_element<size - 1, Interfaces>::type Interface;
 			typedef typename bcc::detail::FunctionTypes<Interface>::type FunctionTypes;
@@ -466,22 +466,22 @@ namespace detail
 		typename Helper<>::type holder;
 	};
 
-	template<template<size_t, typename> class Enumerator, size_t line = 0, size_t index = 0>
+	template<template<std::size_t, typename> class Enumerator, std::size_t line = 0, std::size_t index = 0>
 	struct EnumeratorSize
 	{
 		typedef bcc::int8_t TrueType;
 		typedef bcc::int16_t FalseType;
 
-		template<size_t size>
+		template<std::size_t size>
 		struct EnumeratorEnd
 		{
-			static size_t const value = size;
+			static std::size_t const value = size;
 		};
 
 		template<typename U> static TrueType test(typename U::type*);
 		template<typename U> static FalseType test(...);
 
-		static size_t const value
+		static std::size_t const value
 			= bcc::conditional<sizeof(test<Enumerator<index, void> >(0)) == sizeof(TrueType)
 				, EnumeratorSize<Enumerator, line, index + 1>, EnumeratorEnd<index> >::type::value;
 	};
@@ -524,9 +524,9 @@ namespace detail
 		};
 
 		typedef typename bcc::detail::FunctionTypes<T>::type FunctionTypes;
-		static size_t const depth = bcc::detail::InheritanceDepth<T>::value;
+		static std::size_t const depth = bcc::detail::InheritanceDepth<T>::value;
 
-		template<size_t size = bcc::tuple_size<typename bcc::tuple_element<depth, FunctionTypes>::type>::value, typename Dummy = void>
+		template<std::size_t size = bcc::tuple_size<typename bcc::tuple_element<depth, FunctionTypes>::type>::value, typename Dummy = void>
 		struct SubhashHelper
 		{
 			static void list(std::string& result)
@@ -593,7 +593,7 @@ namespace detail
 			return k;
 		}
 
-		static bcc::uint64_t murmurHashNeutral64v2(void const* key, size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
+		static bcc::uint64_t murmurHashNeutral64v2(void const* key, std::size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
 		{
 			bcc::uint64_t const m = bcc::uint64_t(0xC6A4A7935BD1E995);
 			int const r = 47;
@@ -634,7 +634,7 @@ namespace detail
 			return h;
 		}
 
-		static bcc::array<bcc::uint64_t, 2> murmurHashNeutral128v3(void const* key, size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
+		static bcc::array<bcc::uint64_t, 2> murmurHashNeutral128v3(void const* key, std::size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
 		{
 			bcc::uint8_t const* data = static_cast<bcc::uint8_t const*>(key);
 			bcc::uint8_t const* end = data + (len - len % 16);
@@ -717,7 +717,7 @@ namespace detail
 			return result;
 		}
 
-		static bcc::uint64_t fnv1a64(void const* key, size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
+		static bcc::uint64_t fnv1a64(void const* key, std::size_t len, bcc::uint64_t seed) BICOMC_NOEXCEPT
 		{
 			bcc::uint8_t const* data = static_cast<bcc::uint8_t const*>(key);
 			bcc::uint8_t const* end = data + len;
@@ -848,13 +848,13 @@ using bcc::bicomc_cast;
 	template<typename> friend struct bcc::detail::LazyBase; \
 	template<typename> friend struct bcc::detail::Signature; \
 protected: \
-	static size_t const BICOMC_INHERITANCE_DEPTH__ = bcc::detail::InheritanceDepth<INTERFACE_NAME >::value; \
+	static std::size_t const BICOMC_INHERITANCE_DEPTH__ = bcc::detail::InheritanceDepth<INTERFACE_NAME >::value; \
 private: \
 	typedef INTERFACE_NAME BiCOMC_My__; \
 	\
 	BICOMC_SIGNATURE_DEFAULT(INTERFACE_NAME) \
 	\
-	template<size_t BiCOMC_index__, typename BiCOMC_Dummy__ = void> \
+	template<std::size_t BiCOMC_index__, typename BiCOMC_Dummy__ = void> \
 	struct BiCOMC_Type_Enumerator__; \
 	template<typename BiCOMC_Dummy__> \
 	struct BiCOMC_Type_Enumerator__<bcc::detail::EnumeratorSize<BiCOMC_Type_Enumerator__, BICOMC_LINE_COUNTER>::value, BiCOMC_Dummy__> \
@@ -996,10 +996,10 @@ protected: \
 		\
 		static bool const isConst = bcc::is_const<int METHOD_QUALIFIER>::value; \
 		static bool const isVolatile = bcc::is_volatile<int METHOD_QUALIFIER>::value; \
-		static size_t const depth = owner::BICOMC_INHERITANCE_DEPTH__; \
-		static size_t const index = bcc::detail::EnumeratorSize<owner::BiCOMC_Type_Enumerator__, BICOMC_LINE_COUNTER>::value; \
+		static std::size_t const depth = owner::BICOMC_INHERITANCE_DEPTH__; \
+		static std::size_t const index = bcc::detail::EnumeratorSize<owner::BiCOMC_Type_Enumerator__, BICOMC_LINE_COUNTER>::value; \
 		\
-		template<typename BiCOMC_Interfaces__, size_t BiCOMC_size__ = bcc::tuple_size<BiCOMC_Interfaces__>::value> \
+		template<typename BiCOMC_Interfaces__, std::size_t BiCOMC_size__ = bcc::tuple_size<BiCOMC_Interfaces__>::value> \
 		struct Helper \
 		{ \
 			typedef typename bcc::tuple_element<BiCOMC_size__ - 1, BiCOMC_Interfaces__>::type Interface; \

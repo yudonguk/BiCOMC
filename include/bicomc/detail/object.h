@@ -88,7 +88,7 @@ namespace detail
 			return bcc::detail::UnknownError::instance();
 		}
 
-		template<typename Interfaces, typename MethodType, size_t size = bcc::tuple_size<Interfaces>::value>
+		template<typename Interfaces, typename MethodType, std::size_t size = bcc::tuple_size<Interfaces>::value>
 		struct OverrideHelper
 		{
 			typedef typename bcc::tuple_element<size - 1, Interfaces>::type Interface;
@@ -179,7 +179,7 @@ namespace detail
 		);
 	}
 
-	inline bcc::detail::Hash const& ObjectHelper::hash(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT
+	inline bcc::detail::Hash const& ObjectHelper::hash(bcc::Object const& object, std::size_t depth) BICOMC_NOEXCEPT
 	{
 		typedef bcc::detail::Hash Result;
 		return reinterpret_cast<Result***>(object.vftable__)[depth + VFTABLE_HEADER_SIZE][INTERFACE_INFO_INDEX][INTERFACE_HASH_INDEX];
@@ -190,7 +190,7 @@ namespace detail
 		return hash(object, inheritanceDepth(object));
 	}
 
-	inline bcc::uintptr_t ObjectHelper::methodCount(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT
+	inline bcc::uintptr_t ObjectHelper::methodCount(bcc::Object const& object, std::size_t depth) BICOMC_NOEXCEPT
 	{
 		typedef bcc::uintptr_t Result;
 		return reinterpret_cast<Result***>(object.vftable__)[depth + VFTABLE_HEADER_SIZE][INTERFACE_INFO_INDEX][INTERFACE_COUNT_INDEX];
@@ -201,7 +201,7 @@ namespace detail
 		return methodCount(object, inheritanceDepth(object));
 	}
 
-	inline char const* ObjectHelper::name(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT
+	inline char const* ObjectHelper::name(bcc::Object const& object, std::size_t depth) BICOMC_NOEXCEPT
 	{
 		typedef char const* Result;
 		return reinterpret_cast<Result***>(object.vftable__)[depth + VFTABLE_HEADER_SIZE][INTERFACE_INFO_INDEX][INTERFACE_NAME_INDEX];
@@ -212,7 +212,7 @@ namespace detail
 		return name(object, inheritanceDepth(object));
 	}
 
-	inline char const* const* ObjectHelper::signatures(bcc::Object const& object, size_t depth) BICOMC_NOEXCEPT
+	inline char const* const* ObjectHelper::signatures(bcc::Object const& object, std::size_t depth) BICOMC_NOEXCEPT
 	{
 		typedef char const* Result;
 		return reinterpret_cast<Result***>(object.vftable__)[depth + VFTABLE_HEADER_SIZE][INTERFACE_INFO_INDEX] + INTERFACE_NAME_INDEX;
@@ -247,7 +247,7 @@ namespace detail
 			|| targetDepth > ObjectHelper::inheritanceDepth(object))
 			return false;
 
-		for (size_t i = 0, size = targetDepth + 1; i < size; ++i)
+		for (std::size_t i = 0, size = targetDepth + 1; i < size; ++i)
 		{
 			bcc::uintptr_t const methodCount = ObjectHelper::methodCount(object, i);
 			bcc::uintptr_t const targetMethodCount = ObjectHelper::methodCount(target, i);
@@ -289,7 +289,7 @@ namespace detail
 			}
 
 			bool isMatched = true;
-			for (size_t i = 0, size = targetDepth + 1; i < size; ++i)
+			for (std::size_t i = 0, size = targetDepth + 1; i < size; ++i)
 			{
 				bcc::uintptr_t const methodCount = ObjectHelper::methodCount(*itor, i);
 				bcc::uintptr_t const targetMethodCount = ObjectHelper::methodCount(target, i);
@@ -351,28 +351,28 @@ namespace detail
 		return ObjectHelper::cast(const_cast<bcc::Object&>(object), target);
 	}
 	
-	template<size_t depth, typename FuntionTypes>
+	template<std::size_t depth, typename FuntionTypes>
 	typename tuple_element<depth, FuntionTypes>::type& ObjectHelper::ownTable(bcc::Object const& object) BICOMC_NOEXCEPT
 	{
 		typedef typename tuple_element<depth, FuntionTypes>::type FunctionTable;
 		return *reinterpret_cast<FunctionTable*>(object.vftable__[depth + VFTABLE_HEADER_SIZE]);
 	}
 
-	template<size_t depth, typename FuntionTypes>
+	template<std::size_t depth, typename FuntionTypes>
 	typename tuple_element<depth, FuntionTypes>::type& ObjectHelper::ownTable(bcc::Object const volatile& object) BICOMC_NOEXCEPT
 	{
 		typedef typename tuple_element<depth, FuntionTypes>::type FunctionTable;
 		return *reinterpret_cast<FunctionTable*>(object.vftable__[depth + VFTABLE_HEADER_SIZE]);
 	}
 
-	template<size_t index, size_t depth, typename FunctionTables>
+	template<std::size_t index, std::size_t depth, typename FunctionTables>
 	typename Function<index, depth, FunctionTables>::type& ObjectHelper::function(bcc::Object const& object) BICOMC_NOEXCEPT
 	{
 		typedef typename Function<index, depth, FunctionTables>::type F;
 		return reinterpret_cast<F&>(reinterpret_cast<void**>(object.vftable__[depth + VFTABLE_HEADER_SIZE])[index]);
 	}
 	
-	template<size_t index, size_t depth, typename FunctionTables>
+	template<std::size_t index, std::size_t depth, typename FunctionTables>
 	typename Function<index, depth, FunctionTables>::type& ObjectHelper::function(bcc::Object const volatile& object) BICOMC_NOEXCEPT
 	{
 		typedef typename Function<index, depth, FunctionTables>::type F;

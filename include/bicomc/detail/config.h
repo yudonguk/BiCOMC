@@ -138,7 +138,7 @@ namespace detail
 	struct StaticAssertor<true>
 	{};
 
-	template<size_t i>
+	template<std::size_t i>
 	struct StaticAssertTester
 	{};
 } // namespace detail

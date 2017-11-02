@@ -40,7 +40,7 @@ namespace bcc
 
 namespace bcc
 {
-	template<typename T, size_t N>
+	template<typename T, std::size_t N>
 	class array
 	{
 	public:
@@ -206,39 +206,39 @@ namespace bcc
 		value_type mArray[N == 0 ? 1 : N];
 	};
 
-	template<typename T, size_t N>
+	template<typename T, std::size_t N>
 	bool operator==(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(std::equal(lhs.begin(), lhs.end(), rhs.begin()))
 	{
 		if (&lhs == &rhs) return true;
 		return std::equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 
-	template<typename T, size_t N>
+	template<typename T, std::size_t N>
 	bool operator!=(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(!(lhs == rhs))
 	{
 		return !(lhs == rhs);
 	}
 
-	template<typename T, size_t N>
+	template<typename T, std::size_t N>
 	bool operator<(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))
 	{
 		if (&lhs == &rhs) return false;
 		return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
-	template<typename T, size_t N>
+	template<typename T, std::size_t N>
 	bool operator<=(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(!(rhs < lhs))
 	{
 		return !(rhs < lhs);
 	}
 
-	template<typename T, size_t N>
+	template<typename T, std::size_t N>
 	bool operator>(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(rhs < lhs)
 	{
 		return rhs < lhs;
 	}
 
-	template<typename T, size_t N>
+	template<typename T, std::size_t N>
 	bool operator>=(array<T, N> const& lhs, array<T, N> const& rhs) BICOMC_NOEXCEPT_EX(!(lhs < rhs))
 	{
 		return !(lhs < rhs);
@@ -247,7 +247,7 @@ namespace bcc
 
 namespace std
 {
-	template<typename T, size_t N>
+	template<typename T, std::size_t N>
 	void swap(bcc::array<T, N>& lhs, bcc::array<T, N>& rhs)
 	{
 		lhs.swap(rhs);
@@ -261,29 +261,29 @@ namespace bcc
 	template<typename TupleType>
 	struct tuple_size;
 
-	template<typename T, size_t N>
+	template<typename T, std::size_t N>
 	struct tuple_size<array<T, N> >
-		: public bcc::integral_constant<size_t, N>
+		: public bcc::integral_constant<std::size_t, N>
 	{};
 
-	template<size_t index, typename TupleType>
+	template<std::size_t index, typename TupleType>
 	struct tuple_element;
 
-	template<size_t index, typename T, size_t N>
+	template<std::size_t index, typename T, std::size_t N>
 	struct tuple_element<index, array<T, N> >
 	{
 		static_assert(index < N, "'index' is out of range");
 		typedef T type;
 	};
 
-	template<size_t index, typename T, size_t N>
+	template<std::size_t index, typename T, std::size_t N>
 	BICOMC_CONSTEXPR T& get(array<T, N>& a) BICOMC_NOEXCEPT
 	{
 		static_assert(index < N, "'index' is out of range");
 		return a[index];
 	}
 
-	template<size_t index, typename T, size_t N>
+	template<std::size_t index, typename T, std::size_t N>
 	BICOMC_CONSTEXPR T const& get(array<T, N> const& a) BICOMC_NOEXCEPT
 	{
 		static_assert(index < N, "'index' is out of range");
@@ -291,7 +291,7 @@ namespace bcc
 	}
 
 #if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-	template<size_t index, typename T, size_t N>
+	template<std::size_t index, typename T, std::size_t N>
 	BICOMC_CONSTEXPR T&& get(array<T, N>&& a) BICOMC_NOEXCEPT
 	{
 		static_assert(index < N, "'index' is out of range");

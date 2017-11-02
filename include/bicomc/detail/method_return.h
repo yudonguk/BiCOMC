@@ -36,7 +36,7 @@ namespace detail
 		public:
 			enum { DATA_NONE = 0, DATA_ASSIGNED = sizeof(type) };
 
-			static size_t const size = sizeof(type) / sizeof(bcc::uintptr_t)
+			static std::size_t const size = sizeof(type) / sizeof(bcc::uintptr_t)
 				+ (sizeof(type) % sizeof(bcc::uintptr_t) == 0 ? 1 : 2);
 			
 		public:

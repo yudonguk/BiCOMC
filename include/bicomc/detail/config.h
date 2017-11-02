@@ -58,8 +58,20 @@
 #if BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
 #	define BICOMC_CONSTEXPR constexpr
 #else
-#	define BICOMC_CONSTEXPR 
+#	define BICOMC_CONSTEXPR
 #endif // BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
+
+#if __cplusplus >= 201402L
+#	define BICOMC_CONSTEXPR_14 BICOMC_CONSTEXPR
+#else
+#	define BICOMC_CONSTEXPR_14
+#endif // __cplusplus >= 201402L
+
+#if __cplusplus >= 201703L
+#	define BICOMC_CONSTEXPR_17 BICOMC_CONSTEXPR
+#else
+#	define BICOMC_CONSTEXPR_17
+#endif // __cplusplus >= 201703L
 
 #if BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER
 #	define BICOMC_NOEXCEPT noexcept

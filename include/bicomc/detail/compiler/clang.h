@@ -73,7 +73,7 @@
 #	if defined(_MSC_VER) && _MSC_VER >= 1900 
 #		define BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER \
 			(1)
-#	elif
+#	else
 #		define BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER \
 			(__cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__))
 #	endif

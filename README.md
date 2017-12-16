@@ -73,10 +73,11 @@ int main() {
 	bcc::Object* p = new Printer();
 	IPrinter& printer = bicomc_cast<IPrinter&>(*p);
 	printer.print("Hellow world!!");
+	p->destroy(); // as a 'delete p'
 	return 0;
 }
 ```
 
 ## License
 
-BiCOMC is distributed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) and it uses open source software shown in the [LICENSE](LICENSE) file.
+BiCOMC is distributed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) and it uses open source softwares shown in the [NOTICE](NOTICE.md) file.

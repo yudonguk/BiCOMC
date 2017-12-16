@@ -19,13 +19,13 @@ target_include_directories(${PROJECT_NAME} INTERFACE
 
 install(TARGETS ${PROJECT_NAME}
 	EXPORT ${TARGET_EXPORT_NAME}
-	RUNTIME DESTINATION bin
-	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib
-	INCLUDES DESTINATION include
+	RUNTIME DESTINATION "bin"
+	LIBRARY DESTINATION "lib"
+	ARCHIVE DESTINATION "lib"
+	INCLUDES DESTINATION "include"
 )
-install(DIRECTORY include/bicomc DESTINATION include)
-install(FILES LICENSE DESTINATION include/bicomc)
+install(DIRECTORY "include/bicomc" DESTINATION "include")
+install(FILES "LICENSE" "CONTRIBUTORS" "NOTICE.md" DESTINATION "include/bicomc")
 
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
@@ -39,28 +39,29 @@ add_custom_target(uninstall
 
 
 # install config file
-set(confiInstallDir lib/cmake/${PROJECT_NAME})
+set(confiInstallDir "lib/cmake/${PROJECT_NAME}")
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
-	${PROJECT_NAME_LOWER}-config-version.cmake
+	"${PROJECT_NAME_LOWER}-config-version.cmake"
 	VERSION ${PROJECT_VERSION}
 	COMPATIBILITY SameMajorVersion
 )
-configure_package_config_file(cmake/config.cmake.in
-	${PROJECT_NAME_LOWER}-config.cmake
-	INSTALL_DESTINATION ${confiInstallDir}
+configure_package_config_file(
+	"cmake/config.cmake.in"
+	"${PROJECT_NAME_LOWER}-config.cmake"
+	INSTALL_DESTINATION "${confiInstallDir}"
 )
 install(FILES
-		${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config-version.cmake
-		${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config.cmake
-		LICENSE
-	DESTINATION ${confiInstallDir}
+		"${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config-version.cmake"
+		"${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config.cmake"
+		"LICENSE" "CONTRIBUTORS" "NOTICE.md"
+	DESTINATION "${confiInstallDir}"
 )
 
 install(EXPORT ${TARGET_EXPORT_NAME}
 	NAMESPACE ${PROJECT_NAME}::
-	DESTINATION ${confiInstallDir}
+	DESTINATION "${confiInstallDir}"
 )
 
 export(EXPORT ${TARGET_EXPORT_NAME}

@@ -76,6 +76,28 @@ namespace detail
 	};
 
 	template<typename T>
+	struct HasOwner
+	{
+		typedef bcc::int8_t TrueType;
+		typedef bcc::int16_t FalseType;
+
+		template<typename U> static TrueType test(typename U::owner*);
+		template<typename U> static FalseType test(...);
+
+		static bool const value = (sizeof(test<T>(0)) == sizeof(TrueType));
+	};
+
+	template<typename T, bool hasOwner = HasOwner<T>::value>
+	struct OwnerOf
+	{
+		typedef typename T::owner type;
+	};
+
+	template<typename T>
+	struct OwnerOf<T, false>
+	{};
+
+	template<typename T>
 	struct InheritanceDepth
 	{
 		static std::size_t const value = T::BiCOMC_Base__::BICOMC_INHERITANCE_DEPTH__ + 1;
@@ -1014,20 +1036,20 @@ protected: \
 			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
 			static void overrideMethodImpl(BiCOMC_Impl__& impl, typename BiCOMC_U__::template BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, BiCOMC_Dummy__>* p) \
 			{ \
-				access<BiCOMC_U__>(impl, p, 0); \
+				access<BiCOMC_U__>(impl, p); \
 			} \
 			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
 			static void overrideMethodImpl(BiCOMC_Impl__& impl, ...) {} \
 			\
 			template<typename BiCOMC_U__, typename MethodType, typename BiCOMC_Impl__> \
-			static void access(BiCOMC_Impl__& impl, MethodType*, typename MethodType::owner*) \
+			static typename bcc::enable_if<bcc::detail::HasOwner<MethodType>::value>::type access(BiCOMC_Impl__& impl, MethodType*) \
 			{ \
 				MethodType::template overrideMethod<Interface>(impl); \
 			} \
 			template<typename BiCOMC_U__, typename MethodType, typename BiCOMC_Impl__> \
-			static void access(BiCOMC_Impl__& impl, MethodType*, ...) \
+			static typename bcc::enable_if<!bcc::detail::HasOwner<MethodType>::value>::type access(BiCOMC_Impl__& impl, MethodType*) \
 			{ \
-				 accessBase<BiCOMC_U__>(impl, 0); \
+				accessBase<BiCOMC_U__>(impl, 0); \
 			} \
 			\
 			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \

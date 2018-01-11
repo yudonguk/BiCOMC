@@ -56,10 +56,10 @@ namespace detail
 	{
 		struct Helper;
 
-		template<typename Interfaces, typename MethodType, typename Impl>
+		template<typename Interfaces, typename MethodMeta, typename Impl>
 		static void overrideDestroy(Impl& impl);
 
-		template<typename Interfaces, typename MethodType, typename Impl>
+		template<typename Interfaces, typename MethodMeta, typename Impl>
 		static void overrideClone(Impl& impl);
 	};
 
@@ -946,8 +946,8 @@ private: \
 	INTERFACE_NAME(BiCOMC_My__ const& rhs) BICOMC_DELETE; \
 };
 
-#define BICOMC_METHOD_TYPE_NAME(METHOD_NAME) \
-	BiCOMC_ ## METHOD_NAME ## _Type__
+#define BICOMC_METHOD_META_NAME(METHOD_NAME) \
+	BiCOMC_ ## METHOD_NAME ## _Meta__
 
 #define BICOMC_OPERATOR_UNARY_PLUS BiCOMC_Operator_Unary_Plus__ // operator+
 #define BICOMC_OPERATOR_UNARY_MINUS BiCOMC_Operator_Unary_Minus__ // operator-
@@ -995,22 +995,22 @@ private: \
 #define BICOMC_OPERATOR_CALL BiCOMC_Operator_Call__ // operator()
 
 #if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
-#	define BICOMC_METHOD_TYPE_DEF_SIGNATURE_STRING(...) \
+#	define BICOMC_METHOD_META_DEF_SIGNATURE_STRING(...) \
 		std::string(BICOMC_STRINGIZER(__VA_ARGS__)) \
 			.append(1, char(61)) /* 61 == u8'=' */ \
 			.append(bcc::detail::Signature<deducer>::to_utf8())
 #else
-#	define BICOMC_METHOD_TYPE_DEF_SIGNATURE_STRING(...) \
+#	define BICOMC_METHOD_META_DEF_SIGNATURE_STRING(...) \
 		bcc::detail::StringUtil::convertToUtf8(BICOMC_WSTRINGIZER(__VA_ARGS__)) \
 			.append(1, char(61)) /* 61 == u8'=' */ \
 			.append(bcc::detail::Signature<deducer>::to_utf8())
 #endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
 
-#define BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+#define BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 protected: \
-	template<typename BiCOMC_Function__, bool BiCOMC_is_const__, bool BiCOMC_is_volatile__, typename BiCOMC_Dummy__> struct BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME); \
+	template<typename BiCOMC_Function__, bool BiCOMC_is_const__, bool BiCOMC_is_volatile__, typename BiCOMC_Dummy__> struct BICOMC_METHOD_META_NAME(METHOD_BYNAME); \
 	template<typename BiCOMC_Dummy__> \
-	struct BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, BiCOMC_Dummy__> \
+	struct BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, BiCOMC_Dummy__> \
 	{ \
 		typedef BiCOMC_My__ METHOD_QUALIFIER owner; \
 		typedef bcc::detail::MethodTypeDeducer<METHOD_TYPE, owner> deducer; \
@@ -1034,20 +1034,20 @@ protected: \
 			} \
 			\
 			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
-			static void overrideMethodImpl(BiCOMC_Impl__& impl, typename BiCOMC_U__::template BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, BiCOMC_Dummy__>* p) \
+			static void overrideMethodImpl(BiCOMC_Impl__& impl, typename BiCOMC_U__::template BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, BiCOMC_Dummy__>* p) \
 			{ \
 				access<BiCOMC_U__>(impl, p); \
 			} \
 			template<typename BiCOMC_U__, typename BiCOMC_Impl__> \
 			static void overrideMethodImpl(BiCOMC_Impl__& impl, ...) {} \
 			\
-			template<typename BiCOMC_U__, typename MethodType, typename BiCOMC_Impl__> \
-			static typename bcc::enable_if<bcc::detail::HasOwner<MethodType>::value>::type access(BiCOMC_Impl__& impl, MethodType*) \
+			template<typename BiCOMC_U__, typename MethodMeta, typename BiCOMC_Impl__> \
+			static typename bcc::enable_if<bcc::detail::HasOwner<MethodMeta>::value>::type access(BiCOMC_Impl__& impl, MethodMeta*) \
 			{ \
-				MethodType::template overrideMethod<Interface>(impl); \
+				MethodMeta::template overrideMethod<Interface>(impl); \
 			} \
-			template<typename BiCOMC_U__, typename MethodType, typename BiCOMC_Impl__> \
-			static typename bcc::enable_if<!bcc::detail::HasOwner<MethodType>::value>::type access(BiCOMC_Impl__& impl, MethodType*) \
+			template<typename BiCOMC_U__, typename MethodMeta, typename BiCOMC_Impl__> \
+			static typename bcc::enable_if<!bcc::detail::HasOwner<MethodMeta>::value>::type access(BiCOMC_Impl__& impl, MethodMeta*) \
 			{ \
 				accessBase<BiCOMC_U__>(impl, 0); \
 			} \
@@ -1088,65 +1088,65 @@ protected: \
 		\
 		static char const* signature() \
 		{ \
-			typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, BiCOMC_Dummy__> MethodType; \
-			typedef bcc::detail::SafeStatic<std::string, MethodType> StaticHolder; \
+			typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, isConst, isVolatile, BiCOMC_Dummy__> MethodMeta; \
+			typedef bcc::detail::SafeStatic<std::string, MethodMeta> StaticHolder; \
 			std::string* pSignature = StaticHolder::get(); \
-			if (!pSignature) pSignature = StaticHolder::init(&MethodType::getSignature); \
+			if (!pSignature) pSignature = StaticHolder::init(&MethodMeta::getSignature); \
 			return pSignature->c_str(); \
 		} \
 		static void getSignature(std::string& result) \
 		{ \
-			result = BICOMC_METHOD_TYPE_DEF_SIGNATURE_STRING(METHOD_NAME); \
+			result = BICOMC_METHOD_META_DEF_SIGNATURE_STRING(METHOD_NAME); \
 		} \
 	}; \
 private: \
 	template<typename BiCOMC_Dummy__> \
-	struct BiCOMC_Type_Enumerator__<BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void>::index, BiCOMC_Dummy__> \
+	struct BiCOMC_Type_Enumerator__<BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void>::index, BiCOMC_Dummy__> \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MethodType; \
-		typedef MethodType type; \
-		typedef typename bcc::TupleCat<typename BiCOMC_Type_Enumerator__<MethodType::index - 1>::list, type>::type list; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MethodMeta; \
+		typedef MethodMeta type; \
+		typedef typename bcc::TupleCat<typename BiCOMC_Type_Enumerator__<MethodMeta::index - 1>::list, type>::type list; \
 	};
 
-#define BICOMC_METHOD_TYPE_CHECKER(INTERFACE_NAME) \
-	BiCOMC_ ## INTERFACE_NAME ## _Type_Checker__
+#define BICOMC_METHOD_META_CHECKER(INTERFACE_NAME) \
+	BiCOMC_ ## INTERFACE_NAME ## _Meta_Checker__
 
-#define BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_NAME, METHOD_TYPE, METHOD_QUALIFIER) \
+#define BICOMC_METHOD_META_CHECKER_DEF(METHOD_NAME, METHOD_TYPE, METHOD_QUALIFIER) \
 private: \
-	template<typename BiCOMC_T__, typename BiCOMC_Function__, bool BiCOMC_is_const__, bool BiCOMC_is_volatile__> struct BICOMC_METHOD_TYPE_CHECKER(METHOD_NAME); \
+	template<typename BiCOMC_T__, typename BiCOMC_Function__, bool BiCOMC_is_const__, bool BiCOMC_is_volatile__> struct BICOMC_METHOD_META_CHECKER(METHOD_NAME); \
 	template<typename BiCOMC_T__> \
-	struct BICOMC_METHOD_TYPE_CHECKER(METHOD_NAME)<BiCOMC_T__, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value> \
+	struct BICOMC_METHOD_META_CHECKER(METHOD_NAME)<BiCOMC_T__, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value> \
 	{ \
 		typedef bcc::int8_t TrueType; \
 		typedef bcc::int16_t FalseType; \
 		template<template<typename, bool, bool, typename> class BiCOMC_U__> \
 		struct Helper { typedef BiCOMC_U__<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> type; }; \
-		template<typename BiCOMC_U__> static TrueType test(typename Helper<BiCOMC_U__::template BICOMC_METHOD_TYPE_NAME(METHOD_NAME)>::type::owner*); \
+		template<typename BiCOMC_U__> static TrueType test(typename Helper<BiCOMC_U__::template BICOMC_METHOD_META_NAME(METHOD_NAME)>::type::owner*); \
 		template<typename BiCOMC_U__> static FalseType test(...); \
 		static bool const value = sizeof(test<BiCOMC_T__>(0)) == sizeof(TrueType); \
 	};
 
 #define BICOMC_OVER_METHOD(METHOD_NAME, METHOD_TYPE, ...) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, false, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_META_NAME(METHOD_NAME)<METHOD_TYPE, false, false, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
 #define BICOMC_OVER_METHOD_C(METHOD_NAME, METHOD_TYPE, ...) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, false, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_META_NAME(METHOD_NAME)<METHOD_TYPE, true, false, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
 #define BICOMC_OVER_METHOD_V(METHOD_NAME, METHOD_TYPE, ...) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, false, true, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_META_NAME(METHOD_NAME)<METHOD_TYPE, false, true, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
 #define BICOMC_OVER_METHOD_CV(METHOD_NAME, METHOD_TYPE, ...) \
-	BICOMC_METHOD_TYPE_NAME(METHOD_NAME)<METHOD_TYPE, true, true, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
+	BICOMC_METHOD_META_NAME(METHOD_NAME)<METHOD_TYPE, true, true, void>::overrideMethod<BiCOMC_Interfaces__>(*this); \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check);
 
 #define BICOMC_OVER_DESTROY() \
-	bcc::detail::DefaultCallHelper::overrideDestroy<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_TYPE_NAME(destroy)<void(), true, true, void> >(*this);
+	bcc::detail::DefaultCallHelper::overrideDestroy<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_META_NAME(destroy)<void(), true, true, void> >(*this);
 
 #define BICOMC_OVER_CLONE() \
-	bcc::detail::DefaultCallHelper::overrideClone<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_TYPE_NAME(clone)<bcc::Object*(), true, false, void> >(*this);
+	bcc::detail::DefaultCallHelper::overrideClone<BiCOMC_Interfaces__, bcc::Object::BICOMC_METHOD_META_NAME(clone)<bcc::Object*(), true, false, void> >(*this);
 
 #define BICOMC_OVER_OPERATOR_UNARY_PLUS(METHOD_TYPE) BICOMC_OVER_METHOD(BICOMC_OPERATOR_UNARY_PLUS, METHOD_TYPE)
 #define BICOMC_OVER_OPERATOR_UNARY_PLUS_C(METHOD_TYPE) BICOMC_OVER_METHOD_C(BICOMC_OPERATOR_UNARY_PLUS, METHOD_TYPE)
@@ -1374,14 +1374,14 @@ public:
 #define BICOMC_DECL_METHOD_0_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME() METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_0_QUALIFIER_METHOD_CALL \
 	}
@@ -1454,16 +1454,16 @@ public: \
 #define BICOMC_DECL_METHOD_1_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(BICOMC_MACRO_PASS((METHOD_NAME)), METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(BICOMC_MACRO_PASS((METHOD_NAME)), METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_1_QUALIFIER_METHOD_CALL \
 	}
@@ -1637,17 +1637,17 @@ public: \
 #define BICOMC_DECL_METHOD_2_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
 		, bcc::detail::Compatibility<bcc::tuple_element<1, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p2 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_2_QUALIFIER_METHOD_CALL \
 	}
@@ -1685,10 +1685,10 @@ public: \
 #define BICOMC_DECL_METHOD_3_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -1696,7 +1696,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<2, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p3 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_3_QUALIFIER_METHOD_CALL \
 	}
@@ -1735,10 +1735,10 @@ public: \
 #define BICOMC_DECL_METHOD_4_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -1747,7 +1747,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<3, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p4 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_4_QUALIFIER_METHOD_CALL \
 	}
@@ -1787,10 +1787,10 @@ public: \
 #define BICOMC_DECL_METHOD_5_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -1800,7 +1800,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<4, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p5 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_5_QUALIFIER_METHOD_CALL \
 	}
@@ -1841,10 +1841,10 @@ public: \
 #define BICOMC_DECL_METHOD_6_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -1855,7 +1855,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<5, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p6 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_6_QUALIFIER_METHOD_CALL \
 	}
@@ -1897,10 +1897,10 @@ public: \
 #define BICOMC_DECL_METHOD_7_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -1912,7 +1912,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<6, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p7 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_7_QUALIFIER_METHOD_CALL \
 	}
@@ -1955,10 +1955,10 @@ public: \
 #define BICOMC_DECL_METHOD_8_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -1971,7 +1971,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<7, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p8 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_8_QUALIFIER_METHOD_CALL \
 	}
@@ -2015,10 +2015,10 @@ public: \
 #define BICOMC_DECL_METHOD_9_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -2032,7 +2032,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<8, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p9 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_9_QUALIFIER_METHOD_CALL \
 	}
@@ -2077,10 +2077,10 @@ public: \
 #define BICOMC_DECL_METHOD_10_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -2095,7 +2095,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<9, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p10 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_10_QUALIFIER_METHOD_CALL \
 	}
@@ -2141,10 +2141,10 @@ public: \
 #define BICOMC_DECL_METHOD_11_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -2160,7 +2160,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<10, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p11 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_11_QUALIFIER_METHOD_CALL \
 	}
@@ -2207,10 +2207,10 @@ public: \
 #define BICOMC_DECL_METHOD_12_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -2227,7 +2227,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<11, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p12 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_12_QUALIFIER_METHOD_CALL \
 	}
@@ -2275,10 +2275,10 @@ public: \
 #define BICOMC_DECL_METHOD_13_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -2296,7 +2296,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<12, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p13 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_13_QUALIFIER_METHOD_CALL \
 	}
@@ -2345,10 +2345,10 @@ public: \
 #define BICOMC_DECL_METHOD_14_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -2367,7 +2367,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<13, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p14 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_14_QUALIFIER_METHOD_CALL \
 	}
@@ -2417,10 +2417,10 @@ public: \
 #define BICOMC_DECL_METHOD_15_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
 	BICOMC_STATIC_ASSERT((bcc::is_function<METHOD_TYPE>::value), "'" #METHOD_TYPE "' must be function type.", function_type_check_ ## METHOD_BYNAME); \
-	BICOMC_METHOD_TYPE_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
-	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_TYPE_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
+	BICOMC_METHOD_META_CHECKER_DEF(METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER); \
+	BICOMC_STATIC_ASSERT(!(BICOMC_METHOD_META_CHECKER(METHOD_BYNAME)<bcc::detail::LazyBase<BiCOMC_My__>::type, METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value>::value), "'" #METHOD_NAME "' was already declared.", function_redecl_check_ ## METHOD_BYNAME); \
 protected: \
-	BICOMC_METHOD_TYPE_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
+	BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
 	bcc::detail::Compatibility<bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::ret>::type METHOD_NAME( \
 		bcc::detail::Compatibility<bcc::tuple_element<0, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p1 \
@@ -2440,7 +2440,7 @@ public: \
 		, bcc::detail::Compatibility<bcc::tuple_element<14, bcc::detail::MethodTypeTrait<METHOD_TYPE, BiCOMC_My__>::params>::type>::type p15 \
 	) METHOD_QUALIFIER \
 	{ \
-		typedef BICOMC_METHOD_TYPE_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
+		typedef BICOMC_METHOD_META_NAME(METHOD_BYNAME)<METHOD_TYPE, bcc::is_const<int METHOD_QUALIFIER>::value, bcc::is_volatile<int METHOD_QUALIFIER>::value, void> MT; \
 		typedef bcc::detail::ReturnHelper<MT::trait::ret> RH; \
 		BICOMC_DECL_METHOD_15_QUALIFIER_METHOD_CALL \
 	}

@@ -123,8 +123,8 @@ namespace detail
 	template<std::size_t index, std::size_t depth, typename FunctionTypes>
 	struct Function
 	{
-		typedef typename bcc::tuple_element<index, typename bcc::tuple_element<depth, FunctionTypes>::type>::type MethodType;
-		typedef typename MethodType::deducer Deducer;
+		typedef typename bcc::tuple_element<index, typename bcc::tuple_element<depth, FunctionTypes>::type>::type MethodMeta;
+		typedef typename MethodMeta::deducer Deducer;
 		typedef typename Deducer::helper* type;
 	};
 

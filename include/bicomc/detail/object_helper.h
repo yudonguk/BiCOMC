@@ -186,10 +186,22 @@ namespace detail
 		static typename bcc::tuple_element<depth, FuntionTypes>::type& ownTable(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
 
 		template<std::size_t index, std::size_t depth, typename FunctionTables>
-		static typename Function<index, depth, FunctionTables>::type& function(bcc::Object const& object) BICOMC_NOEXCEPT;
+		static typename Function<index, depth, FunctionTables>::type function(bcc::Object const& object) BICOMC_NOEXCEPT;
 
 		template<std::size_t index, std::size_t depth, typename FunctionTables>
-		static typename Function<index, depth, FunctionTables>::type& function(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
+		static void function(bcc::Object const& object, typename Function<index, depth, FunctionTables>::type func) BICOMC_NOEXCEPT;
+
+		template<std::size_t index, std::size_t depth, typename FunctionTables>
+		static typename Function<index, depth, FunctionTables>::type function(bcc::Object const volatile& object) BICOMC_NOEXCEPT;
+
+		template<std::size_t index, std::size_t depth, typename FunctionTables>
+		static void function(bcc::Object const volatile& object, typename Function<index, depth, FunctionTables>::type func) BICOMC_NOEXCEPT;
+
+		template<typename MethodType>
+		static typename MethodType::deducer::helper* function(typename MethodType::owner& object) BICOMC_NOEXCEPT;
+
+		template<typename MethodType>
+		static void function(typename MethodType::owner& object, typename MethodType::deducer::helper* func) BICOMC_NOEXCEPT;
 
 		template<typename T>
 		static ProbeDeducer::type<bcc::tuple_size<typename T::BiCOMC_Function_Types__>::value> const& vftable(T const& object) BICOMC_NOEXCEPT;

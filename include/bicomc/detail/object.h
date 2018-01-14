@@ -97,13 +97,13 @@ namespace detail
 			template<typename Impl>
 			static void overrideDestroy(Impl& impl)
 			{
-				MethodMeta::template overrideMethod<Interface>(impl, &Helper::destroy<Impl, Interface>);
+				ObjectHelper::function<MethodMeta>(static_cast<Interface&>(impl), &Helper::destroy<Impl, Interface>);
 				OverrideHelper<Interfaces, MethodMeta, size - 1>::overrideDestroy(impl);
 			}
 			template<typename Impl>
 			static void overrideClone(Impl& impl)
 			{
-				MethodMeta::template overrideMethod<Interface>(impl, &Helper::clone<Impl, Interface>);
+				ObjectHelper::function<MethodMeta>(static_cast<Interface&>(impl), &Helper::clone<Impl, Interface>);
 				OverrideHelper<Interfaces, MethodMeta, size - 1>::overrideClone(impl);
 			}
 		};
@@ -367,17 +367,45 @@ namespace detail
 	}
 
 	template<std::size_t index, std::size_t depth, typename FunctionTables>
-	typename Function<index, depth, FunctionTables>::type& ObjectHelper::function(bcc::Object const& object) BICOMC_NOEXCEPT
+	typename Function<index, depth, FunctionTables>::type ObjectHelper::function(bcc::Object const& object) BICOMC_NOEXCEPT
 	{
 		typedef typename Function<index, depth, FunctionTables>::type F;
-		return reinterpret_cast<F&>(reinterpret_cast<void**>(object.vftable__[depth + VFTABLE_HEADER_SIZE])[index]);
+		return reinterpret_cast<F>(reinterpret_cast<void**>(object.vftable__[depth + VFTABLE_HEADER_SIZE])[index]);
 	}
-	
+
 	template<std::size_t index, std::size_t depth, typename FunctionTables>
-	typename Function<index, depth, FunctionTables>::type& ObjectHelper::function(bcc::Object const volatile& object) BICOMC_NOEXCEPT
+	void ObjectHelper::function(bcc::Object const& object, typename Function<index, depth, FunctionTables>::type func) BICOMC_NOEXCEPT
 	{
 		typedef typename Function<index, depth, FunctionTables>::type F;
-		return reinterpret_cast<F&>(reinterpret_cast<void**>(object.vftable__[depth + VFTABLE_HEADER_SIZE])[index]);
+		reinterpret_cast<F&>(reinterpret_cast<void**>(object.vftable__[depth + VFTABLE_HEADER_SIZE])[index]) = func;
+	}
+
+	template<std::size_t index, std::size_t depth, typename FunctionTables>
+	typename Function<index, depth, FunctionTables>::type ObjectHelper::function(bcc::Object const volatile& object) BICOMC_NOEXCEPT
+	{
+		typedef typename Function<index, depth, FunctionTables>::type F;
+		return reinterpret_cast<F>(reinterpret_cast<void**>(object.vftable__[depth + VFTABLE_HEADER_SIZE])[index]);
+	}
+
+	template<std::size_t index, std::size_t depth, typename FunctionTables>
+	void ObjectHelper::function(bcc::Object const volatile& object, typename Function<index, depth, FunctionTables>::type func) BICOMC_NOEXCEPT
+	{
+		typedef typename Function<index, depth, FunctionTables>::type F;
+		reinterpret_cast<F&>(reinterpret_cast<void**>(object.vftable__[depth + VFTABLE_HEADER_SIZE])[index]) = func;
+	}
+
+	template<typename MethodType>
+	typename MethodType::deducer::helper* ObjectHelper::function(typename MethodType::owner& object) BICOMC_NOEXCEPT
+	{
+		typedef typename MethodType::deducer::helper* F;
+		return reinterpret_cast<F>(reinterpret_cast<void**>(object.vftable__[MethodType::depth + VFTABLE_HEADER_SIZE])[MethodType::index]);
+	}
+
+	template<typename MethodType>
+	void ObjectHelper::function(typename MethodType::owner& object, typename MethodType::deducer::helper* func) BICOMC_NOEXCEPT
+	{
+		typedef typename MethodType::deducer::helper* F;
+		reinterpret_cast<F&>(reinterpret_cast<void**>(object.vftable__[MethodType::depth + VFTABLE_HEADER_SIZE])[MethodType::index]) = func;
 	}
 
 	template<typename T>

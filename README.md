@@ -2,23 +2,23 @@
 
 Binary Compatibility Object Model for C++ (BiCOMC) is library for surporting binary compatibility to C++ classes.
 
-## Requirement
+## Requirements
 
-* Support **C++ 03**
-* Support **\_\_VA\_ARGS\_\_**
-* Support **SFINAE**
+* **C++ 03 or higher** support
+* **\_\_VA\_ARGS\_\_** support
+* **SFINAE** support
 
 ## How to link your project
 
 ### In general
 
-Just add `include` to include directory path.
+Just add `include` to the include directory path.
 
-### In CMake
+### In CMake 2.8.8 or higher
 
 1. Move to directory of BiCOMC
 
-1. Install BiCOMC
+1. Install BiCOMC (just once)
 
     ```bash
     mkdir build && cd build
@@ -27,9 +27,22 @@ Just add `include` to include directory path.
     ```
 
 1. Link BiCOMC to your project
+
     ```cmake
     find_package(BiCOMC CONFIG REQUIRED)
-    link_libraries(BiCOMC::BiCOMC)
+    add_executable(YourTarget ...) # or add_library(...)
+    target_link_libraries(YourTarget BiCOMC)
+    ```
+
+### In CMake all versions
+
+1. Check the absolute path of `include`
+
+1. Include the path to your project using `include_directories`
+
+    ```cmake
+    include_directories("path/of/bicomc/include")
+    add_executable(YourTarget ...) # or add_library(...)
     ```
 
 ## How to use

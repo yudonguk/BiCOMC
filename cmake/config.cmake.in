@@ -1,3 +1,17 @@
 @PACKAGE_INIT@
 
 include(${CMAKE_CURRENT_LIST_DIR}/@TARGET_EXPORT_NAME@.cmake)
+
+check_required_components(@PROJECT_NAME@)
+
+if(NOT (CMAKE_VERSION VERSION_LESS 2.8.11))
+	get_target_property(__interface_include_dir @PROJECT_NAME@ INTERFACE_INCLUDE_DIRECTORIES)
+	if(NOT __interface_include_dir)
+		set_target_properties(@PROJECT_NAME@ PROPERTIES
+			INTERFACE_INCLUDE_DIRECTORIES "${PACKAGE_PREFIX_DIR}/@INCLUDE_INSTALL_DIR@"
+		)
+	endif()
+	unset(__interface_include_dir)
+else()
+	include_directories("${PACKAGE_PREFIX_DIR}/@INCLUDE_INSTALL_DIR@")
+endif()

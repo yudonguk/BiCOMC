@@ -1,69 +1,94 @@
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 2.8.8)
 
-project(BiCOMC VERSION 0.1.0 LANGUAGES CXX)
+set(PROJECT_VERSION 0.1.0)
+if(NOT (CMAKE_VERSION VERSION_LESS 3.0))
+	cmake_policy(SET CMP0048 NEW)
+	project(BiCOMC VERSION ${PROJECT_VERSION} LANGUAGES CXX)
+else()
+	project(BiCOMC CXX)
+endif()
+
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 
 # options & caches
 option(${PROJECT_NAME}_BUILD_EXAMPLE "Build ${PROJECT_NAME} examples." ON)
 
+set(TARGET_EXPORT_NAME ${PROJECT_NAME_LOWER}-target)
+set(INCLUDE_INSTALL_DIR "include")
+set(CONFIG_INSTALL_DIR "lib/cmake/${PROJECT_NAME}")
+
 
 # projects
-set(TARGET_EXPORT_NAME ${PROJECT_NAME_LOWER}-target)
-
-add_library(${PROJECT_NAME} INTERFACE)
-target_include_directories(${PROJECT_NAME} INTERFACE
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
-	$<INSTALL_INTERFACE:include>
-)
-
-install(TARGETS ${PROJECT_NAME}
-	EXPORT ${TARGET_EXPORT_NAME}
-	RUNTIME DESTINATION "bin"
-	LIBRARY DESTINATION "lib"
-	ARCHIVE DESTINATION "lib"
-	INCLUDES DESTINATION "include"
-)
-install(DIRECTORY "include/bicomc" DESTINATION "include")
-install(FILES "LICENSE" "CONTRIBUTORS" "NOTICE.md" DESTINATION "include/bicomc")
-
-add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+if(NOT (CMAKE_VERSION VERSION_LESS 3.0))
+	add_library(${PROJECT_NAME} INTERFACE)
+	target_include_directories(${PROJECT_NAME}
+		INTERFACE
+			$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
+			$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
+	)
+elseif(NOT (CMAKE_VERSION VERSION_LESS 2.8.11))
+	add_library(${PROJECT_NAME} STATIC "include/bicomc/object.h")
+	target_include_directories(${PROJECT_NAME}
+		INTERFACE
+			$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
+			$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
+	)
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+		LINKER_LANGUAGE CXX
+	)
+else()
+	include_directories("${CMAKE_CURRENT_LIST_DIR}/include")
+	add_library(${PROJECT_NAME} STATIC "include/bicomc/object.h")
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+		LINKER_LANGUAGE CXX
+	)
+endif()
 
 if(${PROJECT_NAME}_BUILD_EXAMPLE)
 	add_subdirectory(example)
 endif()
 
-add_custom_target(uninstall
-	"${CMAKE_COMMAND}" -P "cmake/uninstall.cmake"
-)
+if(NOT TARGET uninstall)
+	add_custom_target(uninstall
+		"${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_LIST_DIR}/cmake/uninstall.cmake"
+	)
+endif()
 
 
-# install config file
-set(confiInstallDir "lib/cmake/${PROJECT_NAME}")
+# install
+set(configFile "${CMAKE_CURRENT_BINARY_DIR}/generated/${PROJECT_NAME_LOWER}-config.cmake")
+set(versionFile "${CMAKE_CURRENT_BINARY_DIR}/generated/${PROJECT_NAME_LOWER}-config-version.cmake")
+set(licenseFiles "LICENSE" "CONTRIBUTORS" "NOTICE.md")
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
-	"${PROJECT_NAME_LOWER}-config-version.cmake"
+	"${versionFile}"
 	VERSION ${PROJECT_VERSION}
 	COMPATIBILITY SameMajorVersion
 )
 configure_package_config_file(
 	"cmake/config.cmake.in"
-	"${PROJECT_NAME_LOWER}-config.cmake"
-	INSTALL_DESTINATION "${confiInstallDir}"
-)
-install(FILES
-		"${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config-version.cmake"
-		"${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config.cmake"
-		"LICENSE" "CONTRIBUTORS" "NOTICE.md"
-	DESTINATION "${confiInstallDir}"
+	"${configFile}"
+	INSTALL_DESTINATION "${CONFIG_INSTALL_DIR}"
 )
 
+install(FILES "${versionFile}" "${configFile}" ${licenseFiles}
+	DESTINATION "${CONFIG_INSTALL_DIR}"
+)
+install(DIRECTORY "include/bicomc"
+	DESTINATION "${INCLUDE_INSTALL_DIR}"
+)
+install(FILES ${licenseFiles}
+	DESTINATION "${INCLUDE_INSTALL_DIR}/bicomc"
+)
+
+install(TARGETS ${PROJECT_NAME}
+	EXPORT ${TARGET_EXPORT_NAME}
+	ARCHIVE DESTINATION "lib/static"
+)
 install(EXPORT ${TARGET_EXPORT_NAME}
-	NAMESPACE ${PROJECT_NAME}::
-	DESTINATION "${confiInstallDir}"
+	DESTINATION "${CONFIG_INSTALL_DIR}"
 )
 
-export(EXPORT ${TARGET_EXPORT_NAME}
-	NAMESPACE ${PROJECT_NAME}::
-)
+export(TARGETS ${PROJECT_NAME} FILE "${TARGET_EXPORT_NAME}.cmake")

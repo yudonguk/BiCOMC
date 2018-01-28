@@ -22,7 +22,11 @@
 #include "../memory.h"
 #include "../type_traits.h"
 
-#include "safe_static_mutex.h"
+#if defined(BICOMC_ENABLE_SAFE_INIT_USING_OS_API)
+#	include "safe_static_mutex.h"
+#elif !defined(BICOMC_IS_THREAD_SAFE_STATIC_MUTEX_AVAILABLE)
+#	define BICOMC_IS_THREAD_SAFE_STATIC_MUTEX_AVAILABLE 0
+#endif // def BICOMC_ENABLE_SAFE_INIT_USING_OS_API
 
 #if !defined(BICOMC_NO_THREAD_SAFE_STATIC_INIT) || BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE
 namespace bcc

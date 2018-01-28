@@ -1049,8 +1049,8 @@ public: \
 		\
 		static bool const isConst = bcc::is_const<int METHOD_QUALIFIER>::value; \
 		static bool const isVolatile = bcc::is_volatile<int METHOD_QUALIFIER>::value; \
-		static std::size_t const depth = owner::BICOMC_INHERITANCE_DEPTH__; \
-		static std::size_t const index = bcc::detail::EnumeratorSize<owner::BiCOMC_Type_Enumerator__, BICOMC_LINE_COUNTER>::value; \
+		static std::size_t const depth = BICOMC_INHERITANCE_DEPTH__; \
+		static std::size_t const index = bcc::detail::EnumeratorSize<BiCOMC_Type_Enumerator__, BICOMC_LINE_COUNTER>::value; \
 	public: \
 		template<typename BiCOMC_U__> \
 		struct Check \

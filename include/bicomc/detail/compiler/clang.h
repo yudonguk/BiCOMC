@@ -29,82 +29,108 @@
 #	endif
 #endif // !def BICOMC_EXPORT
 
-#if !defined(BICOMC_IS_NULLPTR_SUPPORT_COMPILER)
-#	define BICOMC_IS_NULLPTR_SUPPORT_COMPILER \
-		(__has_feature(cxx_nullptr))
-#endif // !def BICOMC_IS_NULLPTR_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER)
-#	define BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER \
-		(__has_feature(cxx_static_assert))
-#endif // !def BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER)
-#	if defined(_MSC_VER) && _MSC_VER >= 1900
-#		define BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER \
-			(1)
-#	elif defined(__GNUC__) && __GNUC__ >= 4
-#		define BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER \
-			(1)
-#	else
-#		define BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER \
-			(__cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__))
+#define BICOMC_CLANG_VERSION_OR_HIGHER(MAJOR, MINOR) \
+	((__clang_major__ == MAJOR && __clang_minor__ >= MINOR) || (__clang_major__ > MAJOR))
+
+#if defined(__GXX_EXPERIMENTAL_CXX0X__) || (__cplusplus >= 201103L)
+#	define BICOMC_IS_CLANG_CXX_11_ENABLED (1)
+#else
+#	define BICOMC_IS_CLANG_CXX_11_ENABLED (0)
+#endif
+
+#if !defined(BICOMC_NO_NULLPTR)
+#	if !__has_feature(cxx_nullptr)
+#		define BICOMC_NO_NULLPTR
 #	endif
-#endif // !def BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER)
-#	define BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER \
-		(__has_feature(cxx_constexpr))
-#endif // !def BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER)
-#	define BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER \
-		(__has_feature(cxx_noexcept))
-#endif // !def BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_EXPLICITY_DEFAULT_DELETE_SUPPORT_COMPILER)
-#	define BICOMC_IS_EXPLICITY_DEFAULT_DELETE_SUPPORT_COMPILER \
-		(__has_feature(cxx_deleted_functions))
-#endif // !def BICOMC_IS_EXPLICITY_DEFAULT_DELETE_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER)
-#	define BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER \
-		(__has_feature(cxx_rvalue_references))
-#endif // !def BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER)
-#	define BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER \
-		(__has_feature(cxx_variadic_templates))
-#endif // !def BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER)
-#	if defined(_MSC_VER) && _MSC_VER >= 1900 
-#		define BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER \
-			(1)
-#	else
-#		define BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER \
-			(__cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__))
+#endif
+
+#if !defined(BICOMC_NO_STATIC_ASSERT)
+#	if !__has_feature(cxx_static_assert)
+#		define BICOMC_NO_STATIC_ASSERT
 #	endif
-#endif // !def BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER)
-#	define BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER \
-		(__has_feature(cxx_unicode_literals))
-#endif // !def BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_STD_INT_SUPPORT_COMPILER)
-#	define BICOMC_IS_STD_INT_SUPPORT_COMPILER \
-		(__has_include(<cstdint>))
-#endif // !def BICOMC_IS_STD_INT_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER)
-#	define BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER	\
-		(__has_include(<type_traits>))
-#endif // !def BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_MUTEX_SUPPORT_COMPILER)
-#	define BICOMC_IS_MUTEX_SUPPORT_COMPILER \
-		(__has_include(<mutex>))
-#endif // !def BICOMC_IS_MUTEX_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER)
-#	define BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER \
-		(__has_include(<codecvt>))
-#endif // !def BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_EXTENED_EQUAL_SUPPORT_COMPILER)
-#	define BICOMC_IS_EXTENED_EQUAL_SUPPORT_COMPILER \
-		(__cplusplus >= 201103L)
-#endif // !def BICOMC_IS_EXTENED_EQUAL_SUPPORT_COMPILER
-#if !defined(BICOMC_IS_ARRAY_SUPPORT_COMPILER)
-#	define BICOMC_IS_ARRAY_SUPPORT_COMPILER \
-		(__has_include(<array>))
-#endif // !def BICOMC_IS_ARRAY_SUPPORT_COMPILER
+#endif
+
+#if !defined(BICOMC_NO_THREAD_SAFE_STATIC_INIT)
+#	if BICOMC_CLANG_VERSION_OR_HIGHER(2, 9)
+#	elif defined(_MSC_VER) && _MSC_VER >= 1900
+#	else
+#		define BICOMC_NO_THREAD_SAFE_STATIC_INIT
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_CONSTEXPR)
+#	if !__has_feature(cxx_constexpr)
+#		define BICOMC_NO_CONSTEXPR
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_NOEXCEPT)
+#	if !__has_feature(cxx_noexcept)
+#		define BICOMC_NO_NOEXCEPT
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_EXPLICIT_DEFAULT_DELETE)
+#	if !__has_feature(cxx_deleted_functions)
+#		define BICOMC_NO_EXPLICIT_DEFAULT_DELETE
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
+#	if !__has_feature(cxx_rvalue_references)
+#		define BICOMC_NO_RVALUE_REFERENCE
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_VARIADIC_TEMPLATE)
+#	if !__has_feature(cxx_variadic_templates)
+#		define BICOMC_NO_VARIADIC_TEMPLATE
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_CHAR_16_32_TYPE)
+#	if BICOMC_CLANG_VERSION_OR_HIGHER(2, 9) && BICOMC_IS_CLANG_CXX_11_ENABLED
+#	elif defined(_MSC_VER) && _MSC_VER >= 1900
+#	else
+#		define BICOMC_NO_CHAR_16_32_TYPE
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
+#	if !__has_feature(cxx_unicode_literals)
+#		define BICOMC_NO_UNICODE_STRING_LITERAL
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_HEADER_CSTDINT)
+#	if __has_include(<cstdint>) && (BICOMC_IS_CLANG_CXX_11_ENABLED || defined(_MSC_VER))
+#	else
+#		define BICOMC_NO_HEADER_CSTDINT
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_HEADER_TYPE_TRAITS)
+#	if __has_include(<type_traits>) && (BICOMC_IS_CLANG_CXX_11_ENABLED || defined(_MSC_VER))
+#	else
+#		define BICOMC_NO_HEADER_TYPE_TRAITS
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_HEADER_CODECVT)
+#	if __has_include(<codecvt>) && (BICOMC_IS_CLANG_CXX_11_ENABLED || defined(_MSC_VER))
+#	else
+#		define BICOMC_NO_HEADER_CODECVT
+#	endif
+#endif
+
+#if !defined(BICOMC_NO_HEADER_ARRAY)
+#	if __has_include(<array>) && (BICOMC_IS_CLANG_CXX_11_ENABLED || defined(_MSC_VER))
+#	else
+#		define BICOMC_NO_HEADER_ARRAY
+#	endif
+#endif
+
+#undef BICOMC_IS_CLANG_CXX_11_ENABLED
+#undef BICOMC_CLANG_VERSION_OR_HIGHER
 
 #endif // !def BICOMC_DETAIL_COMPILER_CLANG_H__

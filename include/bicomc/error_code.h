@@ -47,18 +47,18 @@ namespace detail
 			
 		ErrorCode(ErrorCode const& error);
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 		ErrorCode(ErrorCode&& error) BICOMC_NOEXCEPT;
-#endif
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 		
 		~ErrorCode() BICOMC_NOEXCEPT;
 
 	public:
 		ErrorCode& operator=(ErrorCode const& error);
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 		ErrorCode& operator=(ErrorCode&& error) BICOMC_NOEXCEPT;
-#endif
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 	public:
 		typedef void(*unspecified_bool_type)();

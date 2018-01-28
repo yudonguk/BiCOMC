@@ -21,7 +21,7 @@
 
 #include <climits>
 
-#if BICOMC_IS_STD_INT_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_HEADER_CSTDINT)
 #include <cstdint>
 
 #define BICOMC_STD_INT_REF_NAMESPACE ::std
@@ -41,7 +41,7 @@
 
 #define BICOMC_STD_INT_REF_NAMESPACE
 
-#endif // BICOMC_IS_STD_INT_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_HEADER_CSTDINT)
 
 namespace bcc
 {

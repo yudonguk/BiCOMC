@@ -47,7 +47,10 @@ namespace detail
 #	include "compiler/clang_atomic.h"
 
 #else
-#	error "please write atomic operations consist of compiler intrinsics or dismiss this error without guarantee of atomicity"
+#	if !defined(BICOMC_ENABLE_NAIVE_ATOMIC)
+#		error "Please write atomic operations consisted of compiler intrinsics or define 'BICOMC_ENABLE_NAIVE_ATOMIC' macro to dismiss this error."
+#	endif
+
 #	include "compiler/naive_atomic.h"
 
 #endif

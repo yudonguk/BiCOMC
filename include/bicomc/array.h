@@ -23,7 +23,7 @@
 
 #include "type_traits.h"
 
-#if BICOMC_IS_ARRAY_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_HEADER_ARRAY)
 #	include <array>
 
 namespace bcc
@@ -254,7 +254,7 @@ namespace std
 	}
 } // namespace std
 
-#endif // BICOMC_IS_ARRAY_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_HEADER_ARRAY)
 
 namespace bcc
 {
@@ -290,14 +290,14 @@ namespace bcc
 		return a[index];
 	}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<std::size_t index, typename T, std::size_t N>
 	BICOMC_CONSTEXPR T&& get(array<T, N>&& a) BICOMC_NOEXCEPT
 	{
 		static_assert(index < N, "'index' is out of range");
 		return std::move(a[index]);
 	}
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 } // namespace bcc
 

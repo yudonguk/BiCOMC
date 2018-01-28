@@ -39,7 +39,7 @@ struct BICOMC_SIGNATURE_CUSTOM_NAME;
 //	static std::wstring to_wstring();
 //	static std::string to_utf8();
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 #	define BICOMC_SIGNATURE_DEFAULT(FULL_TYPE_NAME) \
 		struct BICOMC_SIGNATURE_DEFAULT_NAME \
 		{ \
@@ -69,7 +69,7 @@ struct BICOMC_SIGNATURE_CUSTOM_NAME;
 			static std::string to_utf8() { return bcc::detail::StringUtil::convertToUtf8(BICOMC_WSTRINGIZER(FULL_TYPE_NAME)); } \
 		};
 
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 
 namespace bcc
 {
@@ -91,11 +91,11 @@ namespace detail
 
 		static std::string to_utf8()
 		{
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 			return to_utf8_impl<T>();
 #else
 			return bcc::detail::StringUtil::convertToUtf8(to_wstring());
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		}
 
 		template<typename U>
@@ -107,7 +107,7 @@ namespace detail
 			return L"void";
 		}
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		template<typename U>
 		static typename bcc::enable_if<
 			bcc::is_void<U>::value
@@ -116,7 +116,7 @@ namespace detail
 		{
 			return u8"void";
 		}
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 
 		template<typename U>
 		static typename bcc::enable_if<
@@ -140,7 +140,7 @@ namespace detail
 			}
 		}
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		template<typename U>
 		static typename bcc::enable_if<
 			bcc::is_same<U, bool>::value
@@ -162,7 +162,7 @@ namespace detail
 				}
 			}
 		}
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 
 		template<typename U>
 		static typename bcc::enable_if<
@@ -186,7 +186,7 @@ namespace detail
 			}
 		}
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		template<typename U>
 		static typename bcc::enable_if<
 			bcc::is_character<U>::value
@@ -208,7 +208,7 @@ namespace detail
 				}
 			}
 		}
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 
 		template<typename U>
 		static typename bcc::enable_if<
@@ -235,7 +235,7 @@ namespace detail
 			}
 		}
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		template<typename U>
 		static typename bcc::enable_if<
 			bcc::is_integral<U>::value
@@ -260,7 +260,7 @@ namespace detail
 				}
 			}
 		}
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 
 		template<typename U>
 		static typename bcc::enable_if<
@@ -287,7 +287,7 @@ namespace detail
 			}
 		}
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		template<typename U>
 		static typename bcc::enable_if<
 			bcc::is_integral<U>::value
@@ -312,7 +312,7 @@ namespace detail
 				}
 			}
 		}
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 
 		template<typename U>
 		static typename bcc::enable_if<
@@ -337,7 +337,7 @@ namespace detail
 			}
 		}
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		template<typename U>
 		static typename bcc::enable_if<
 			bcc::is_floating_point<U>::value
@@ -360,7 +360,7 @@ namespace detail
 				}
 			}
 		}
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 
 		template<typename U>
 		struct HasTypeSignature
@@ -414,7 +414,7 @@ namespace detail
 			return BICOMC_SIGNATURE_CUSTOM_NAME<U>::to_wstring();
 		}
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		template<typename U>
 		static typename bcc::enable_if<
 			!bcc::is_fundamental<U>::value
@@ -440,7 +440,7 @@ namespace detail
 		{
 			return BICOMC_SIGNATURE_CUSTOM_NAME<U>::to_utf8();
 		}
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 	};
 
 	template<typename T>
@@ -455,13 +455,13 @@ namespace detail
 
 		static std::string to_utf8()
 		{
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 			std::string result(Signature<T>::to_utf8());
 			result.append(u8" const");
 			return result;
 #else
 			return bcc::detail::StringUtil::convertToUtf8(to_wstring());
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		}
 	};
 
@@ -477,13 +477,13 @@ namespace detail
 
 		static std::string to_utf8()
 		{
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 			std::string result(Signature<T>::to_utf8());
 			result.append(u8" volatile");
 			return result;
 #else
 			return bcc::detail::StringUtil::convertToUtf8(to_wstring());
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		}
 	};
 
@@ -499,13 +499,13 @@ namespace detail
 
 		static std::string to_utf8()
 		{
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 			std::string result(Signature<T>::to_utf8());
 			result.append(u8" const volatile");
 			return result;
 #else
 			return bcc::detail::StringUtil::convertToUtf8(to_wstring());
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		}
 	};
 
@@ -521,17 +521,17 @@ namespace detail
 
 		static std::string to_utf8()
 		{
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 			std::string result(Signature<T>::to_utf8());
 			result.append(1, char(38)); // 38 == u8'&'
 			return result;
 #else
 			return bcc::detail::StringUtil::convertToUtf8(to_wstring());
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		}
 	};
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<typename T>
 	struct Signature<T&&>
 	{
@@ -544,16 +544,16 @@ namespace detail
 
 		static std::string to_utf8()
 		{
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 			std::string result(Signature<T>::to_utf8());
 			result.append(2, char(38)); // 38 == u'&'
 			return result;
 #else
 			return bcc::detail::StringUtil::convertToUtf8(to_wstring());
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		}
 	};
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 	template<typename T>
 	struct Signature<T*>
@@ -567,13 +567,13 @@ namespace detail
 
 		static std::string to_utf8()
 		{
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 			std::string result(Signature<T>::to_utf8());
 			result.append(1, char(42)); // 42 == u8'*'
 			return result;
 #else
 			return bcc::detail::StringUtil::convertToUtf8(to_wstring());
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		}
 	};
 
@@ -658,7 +658,7 @@ namespace detail
 
 		static std::string to_utf8()
 		{
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 			std::string result(Signature<Ret>::to_utf8());
 
 			result.append(1, char(40)); // 40 == u8'('
@@ -673,7 +673,7 @@ namespace detail
 			return result;
 #else
 			return bcc::detail::StringUtil::convertToUtf8(to_wstring());
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 		}
 	};
 } // namespace detail

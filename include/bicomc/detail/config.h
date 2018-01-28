@@ -42,11 +42,11 @@
 #define BICOMC_WSTRINGIZER2(str) L ## str
 #define BICOMC_WSTRINGIZER(...) BICOMC_WSTRINGIZER2(#__VA_ARGS__)
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 #	define BICOMC_STRINGIZER2(str) u8 ## str
 #else
 #	define BICOMC_STRINGIZER2(str) str
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !def BICOMC_NO_UNICODE_STRING_LITERAL
 #define BICOMC_STRINGIZER(...) BICOMC_STRINGIZER2(#__VA_ARGS__)
 
 #if defined(__COUNTER__)
@@ -55,39 +55,39 @@
 #	define BICOMC_LINE_COUNTER __LINE__
 #endif // !def __COUNTER__
 
-#if BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_CONSTEXPR)
 #	define BICOMC_CONSTEXPR constexpr
 #else
 #	define BICOMC_CONSTEXPR
-#endif // BICOMC_IS_CONSTEXPR_SUPPORT_COMPILER
+#endif // !def BICOMC_NO_CONSTEXPR
 
-#if __cplusplus >= 201402L
+#if __cplusplus >= 201402L || (defined(__cpp_constexpr) && __cpp_constexpr >= 201304)
 #	define BICOMC_CONSTEXPR_14 BICOMC_CONSTEXPR
 #else
 #	define BICOMC_CONSTEXPR_14
 #endif // __cplusplus >= 201402L
 
-#if __cplusplus >= 201703L
+#if __cplusplus >= 201703L || (defined(__cpp_constexpr) && __cpp_constexpr >= 201603)
 #	define BICOMC_CONSTEXPR_17 BICOMC_CONSTEXPR
 #else
 #	define BICOMC_CONSTEXPR_17
 #endif // __cplusplus >= 201703L
 
-#if BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_NOEXCEPT)
 #	define BICOMC_NOEXCEPT noexcept
 #	define BICOMC_NOEXCEPT_EX(...) noexcept(noexcept(__VA_ARGS__))
 #else
 #	define BICOMC_NOEXCEPT throw()
 #	define BICOMC_NOEXCEPT_EX(...)
-#endif // BICOMC_IS_NOEXCEPT_SUPPORT_COMPILER
+#endif // !def BICOMC_NO_NOEXCEPT
 
-#if BICOMC_IS_EXPLICITY_DEFAULT_DELETE_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_EXPLICIT_DEFAULT_DELETE)
 #	define BICOMC_DELETE = delete
 #else
 #	define BICOMC_DELETE
-#endif // BICOMC_IS_EXPLICITY_DEFAULT_DELETE_SUPPORT_COMPILER
+#endif // !def BICOMC_NO_EXPLICIT_DEFAULT_DELETE
 
-#if !BICOMC_IS_NULLPTR_SUPPORT_COMPILER
+#if defined(BICOMC_NO_NULLPTR)
 namespace bcc
 {
 namespace detail
@@ -120,9 +120,9 @@ namespace std
 
 #	define nullptr std::nullptr_t()
 
-#endif // !BICOMC_IS_NULLPTR_SUPPORT_COMPILER
+#endif // !def BICOMC_NO_NULLPTR
 
-#if BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_STATIC_ASSERT)
 #	define BICOMC_STATIC_ASSERT(CONDITION, MESSAGE, HINT_NAME) \
 		static_assert(CONDITION, MESSAGE)
 
@@ -154,6 +154,6 @@ namespace detail
 #	define static_assert(CONDITION, MESSAGE) \
 		BICOMC_STATIC_ASSERT(CONDITION, MESSAGE, )
 
-#endif // BICOMC_IS_STATIC_ASSERT_SUPPORT_COMPILER
+#endif // !def BICOMC_NO_STATIC_ASSERT
 
 #endif // !def BICOMC_DETAIL_CONFIG_H__

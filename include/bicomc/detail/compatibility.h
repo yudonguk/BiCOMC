@@ -79,13 +79,13 @@ namespace detail
 		typedef typename Compatibility<T>::type& type;
 	};
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<typename T>
 	struct Compatibility<T&&>
 	{
 		typedef typename Compatibility<T>::type&& type;
 	};
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER 
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE) 
 
 	template<typename T>
 	struct Compatibility<T*>

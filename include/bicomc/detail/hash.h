@@ -111,7 +111,7 @@ namespace detail
 		}
 	};
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<typename T>
 	struct Hasher<T&&>
 	{
@@ -125,7 +125,7 @@ namespace detail
 			return Hasher<T>::subhash();
 		}
 	};
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 	template<typename T>
 	struct Hasher<T*>

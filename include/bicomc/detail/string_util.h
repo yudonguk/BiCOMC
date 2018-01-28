@@ -25,10 +25,10 @@
 
 #include "../stdint.h"
 
-#if BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_HEADER_CODECVT)
 #include <codecvt>
 #include <locale>
-#endif // BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_HEADER_CODECVT)
 
 namespace bcc
 {
@@ -115,9 +115,9 @@ namespace detail
 
 		static std::wstring convertFromUtf8(char const* utf8, std::size_t size)
 		{
-#if BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_HEADER_CODECVT)
 			return std::wstring_convert<std::codecvt_utf8<wchar_t> >().from_bytes(utf8, utf8 + size);
-#else // BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
+#else
 			std::wstring result;
 			result.reserve(size);
 			wchar_t temp = L'\0';
@@ -127,7 +127,7 @@ namespace detail
 				result.append(1, temp);
 			}
 			return result;
-#endif // BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_HEADER_CODECVT)
 		}
 
 		static std::string convertToUtf8(std::wstring const& source)
@@ -142,9 +142,9 @@ namespace detail
 
 		static std::string convertToUtf8(wchar_t const* source, std::size_t size)
 		{
-#if BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_HEADER_CODECVT)
 			return std::wstring_convert<std::codecvt_utf8<wchar_t> >().to_bytes(source, source + size);
-#else // BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
+#else
 			std::string result;
 			result.reserve(size * 6);
 			for (std::size_t i = 0; i < size; ++i)
@@ -153,7 +153,7 @@ namespace detail
 				result.append(buff, buff + convertToUtf8(buff, source[i]));
 			}
 			return result;
-#endif // BICOMC_IS_CODE_CVT_UTF8_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_HEADER_CODECVT)
 		}
 
 		static std::size_t convertToUtf8(char output[6], wchar_t ch) BICOMC_NOEXCEPT

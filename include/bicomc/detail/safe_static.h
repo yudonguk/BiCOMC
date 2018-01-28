@@ -24,7 +24,7 @@
 
 #include "safe_static_mutex.h"
 
-#if BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER || BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE
+#if !defined(BICOMC_NO_THREAD_SAFE_STATIC_INIT) || BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE
 namespace bcc
 {
 namespace detail
@@ -93,9 +93,9 @@ namespace detail
 			static T* pInstance = 0;
 			if (pInstance || !pInitializer) return pInstance;
 
-#if !BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER
+#if defined(BICOMC_NO_THREAD_SAFE_STATIC_INIT)
 			SafeStaticMutex::Guard guard;
-#endif // !BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER
+#endif // defined(BICOMC_NO_THREAD_SAFE_STATIC_INIT)
 			static Holder holder(*pInitializer);
 			return pInstance = &holder.instance;
 		}
@@ -189,6 +189,6 @@ namespace detail
 } // namespace detail
 } // namespace bcc
 
-#endif // BICOMC_IS_THREAD_SAFE_STATIC_INIT_SUPPORT_COMPILER || BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE
+#endif // !defined(BICOMC_NO_THREAD_SAFE_STATIC_INIT) || BICOMC_THREAD_SAFE_STATIC_MUTEX_IS_AVAILABLE
 
 #endif // !def BICOMC_DETAIL_SAFE_STATIC_H__

@@ -1025,7 +1025,7 @@ private: \
 #define BICOMC_OPERATOR_SUBSCRIPT BiCOMC_Operator_Subscript__ // operator[]
 #define BICOMC_OPERATOR_CALL BiCOMC_Operator_Call__ // operator()
 
-#if BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 #	define BICOMC_METHOD_META_DEF_SIGNATURE_STRING(...) \
 		std::string(BICOMC_STRINGIZER(__VA_ARGS__)) \
 			.append(1, char(61)) /* 61 == u8'=' */ \
@@ -1035,7 +1035,7 @@ private: \
 		bcc::detail::StringUtil::convertToUtf8(BICOMC_WSTRINGIZER(__VA_ARGS__)) \
 			.append(1, char(61)) /* 61 == u8'=' */ \
 			.append(bcc::detail::Signature<deducer>::to_utf8())
-#endif // BICOMC_IS_UNICODE_STRING_LITERAL_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_UNICODE_STRING_LITERAL)
 
 #define BICOMC_METHOD_META_DEF(METHOD_NAME, METHOD_BYNAME, METHOD_TYPE, METHOD_QUALIFIER) \
 public: \
@@ -1361,19 +1361,19 @@ public:
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_0_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_0_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_0_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -1439,7 +1439,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_1_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -1447,13 +1447,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_1_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_1_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -1621,7 +1621,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_2_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -1630,13 +1630,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_2_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_2_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -1668,7 +1668,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_3_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -1678,13 +1678,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_3_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_3_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -1717,7 +1717,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_4_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -1728,13 +1728,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_4_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_4_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -1768,7 +1768,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_5_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -1780,13 +1780,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_5_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_5_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -1821,7 +1821,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_6_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -1834,13 +1834,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_6_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_6_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -1876,7 +1876,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_7_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -1890,13 +1890,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_7_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6, p7)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_7_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -1933,7 +1933,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_8_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -1948,13 +1948,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_8_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6, p7, p8)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_8_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -1992,7 +1992,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_9_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -2008,13 +2008,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_9_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6, p7, p8, p9)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_9_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -2053,7 +2053,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_10_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -2070,13 +2070,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_10_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_10_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -2116,7 +2116,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_11_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -2134,13 +2134,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_11_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_11_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -2181,7 +2181,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_12_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -2200,13 +2200,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_12_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_12_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -2248,7 +2248,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_13_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -2268,13 +2268,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_13_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_13_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -2317,7 +2317,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_14_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -2338,13 +2338,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_14_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_14_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \
@@ -2388,7 +2388,7 @@ public: \
 
 //////////////////////////////////////////////////////////////////////////
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 #define BICOMC_DECL_METHOD_15_QUALIFIER_METHOD_CALL \
 	typedef MT::trait::params Params; \
 	typedef bcc::tuple_element<0, Params>::type P1; \
@@ -2410,13 +2410,13 @@ public: \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15))) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(std::move(result));
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 #define BICOMC_DECL_METHOD_15_QUALIFIER_METHOD_CALL \
 	RH::mediator result; \
 	if (bcc::detail::ErrorDetail* e = bcc::detail::ObjectHelper::function<MT>(*this)(this, &result, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15)) \
 		throw bcc::ErrorCode(e); \
 	return RH::toReturn(result);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #define BICOMC_DECL_METHOD_15_QUALIFIER(METHOD_NAME, METHOD_BYNAME, METHOD_QUALIFIER, METHOD_TYPE) \
 private: \

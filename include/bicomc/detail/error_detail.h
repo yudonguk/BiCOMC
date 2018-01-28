@@ -147,11 +147,11 @@ namespace detail
 			: BICOMC_OVERRIDE_INIT(), mMessage(error.mMessage)
 		{}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 		RuntimeError(RuntimeError&& error)
 			: BICOMC_OVERRIDE_INIT(), mMessage(std::move(error.mMessage))
 		{}
-#endif
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 		~RuntimeError()
 		{}
@@ -164,14 +164,14 @@ namespace detail
 			return *this;
 		}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 		RuntimeError& operator=(RuntimeError&& error)
 		{
 			if (this == &error) return *this;
 			mMessage = std::move(error.mMessage);
 			return *this;
 		}
-#endif
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 	public:
 		bcc::uint32_t value() const

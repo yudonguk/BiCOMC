@@ -65,14 +65,14 @@ namespace detail
 				state(DATA_ASSIGNED);
 			}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 			// assign operator must be called once
 			void operator=(type&& rhs)
 			{
 				new (mData) type(std::move(rhs));
 				state(DATA_ASSIGNED);
 			}
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 			// data() must be called after assign operation
 			type const& data() const
@@ -109,18 +109,18 @@ namespace detail
 			, type, Holder
 		>::type mediator;
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 		static type const& toReturn(type const& rhs) { return rhs; }
 		static type&& toReturn(type&& rhs) { return std::move(rhs); }
 		static type const& toReturn(Holder& rhs) { return rhs.data(); }
 		static type&& toReturn(Holder&& rhs) { return std::move(rhs.data()); }
 		static type const& fromReturn(type const& rhs) { return rhs; }
 		static type&& fromReturn(type&& rhs) { return std::move(rhs); }
-#else // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#else
 		static type const& toReturn(type const& rhs) { return rhs; }
 		static type const& toReturn(Holder& rhs) { return rhs.data(); }
 		static type const& fromReturn(type const& rhs) { return rhs; }
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 	};
 	
 	template<>
@@ -152,7 +152,7 @@ namespace detail
 		static type toReturn(mediator rhs) { return *rhs; }
 	};
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<typename T>
 	struct ReturnHelper<T&&>
 	{
@@ -162,7 +162,7 @@ namespace detail
 		static mediator fromReturn(type rhs) { return bcc::addressof(rhs); }
 		static type toReturn(mediator rhs) { return std::move(*rhs); }
 	};
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 } // namespace detail
 } // namespace bcc
 

@@ -69,7 +69,7 @@ namespace detail
 			, typename trait::helper>::type>::type>::type helper;
 	};
 
-#if BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_VARIADIC_TEMPLATE)
 	template<typename Owner, typename Ret, typename... Params>
 	struct MethodTypeTrait<Ret(Params...), Owner>
 	{
@@ -107,7 +107,7 @@ namespace detail
 		typedef ret(type)(Params...);
 	};
 
-#else // BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#else
 	template<typename Owner, typename Ret>
 	struct MethodTypeTrait<Ret(), Owner>
 	{
@@ -1828,7 +1828,7 @@ namespace detail
 			, P25, P26, P27, P28, P29, P30);
 	};
 
-#endif // BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_VARIADIC_TEMPLATE)
 } // namespace detail
 } // namespace bcc
 

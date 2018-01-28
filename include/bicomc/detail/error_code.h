@@ -69,7 +69,7 @@ namespace bcc
 		return *this;
 	}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	inline ErrorCode::ErrorCode(ErrorCode&& error) BICOMC_NOEXCEPT
 		: mpDetail()
 	{
@@ -81,7 +81,7 @@ namespace bcc
 		swap(error);
 		return *this;
 	}
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 	inline ErrorCode::operator ErrorCode::unspecified_bool_type() const BICOMC_NOEXCEPT
 	{

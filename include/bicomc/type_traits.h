@@ -21,7 +21,7 @@
 
 #include "stdint.h"
 
-#if BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_HEADER_TYPE_TRAITS)
 
 #include <type_traits>
 
@@ -121,13 +121,13 @@ namespace bcc
 		typedef T type;
 	};
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<typename T>
 	struct remove_reference<T&&>
 	{
 		typedef T type;
 	};
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 	
 	template<bool condition, typename T, typename U>
 	struct conditional
@@ -193,7 +193,7 @@ namespace detail
 	struct is_integral_impl<wchar_t> : public true_type
 	{};
 
-#if BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_CHAR_16_32_TYPE)
 	template<>
 	struct is_integral_impl<char16_t> : public true_type
 	{};
@@ -201,7 +201,7 @@ namespace detail
 	template<>
 	struct is_integral_impl<char32_t> : public true_type
 	{};
-#endif
+#endif // !defined(BICOMC_NO_CHAR_16_32_TYPE)
 
 	template<>
 	struct is_integral_impl<signed short int> : public true_type
@@ -344,11 +344,11 @@ namespace detail
 	struct is_reference<T&> : public true_type
 	{};
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<typename T>
 	struct is_reference<T&&> : public true_type
 	{};
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 	template<typename T>
 	struct is_void : public is_same<void, typename remove_cv<T>::type>
@@ -401,7 +401,7 @@ namespace detail
 	};
 }
 
-#endif // BICOMC_IS_TYPE_TRAITS_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_HEADER_TYPE_TRAITS)
 
 namespace bcc
 {
@@ -412,10 +412,10 @@ namespace detail
 		: public integral_constant<bool
 			, is_same<T, char>::value
 			|| is_same<T, wchar_t>::value
-#if BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_CHAR_16_32_TYPE)
 			|| is_same<T, char16_t>::value
 			|| is_same<T, char32_t>::value
-#endif // BICOMC_IS_CHAR_16_32_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_CHAR_16_32_TYPE)
 			>
 	{};
 }
@@ -475,13 +475,13 @@ namespace bcc
 		typedef typename remove_cv_all<T>::type type;
 	};
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<typename T>
 	struct remove_cv_all<T&&>
 	{
 		typedef typename remove_cv_all<T>::type type;
 	};
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 } // namespace bcc
 
 #endif // !def BICOMC_TYPE_TRAITS_H__

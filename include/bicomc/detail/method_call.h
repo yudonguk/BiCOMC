@@ -86,7 +86,7 @@ namespace detail
 	template<typename Method>
 	struct MethodCallNoOverHelper;
 
-#if BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_VARIADIC_TEMPLATE)
 	template<typename Owner, typename Ret, typename... Params, Ret(Owner::*function)(Params...)>
 	struct MethodCallHelper<Ret(Owner::*)(Params...), function>
 	{
@@ -97,11 +97,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<Params>(params)...));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p...));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -119,11 +119,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<Params>(params)...);
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p...);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -157,11 +157,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<Params>(params)...));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p...));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -179,11 +179,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<Params>(params)...);
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p...);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -217,11 +217,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<Params>(params)...));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p...));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -239,11 +239,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<Params>(params)...);
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p...);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -277,11 +277,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<Params>(params)...));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p...));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -299,11 +299,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<Params>(params)...);
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p...);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -327,7 +327,7 @@ namespace detail
 		}
 	};
 
-#else // BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#else
 	template<typename Owner, typename Ret, Ret(Owner::*function)()>
 	struct MethodCallHelper<Ret(Owner::*)(), function>
 	{
@@ -547,11 +547,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -569,11 +569,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -607,11 +607,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -629,11 +629,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -667,11 +667,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -689,11 +689,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -727,11 +727,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -749,11 +749,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -788,11 +788,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -810,11 +810,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -848,11 +848,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -870,11 +870,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -908,11 +908,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -930,11 +930,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -968,11 +968,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -990,11 +990,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1029,11 +1029,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1051,11 +1051,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1089,11 +1089,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1111,11 +1111,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1149,11 +1149,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1171,11 +1171,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1209,11 +1209,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1231,11 +1231,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1270,11 +1270,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1292,11 +1292,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1330,11 +1330,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1352,11 +1352,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1390,11 +1390,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1412,11 +1412,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1450,11 +1450,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1472,11 +1472,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1511,11 +1511,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1533,11 +1533,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1571,11 +1571,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1593,11 +1593,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1631,11 +1631,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1653,11 +1653,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1691,11 +1691,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1713,11 +1713,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1752,11 +1752,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1774,11 +1774,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1812,11 +1812,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1834,11 +1834,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1872,11 +1872,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1894,11 +1894,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1932,11 +1932,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1954,11 +1954,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -1993,11 +1993,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2015,11 +2015,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2053,11 +2053,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2075,11 +2075,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2113,11 +2113,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2135,11 +2135,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2173,11 +2173,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2195,11 +2195,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2234,11 +2234,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2256,11 +2256,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2294,11 +2294,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2316,11 +2316,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2354,11 +2354,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2376,11 +2376,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2414,11 +2414,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2436,11 +2436,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2475,11 +2475,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2497,11 +2497,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2535,11 +2535,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2557,11 +2557,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2595,11 +2595,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2617,11 +2617,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2655,11 +2655,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2677,11 +2677,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2716,11 +2716,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2738,11 +2738,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2776,11 +2776,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2798,11 +2798,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2836,11 +2836,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2858,11 +2858,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2896,11 +2896,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2918,11 +2918,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2957,11 +2957,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -2979,11 +2979,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3017,11 +3017,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3039,11 +3039,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3077,11 +3077,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3099,11 +3099,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3137,11 +3137,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3159,11 +3159,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3198,11 +3198,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3220,11 +3220,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3258,11 +3258,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3280,11 +3280,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3318,11 +3318,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3340,11 +3340,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3378,11 +3378,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3400,11 +3400,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3439,11 +3439,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3461,11 +3461,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3499,11 +3499,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3521,11 +3521,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3559,11 +3559,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3581,11 +3581,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3619,11 +3619,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3641,11 +3641,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3680,11 +3680,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3702,11 +3702,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3740,11 +3740,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3762,11 +3762,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3800,11 +3800,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3822,11 +3822,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3860,11 +3860,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3882,11 +3882,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3921,11 +3921,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3943,11 +3943,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -3981,11 +3981,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4003,11 +4003,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4041,11 +4041,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4063,11 +4063,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4101,11 +4101,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4123,11 +4123,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4162,11 +4162,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4184,11 +4184,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4222,11 +4222,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4244,11 +4244,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4282,11 +4282,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4304,11 +4304,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4342,11 +4342,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4364,11 +4364,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4403,11 +4403,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4425,11 +4425,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4463,11 +4463,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4485,11 +4485,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4523,11 +4523,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4545,11 +4545,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4583,11 +4583,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4605,11 +4605,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4644,11 +4644,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4666,11 +4666,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4704,11 +4704,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4726,11 +4726,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4764,11 +4764,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4786,11 +4786,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4824,11 +4824,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4846,11 +4846,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4885,11 +4885,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4907,11 +4907,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4945,11 +4945,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -4967,11 +4967,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5005,11 +5005,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5027,11 +5027,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5065,11 +5065,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5087,11 +5087,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5126,11 +5126,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5148,11 +5148,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5186,11 +5186,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5208,11 +5208,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5246,11 +5246,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5268,11 +5268,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5306,11 +5306,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5328,11 +5328,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5367,11 +5367,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5389,11 +5389,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5427,11 +5427,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5449,11 +5449,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5487,11 +5487,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5509,11 +5509,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5547,11 +5547,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5569,11 +5569,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5608,11 +5608,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5630,11 +5630,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5668,11 +5668,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5690,11 +5690,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5728,11 +5728,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5750,11 +5750,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5788,11 +5788,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5810,11 +5810,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5849,11 +5849,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5871,11 +5871,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5909,11 +5909,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5931,11 +5931,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5969,11 +5969,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -5991,11 +5991,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6029,11 +6029,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6051,11 +6051,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6090,11 +6090,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6112,11 +6112,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6150,11 +6150,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6172,11 +6172,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6210,11 +6210,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6232,11 +6232,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6270,11 +6270,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6292,11 +6292,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6331,11 +6331,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6353,11 +6353,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6391,11 +6391,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6413,11 +6413,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6451,11 +6451,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6473,11 +6473,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6511,11 +6511,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6533,11 +6533,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6572,11 +6572,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6594,11 +6594,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6632,11 +6632,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6654,11 +6654,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6692,11 +6692,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6714,11 +6714,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6752,11 +6752,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6774,11 +6774,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6813,11 +6813,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6835,11 +6835,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6873,11 +6873,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6895,11 +6895,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6933,11 +6933,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6955,11 +6955,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -6993,11 +6993,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7015,11 +7015,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7054,11 +7054,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7076,11 +7076,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7114,11 +7114,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7136,11 +7136,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7174,11 +7174,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7196,11 +7196,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7234,11 +7234,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7256,11 +7256,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7295,11 +7295,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7317,11 +7317,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
 #else
 				(ObjectCaster::template cast<Owner, CastHelper>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7355,11 +7355,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7377,11 +7377,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
 #else
 				(ObjectCaster::template cast<Owner const, CastHelper const>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7415,11 +7415,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7437,11 +7437,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
 #else
 				(ObjectCaster::template cast<Owner volatile, CastHelper volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7475,11 +7475,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29)));
 #else
 				*pRet = RH::fromReturn((ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29));
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7497,11 +7497,11 @@ namespace detail
 		{
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_TRY
 			{
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(std::forward<P1>(p1), std::forward<P2>(p2), std::forward<P3>(p3), std::forward<P4>(p4), std::forward<P5>(p5), std::forward<P6>(p6), std::forward<P7>(p7), std::forward<P8>(p8), std::forward<P9>(p9), std::forward<P10>(p10), std::forward<P11>(p11), std::forward<P12>(p12), std::forward<P13>(p13), std::forward<P14>(p14), std::forward<P15>(p15), std::forward<P16>(p16), std::forward<P17>(p17), std::forward<P18>(p18), std::forward<P19>(p19), std::forward<P20>(p20), std::forward<P21>(p21), std::forward<P22>(p22), std::forward<P23>(p23), std::forward<P24>(p24), std::forward<P25>(p25), std::forward<P26>(p26), std::forward<P27>(p27), std::forward<P28>(p28), std::forward<P29>(p29));
 #else
 				(ObjectCaster::template cast<Owner const volatile, CastHelper const volatile>(*pImpl).*function)(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29);
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 				return nullptr;
 			}
 			BICOMC_METHOD_CALL_HELPER_EXCEPTION_CATCH;
@@ -7525,7 +7525,7 @@ namespace detail
 		}
 	};
 
-#endif // BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_VARIADIC_TEMPLATE)
 
 } // namespace detail
 } // namespace bcc

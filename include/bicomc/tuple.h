@@ -32,7 +32,7 @@ namespace bcc
 	template<std::size_t index, typename TupleType>
 	struct tuple_element;
 
-#if BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_VARIADIC_TEMPLATE)
 	template<typename... Types>
 	class tuple;
 
@@ -87,12 +87,12 @@ namespace bcc
 			return tuple_element<index - 1, typename TupleType::Next>::get(tuple.next);
 		}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple) BICOMC_NOEXCEPT
 		{
 			return std::move(tuple_element<index - 1, typename TupleType::Next>::get(tuple.next));
 		}
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 	};
 
 	template<typename Head, typename... Tails>
@@ -111,12 +111,12 @@ namespace bcc
 			return tuple.value;
 		}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 		static BICOMC_CONSTEXPR type&& get(TupleType&& tuple) BICOMC_NOEXCEPT
 		{
 			return std::move(tuple.value);
 		}
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 	};
 
 	template<std::size_t index, typename... Types>
@@ -131,13 +131,13 @@ namespace bcc
 		return tuple_element<index, bcc::tuple<Types...> >::get(tuple);
 	}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<std::size_t index, typename... Types>
 	BICOMC_CONSTEXPR typename tuple_element<index, tuple<Types...> >::type&& get(tuple<Types...>&& tuple) BICOMC_NOEXCEPT
 	{
 		return tuple_element<index, bcc::tuple<Types...> >::get(std::move(tuple));
 	}
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
 #else
 	template<typename T1 = void, typename T2 = void, typename T3 = void
@@ -224,12 +224,12 @@ namespace bcc
 			return tuple_element<index - 1, typename TupleType::Next>::get(tuple.next);
 		}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 		static BICOMC_CONSTEXPR Ret&& get(TupleType&& tuple) BICOMC_NOEXCEPT
 		{
 			return std::move(tuple_element<index - 1, typename TupleType::Next>::get(tuple.next));
 		}
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 	};
 
 	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6
@@ -257,12 +257,12 @@ namespace bcc
 			return tuple.value;
 		}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 		static BICOMC_CONSTEXPR Ret&& get(TupleType&& tuple) BICOMC_NOEXCEPT
 		{
 			return std::move(tuple.value);
 		}
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 	};
 
 	template<std::size_t index
@@ -299,7 +299,7 @@ namespace bcc
 				, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> >::get(tuple);
 	}
 
-#if BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_RVALUE_REFERENCE)
 	template<std::size_t index
 		, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6
 		, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12
@@ -316,9 +316,9 @@ namespace bcc
 		return tuple_element<index, bcc::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
 				, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30> >::get(std::move(tuple));
 	}
-#endif // BICOMC_IS_MOVE_SEMANTIC_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_RVALUE_REFERENCE)
 
-#endif // BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_VARIADIC_TEMPLATE)
 
 	template<>
 	struct tuple_size<tuple<> >
@@ -349,7 +349,7 @@ namespace bcc
 	template<typename TupleType, typename T1>
 	struct TupleCat;
 
-#if BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#if !defined(BICOMC_NO_VARIADIC_TEMPLATE)
 	template<typename... Types, typename T1>
 	struct TupleCat<tuple<Types...>, T1>
 	{
@@ -374,7 +374,7 @@ namespace bcc
 		typedef tuple<Types..., T1> const volatile type;
 	};
 
-#else // BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#else
 	template<typename TupleType, typename T1>
 	struct TupleCat
 	{
@@ -457,7 +457,7 @@ namespace bcc
 		typedef typename TupleCat<TupleType, T1>::type const volatile type;
 	};
 
-#endif // BICOMC_IS_VARIADIC_TEMPLATE_SUPPORT_COMPILER
+#endif // !defined(BICOMC_NO_VARIADIC_TEMPLATE)
 
 	template<typename TupleType, typename T, std::size_t n>
 	struct tuple_cat_n

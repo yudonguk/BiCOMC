@@ -20,6 +20,8 @@ set(CONFIG_INSTALL_DIR "lib/cmake/${PROJECT_NAME}")
 
 
 # projects
+include(CTest)
+
 if(NOT (CMAKE_VERSION VERSION_LESS 3.0))
 	add_library(${PROJECT_NAME} INTERFACE)
 	target_include_directories(${PROJECT_NAME}

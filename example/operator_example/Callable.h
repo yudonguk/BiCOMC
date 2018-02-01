@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef CALLABLE_H__
+#define CALLABLE_H__
 
 #include <bicomc/object.h>
 
@@ -11,3 +12,5 @@ BICOMC_INTERFACE(Callable)
 
 	BICOMC_DECL_OPERATOR_EQUAL_C(bcc::uint8_t(Callable const& rhs));
 BICOMC_INTERFACE_END(Callable);
+
+#endif // !def CALLABLE_H__

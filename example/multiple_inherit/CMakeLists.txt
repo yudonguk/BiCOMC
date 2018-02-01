@@ -1,8 +1,8 @@
 
 cmake_minimum_required(VERSION 2.8)
 
-project(operator_example)
-set(library library-callable)
+project(multiple_inherit)
+set(library library-multiple)
 
 if(NOT TARGET BiCOMC)
 	find_package(BiCOMC CONFIG REQUIRED)

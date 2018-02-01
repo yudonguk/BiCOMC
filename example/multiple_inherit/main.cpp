@@ -1,7 +1,7 @@
 ﻿
 #include <cassert>
 
-#include <Simple.h>
+#include <multiple.h>
 
 #include <bicomc/detail/library.h>
 
@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	if (argc == 2)
 		module.open(argv[1]);
 	else
-		module.open("library-simple", Library::parent(argv[0]));
+		module.open("library-multiple", Library::parent(argv[0]));
 
 	assert(module != NULL);
 
@@ -30,6 +30,11 @@ int main(int argc, char* argv[])
 	std::cout << "pSimple->number() : " << pSimple->number() << std::endl;
 	std::cout << "pSimple->number(__LINE__) : " << pSimple->number(__LINE__) << std::endl;
 	std::cout << "pSimple->number() : " << pSimple->number() << std::endl;
+
+	OverlapHello* pOverlap = bicomc_cast<OverlapHello*>(pSimple);
+	assert(pOverlap);
+
+	pOverlap->hello();
 
 	pObject->destroy();
 

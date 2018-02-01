@@ -3,19 +3,21 @@
 
 #include <Callable.h>
 
-namespace helper {
-	void* loadLibrary(char const* path);
-	void closeLibrary(void* handle);
-	void* getSymbol(void* handle, char const* name);
-} // namespace helper
+#include <bicomc/detail/library.h>
 
-int main()
+int main(int argc, char* argv[])
 {
-	void* module = helper::loadLibrary("library-callable");
-	assert(module != nullptr);
+	using bcc::detail::Library;
+	Library module;
+	if (argc == 2)
+		module.open(argv[1]);
+	else
+		module.open("library-callable", Library::parent(argv[0]));
 
-	bcc::Object*(*create)() = reinterpret_cast<bcc::Object*(*)()>(helper::getSymbol(module, "CreateObject"));
-	assert(create != nullptr);
+	assert(module != NULL);
+
+	bcc::Object*(*create)() = module.symbol<bcc::Object*(*)()>("CreateObject");
+	assert(create != NULL);
 
 	bcc::Object* pObject = create();
 	assert(pObject);
@@ -33,7 +35,7 @@ int main()
 	std::cout << callable() << std::endl;
 	
 	std::cout << "callable = nullptr" << std::endl;
-	callable = nullptr;
+	callable = NULL;
 
 	std::cout << "callable() : ";
 	std::cout << callable() << std::endl;
@@ -54,8 +56,6 @@ int main()
 		std::cout << "Callable is not same." << std::endl;
 	
 	pObject->destroy();
-	
-	helper::closeLibrary(module);
 
 	return 0;
 }

@@ -1,5 +1,11 @@
 # BiCOMC
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Travis CI](https://img.shields.io/travis/yudonguk/BiCOMC/develop.svg?label=Travis+CI)](https://travis-ci.org/yudonguk/BiCOMC)
+[![AppVeyor](https://img.shields.io/appveyor/ci/yudonguk/BiCOMC/develop.svg?label=AppVeyor)](https://ci.appveyor.com/project/yudonguk/BiCOMC/branch/develop)
+[![CircleCI](https://img.shields.io/circleci/token/7c945317234ebedaff5d0bf9b1521a8f7276bcfd/project/github/yudonguk/BiCOMC/develop.svg?label=CircleCI)](https://circleci.com/gh/yudonguk/BiCOMC/tree/develop)
+[![Gitlab CI](https://git.kangwon.ac.kr/iic/bicomc/badges/develop/pipeline.svg)](https://git.kangwon.ac.kr/iic/bicomc/commits/develop)
+
 Binary Compatibility Object Model for C++ (BiCOMC) is library for surporting binary compatibility to C++ classes.
 
 ## Requirements

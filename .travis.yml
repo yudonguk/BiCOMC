@@ -1,0 +1,46 @@
+language: bash
+
+services: docker
+
+before_install:
+  - docker pull $DOCKER_IMAGE
+
+script:
+  - mkdir -p build
+  - command="cmake .. -DCMAKE_BUILD_TYPE=Debug && cmake --build . && ctest -C Debug"
+  - docker run --rm -v "$PWD":"/root/bicomc" -w "/root/bicomc/build" $DOCKER_IMAGE bash -c "$command"
+
+matrix:
+  include:
+    # GCC
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-latest"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-7.2"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-6.4"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-5.5"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.9"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.8"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.6"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.4"
+    # Clang
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-latest"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-6.0"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-5.0"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-4.0"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.8"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.6"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.4"

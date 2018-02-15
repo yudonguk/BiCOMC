@@ -1,0 +1,86 @@
+.build-script-template:
+  default: &build-script
+    - mkdir -p build && cd build
+    - cmake .. -DCMAKE_BUILD_TYPE=Debug
+    - cmake --build .
+    - ctest -C Debug
+  msvc: &build-script-msvc
+    - mkdir build && cd build
+    - cmake .. -G "%GENERATOR%"
+    - cmake --build . --config Debug
+    - ctest -C Debug
+
+gcc-latest:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:gcc-latest
+gcc-7.2:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:gcc-7.2
+gcc-6.4:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:gcc-6.4
+gcc-5.5:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:gcc-5.5
+gcc-4.9:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:gcc-4.9
+gcc-4.8:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:gcc-4.8
+gcc-4.6:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:gcc-4.6
+gcc-4.4:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:gcc-4.4
+
+clang-latest:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:clang-latest
+clang-6.0:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:clang-6.0
+clang-5.0:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:clang-5.0
+clang-4.0:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:clang-4.0
+clang-3.8:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:clang-3.6
+clang-3.6:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:clang-3.6
+clang-3.4:
+  script: *build-script
+  tags: [docker]
+  image: yudonguk/bicomc-docker:clang-3.4
+
+msvc-14:
+  variables: {GENERATOR: "Visual Studio 14 2015"}
+  script: *build-script-msvc
+  tags: [windows, cmake, msvc14]
+msvc-11:
+  variables: {GENERATOR: "Visual Studio 11 2012"}
+  script: *build-script-msvc
+  tags: [windows, cmake, msvc11]
+msvc-10:
+  variables: {GENERATOR: "Visual Studio 10 2010"}
+  script: *build-script-msvc
+  tags: [windows, cmake, msvc10]
